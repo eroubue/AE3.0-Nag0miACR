@@ -1,0 +1,12 @@
+D:\ACR\AEACR3.0\Nagomi\bin\Debug\net8.0\Nagomi.deps.json
+D:\ACR\AEACR3.0\Nagomi\bin\Debug\net8.0\Nagomi.dll
+D:\ACR\AEACR3.0\Nagomi\bin\Debug\net8.0\Nagomi.pdb
+D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\Nagomi.csproj.AssemblyReference.cache
+D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\Nagomi.GeneratedMSBuildEditorConfig.editorconfig
+D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\Nagomi.AssemblyInfoInputs.cache
+D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\Nagomi.AssemblyInfo.cs
+D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\Nagomi.csproj.CoreCompileInputs.cache
+D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\Nagomi.dll
+D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\refint\Nagomi.dll
+D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\Nagomi.pdb
+D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\ref\Nagomi.dll

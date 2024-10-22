@@ -1,0 +1,17 @@
+C:\Users\ASUS\Desktop\Nag0mi\bin\Debug\netstandard2.0\Nag0mi.deps.json
+C:\Users\ASUS\Desktop\Nag0mi\bin\Debug\netstandard2.0\Nag0mi.dll
+C:\Users\ASUS\Desktop\Nag0mi\bin\Debug\netstandard2.0\Nag0mi.pdb
+C:\Users\ASUS\Desktop\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.csproj.AssemblyReference.cache
+C:\Users\ASUS\Desktop\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ASUS\Desktop\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.AssemblyInfoInputs.cache
+C:\Users\ASUS\Desktop\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.AssemblyInfo.cs
+C:\Users\ASUS\Desktop\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.dll
+C:\Users\ASUS\Desktop\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.pdb
+D:\ACR\AEACR3.0\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.csproj.AssemblyReference.cache
+D:\ACR\AEACR3.0\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.GeneratedMSBuildEditorConfig.editorconfig
+D:\ACR\AEACR3.0\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.AssemblyInfoInputs.cache
+D:\ACR\AEACR3.0\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.AssemblyInfo.cs
+D:\ACR\AEACR3.0\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.csproj.CoreCompileInputs.cache
+D:\ACR\AEACR3.0\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.dll
+D:\ACR\AEACR3.0\Nag0mi\obj\Debug\netstandard2.0\Nag0mi.pdb

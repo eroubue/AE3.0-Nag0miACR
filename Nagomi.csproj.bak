@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Nagomi</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="AEAssist">
+      <HintPath>D:\XL\XIVLauncherCN\Roaming\devPlugins\3.0\AEAssistCNVersion\AEAssist\AEAssist.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Dalamud">
+      <HintPath>..\..\..\XL\XIVLauncherCN\Roaming\addon\Hooks\10.0.0.14\Dalamud.dll</HintPath>
+    </Reference>
+    <Reference Include="ECommons">
+      <HintPath>..\..\..\XL\XIVLauncherCN\Roaming\devPlugins\3.0\AEAssistCNVersion\AEAssist\ECommons.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FFXIVClientStructs">
+      <HintPath>..\..\..\XL\XIVLauncherCN\Roaming\addon\Hooks\10.0.0.14\FFXIVClientStructs.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ImGui.NET">
+      <HintPath>..\..\..\XL\XIVLauncherCN\Roaming\addon\Hooks\10.0.0.14\ImGui.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Lumina">
+      <HintPath>..\..\..\XL\XIVLauncherCN\Roaming\addon\Hooks\10.0.0.14\Lumina.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Lumina.Excel">
+      <HintPath>..\..\..\XL\XIVLauncherCN\Roaming\addon\Hooks\10.0.0.14\Lumina.Excel.dll</HintPath>
+    </Reference>
+     
+
+  <ItemGroup>
+    <Compile Remove="Blue\zeroon\**" />
+    <Compile Remove="PCT\能力技\**" />
+    <Compile Remove="PCT\utils\sound.cs" />
+    <Compile Remove="test.cs" />
+    <Compile Remove="HTTPAudioPlayer.cs" />
+    <Compile Remove="AudioPlayer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Blue\zeroon\**" />
+    <EmbeddedResource Remove="PCT\能力技\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Blue\zeroon\**" />
+    <None Remove="PCT\能力技\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GNB\GCD\" />
+    <Folder Include="GNB\Opener\" />
+    <Folder Include="GNB\Triggers\" />
+    <Folder Include="GNB\能力\" />
+    <Folder Include="SMN\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="NAudio.Core" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ReferencePathWithRefAssemblies Update="C:\Users\ASUS\.nuget\packages\naudio\2.2.1\lib\net6.0\NAudio.dll" />
+  </ItemGroup>
+
+</Project>
