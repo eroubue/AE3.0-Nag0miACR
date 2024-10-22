@@ -10,3 +10,4 @@ D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\Nagomi.dll
 D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\refint\Nagomi.dll
 D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\Nagomi.pdb
 D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\ref\Nagomi.dll
+D:\ACR\AEACR3.0\Nagomi\obj\Debug\net8.0\Nagomi.sourcelink.json

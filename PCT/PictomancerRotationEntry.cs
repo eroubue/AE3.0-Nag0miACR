@@ -126,6 +126,7 @@ namespace Nagomi
             //jobViewWindow.AddTab("日志", _lazyOverlay.更新日志);
             QT.AddTab("通用", 画家悬浮窗.通用);
             QT.AddTab("DEV", 画家悬浮窗.DrawDev);
+            QT.AddTab("log", LogModifier.DrawLogModifierTab);
 
             PictomancerRotationEntry.QT.AddQt(QTKey.减色混合,true);
             PictomancerRotationEntry.QT.AddQt(QTKey.AOE,true);

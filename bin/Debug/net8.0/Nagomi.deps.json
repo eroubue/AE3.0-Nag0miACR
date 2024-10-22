@@ -9,7 +9,8 @@
       "Nagomi/1.0.0": {
         "dependencies": {
           "NAudio": "2.2.1",
-          "NAudio.Core": "2.2.1"
+          "NAudio.Core": "2.2.1",
+          "sdl2": "2.0.5"
         },
         "runtime": {
           "Nagomi.dll": {}
@@ -91,6 +92,12 @@
           }
         }
       },
+      "sdl2/2.0.5": {
+        "dependencies": {
+          "sdl2.redist": "2.0.5"
+        }
+      },
+      "sdl2.redist/2.0.5": {},
       "System.Security.AccessControl/4.7.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -161,6 +168,20 @@
       "sha512": "sha512-xFHRFwH4x6aq3IxRbewvO33ugJRvZFEOfO62i7uQJRUNW2cnu6BeBTHUS0JD5KBucZbHZaYqxQG8dwZ47ezQuQ==",
       "path": "naudio.winmm/2.2.1",
       "hashPath": "naudio.winmm.2.2.1.nupkg.sha512"
+    },
+    "sdl2/2.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HIpYBIe9qlG/U8hGRSiGW7YQARg9U78+pRKFikW9dCUvfZ1hFNpZwL4qeOUwcecwYk7i5sSlnwEiczcOysZDsA==",
+      "path": "sdl2/2.0.5",
+      "hashPath": "sdl2.2.0.5.nupkg.sha512"
+    },
+    "sdl2.redist/2.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eyTy0TvzTdkw9ZHrHR1TmaKb2uIbeKH33xhWctyteN5tjyOWUhiASkRuWfv4MLsynFXHMZtSIFtwTNlJGZYW3g==",
+      "path": "sdl2.redist/2.0.5",
+      "hashPath": "sdl2.redist.2.0.5.nupkg.sha512"
     },
     "System.Security.AccessControl/4.7.0": {
       "type": "package",

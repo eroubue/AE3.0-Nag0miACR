@@ -5,9 +5,10 @@ using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.MemoryApi;
 using Dalamud.Game.ClientState.Objects.Types;
-using GNB.utils.Helper;
 using Nagomi.PvP.PVPApi;
 using Nagomi.PVPMCH.依赖;
+using Nagomi.依赖.Helper;
+
 namespace Nagomi.PVPMCH.能力;
 
 public class 野火 : ISlotResolver
