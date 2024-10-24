@@ -126,6 +126,35 @@ public class 单盾T : IHotkeyResolver
         AI.Instance.BattleData.NextSlot.Add(new Spell(24291u, PartyHelper.CastableTanks.FirstOrDefault()));
     }
 }
+public class 混合最低血量 : IHotkeyResolver
+{
+    public void Draw(Vector2 size)
+    {
+        Vector2 size3 = size * 0.8f;
+        ImGui.SetCursorPos(size * 0.1f);
+        IDalamudTextureWrap textureWrap;
+        if (!Core.Resolve<MemApiIcon>().GetActionTexture(24317u, out textureWrap))
+            return;
+        ImGui.Image(textureWrap.ImGuiHandle, size3);
+    }
+
+    public void DrawExternal(Vector2 size, bool isActive)
+        => SpellHelper.DrawSpellInfo(new Spell(24317u, PartyHelper.CastableTanks.FirstOrDefault(agent => !agent.HasAura(2607))), size, isActive);
+    public int Check() => 0;
+    public void Run()
+    {
+        if (AI.Instance.BattleData.NextSlot == null && SGESpells.混合.IsReady())
+        {
+            AI.Instance.BattleData.NextSlot = new Slot();
+            AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.混合, Helper.获取血量最低成员));
+            
+        }
+        else
+        {   
+            Core.Resolve<MemApiChatMessage>().Toast2("Not Ready", 1, 1000);
+        }
+    }
+}
 
 public class 单盾最低血量 : IHotkeyResolver
 {
@@ -172,6 +201,55 @@ public class 神翼T : IHotkeyResolver
         if (AI.Instance.BattleData.NextSlot == null)
             AI.Instance.BattleData.NextSlot = new Slot();
         AI.Instance.BattleData.NextSlot.Add(new Spell(24295u, PartyHelper.CastableTanks.FirstOrDefault()));
+    }
+}
+public class 即刻贤炮 : IHotkeyResolver
+{
+    public void Draw(System.Numerics.Vector2 size)
+    {
+        System.Numerics.Vector2 size1 = size * 0.8f;
+        ImGui.SetCursorPos(size * 0.1f);
+        IDalamudTextureWrap idalamudTextureWrap;
+
+        if (Core.Resolve<MemApiIcon>().GetActionTexture(24318U, out idalamudTextureWrap, true))
+        {
+            if (idalamudTextureWrap != null)
+            {
+                ImGui.Image(idalamudTextureWrap.ImGuiHandle, size1);
+            }
+            else
+            {
+                // 处理 idalamudTextureWrap 为 null 的情况
+                // 例如：显示默认图标或错误消息
+                Console.WriteLine("Failed to load texture for action ID: 29054");
+            }
+        }
+    }
+
+    public void DrawExternal(Vector2 size, bool isActive)
+    {
+        SpellHelper.DrawSpellInfo(new Spell(24318U, (IBattleChara)Core.Me), size, isActive);
+    }
+
+    public int Check() => 0;
+
+    public void Run()
+    {
+        if (AI.Instance.BattleData.NextSlot == null && SGESpells.魂灵风息.IsReady()&& SGESpells.即刻咏唱.IsReady())
+        {
+            AI.Instance.BattleData.NextSlot = new Slot(1500);
+            AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.即刻咏唱, Core.Me));
+            AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.魂灵风息,  SpellTargetType.Target));
+            
+        }
+        else
+        {   
+            Core.Resolve<MemApiChatMessage>().Toast2("Not Ready", 1, 1000);
+        }
+
+               
+
+
     }
 }
 

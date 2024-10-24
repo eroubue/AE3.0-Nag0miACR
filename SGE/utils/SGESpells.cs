@@ -65,7 +65,7 @@ public class SGESpells
         public const uint 均衡注药III = 24314;
         public const uint 失衡II = 24315;
         public const uint 箭毒II = 24316;
-        public const uint Krasis = 24317;
+        public const uint 混合 = 24317;
         public const uint 魂灵风息 = 24318;
         public const uint Icarus = 24295;
         public const uint 醒梦 = 7562;

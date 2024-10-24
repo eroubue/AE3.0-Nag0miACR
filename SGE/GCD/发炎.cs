@@ -31,7 +31,7 @@ public class 发炎 : ISlotResolver
         }
         if (Core.Me.Level < 26) return -3;
         //发炎QT关了不打
-        if (QT.QTGET(QTKey.发炎)) return -2;
+        if (!QT.QTGET(QTKey.发炎)) return -2;
         //距离目标大于6了不打
         if (Core.Me.Distance(Core.Me.GetCurrTarget()) > 6) return -1;
         //获取到的技能的冷却状态大于1.9了打 就是快转好了

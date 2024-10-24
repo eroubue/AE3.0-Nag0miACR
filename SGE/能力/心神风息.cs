@@ -25,7 +25,7 @@ public class 心神风息 : ISlotResolver
             {
                 return -100;
             }
-            if (QT.QTGET(QTKey.心神风息))
+            if (!QT.QTGET(QTKey.心神风息))
             {
                 return -1;
             }

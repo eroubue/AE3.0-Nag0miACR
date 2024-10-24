@@ -120,16 +120,18 @@ public class SGERotationEntry : IRotationEntry
         QT.AddTab("通用",xuanfuchuang);
         QT.AddTab("DEV",DrawDev);
 
-        SGERotationEntry.QT.AddQt(QTKey.停手, false);
-        SGERotationEntry.QT.AddQt(QTKey.DOT, true);
-        SGERotationEntry.QT.AddQt(QTKey.AOE, true);
-        SGERotationEntry.QT.AddQt(QTKey.心关, true);
-        SGERotationEntry.QT.AddQt(QTKey.心神风息, true);
-        SGERotationEntry.QT.AddQt(QTKey.发炎, true);
-        SGERotationEntry.QT.AddQt(QTKey.爆发, true);
-        SGERotationEntry.QT.AddQt(QTKey.复活, true);
-        SGERotationEntry.QT.AddQt(QTKey.康复, true);
-        SGERotationEntry.QT.AddQt(QTKey.根素, true);
+        QT.AddQt(QTKey.停手, false);
+        QT.AddQt(QTKey.DOT, true);
+        QT.AddQt(QTKey.AOE, true);
+        QT.AddQt(QTKey.红豆, true);
+        QT.AddQt(QTKey.保留红豆, true);
+        QT.AddQt(QTKey.心神风息, true);
+        QT.AddQt(QTKey.发炎, true);
+        QT.AddQt(QTKey.爆发, true);
+        QT.AddQt(QTKey.复活, true);
+        QT.AddQt(QTKey.康复, true);
+        QT.AddQt(QTKey.根素, true);
+        QT.AddQt(QTKey.心关, true);
 
 
 
@@ -140,8 +142,11 @@ public class SGERotationEntry : IRotationEntry
         SGERotationEntry.QT.AddHotkey("极限技", new HotKeyResolver_LB());
         SGERotationEntry.QT.AddHotkey("爆发药", new HotKeyResolver_Potion());
         SGERotationEntry.QT.AddHotkey("疾跑", new HotKeyResolver_疾跑());
+        
         QT.AddHotkey("群盾", (IHotkeyResolver)new 群盾());
         QT.AddHotkey("群盾消化", (IHotkeyResolver)new 群盾消化());
+        QT.AddHotkey("即刻贤炮", (IHotkeyResolver)new 即刻贤炮());
+        QT.AddHotkey("混合最低血量", (IHotkeyResolver)new 混合最低血量());
         QT.AddHotkey("单盾T", (IHotkeyResolver)new 单盾T());
         QT.AddHotkey("单盾最低血量", (IHotkeyResolver)new 单盾最低血量());
         QT.AddHotkey("神翼T", (IHotkeyResolver)new 神翼T());

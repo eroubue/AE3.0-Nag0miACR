@@ -26,7 +26,7 @@ public class 心关  : ISlotResolver
         {
             return -100;
         }
-        if (QT.QTGET(QTKey.心关))
+        if (!QT.QTGET(QTKey.心关))
         {
             return -2;
         }

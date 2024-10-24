@@ -60,10 +60,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GNB\GCD\" />
-    <Folder Include="GNB\Opener\" />
-    <Folder Include="GNB\Triggers\" />
-    <Folder Include="GNB\能力\" />
     <Folder Include="SMN\" />
   </ItemGroup>
 

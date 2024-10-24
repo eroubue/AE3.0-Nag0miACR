@@ -28,13 +28,9 @@ public class GCD_Dot : ISlotResolver
         }
         if (Core.Me.Level < 30) return -3;
         //dotQT关了也别用
-        if (QT.QTGET(QTKey.DOT))
+        if (!QT.QTGET(QTKey.DOT))
         {
             return -2;
-        }
-        if (!SGESpells.均衡失衡.IsReady()||!Core.Resolve<MemApiSpell>().CheckActionChange(SGESpells.均衡注药).IsReady())
-        {
-            return -66;
         }
         //加入dot黑名单了也别用
         if (DotBlacklistHelper.IsBlackList(Core.Me.GetCurrTarget()))
@@ -101,7 +97,7 @@ public class GCD_Dot : ISlotResolver
         }
 
 
-        return Core.Resolve<MemApiSpell>().CheckActionChange(SGESpells.均衡注药).GetSpell();
+        return Core.Resolve<MemApiSpell>().CheckActionChange(SGESpells.注药).GetSpell();
     }
 
     public void Build(Slot slot)

@@ -27,7 +27,7 @@ public class 根素 : ISlotResolver
             }
             if (!SGESpells.根素.IsReady())
                 return -66;
-            if (QT.QTGET(QTKey.根素))
+            if (!QT.QTGET(QTKey.根素))
             {
                 return -1;
             }
