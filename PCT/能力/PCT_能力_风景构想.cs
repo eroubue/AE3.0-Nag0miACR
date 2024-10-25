@@ -21,7 +21,7 @@ namespace Nagomi.PCT.能力
             {
                 return -1;
             }
-            if (GCDHelper.GetGCDCooldown() > 1450)
+            if (GCDHelper.GetGCDCooldown() > 750)
             {
                 return -2;
             }

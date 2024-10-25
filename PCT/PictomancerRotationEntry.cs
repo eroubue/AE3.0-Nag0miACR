@@ -51,7 +51,6 @@ namespace Nagomi
         public List<SlotResolverData> SlotResolvers = new()
         {
             new(new PCTGCD_天星(), SlotMode.Gcd),
-            new(new PCTGCD_彩虹(), SlotMode.Gcd),
             new(new PCT_能力_减色混合(), SlotMode.OffGcd),
             new(new PCT_能力_风景构想(), SlotMode.OffGcd),
             new(new PCTGCD_BLACK(), SlotMode.Gcd),
@@ -60,6 +59,7 @@ namespace Nagomi
             new(new PCT_能力_莫古力(), SlotMode.OffGcd),
             new(new PCT_能力_武器构想(), SlotMode.OffGcd),
             new(new PCTGCD_锤子(), SlotMode.Gcd),
+            new(new PCTGCD_彩虹(), SlotMode.Gcd),
             new(new PCTGCD_武器彩绘(), SlotMode.Gcd),
             new(new PCTGCD_动物彩绘(), SlotMode.Gcd),
             new(new PCTGCD_风景彩绘(), SlotMode.Gcd),
@@ -126,7 +126,8 @@ namespace Nagomi
             //jobViewWindow.AddTab("日志", _lazyOverlay.更新日志);
             QT.AddTab("通用", 画家悬浮窗.通用);
             QT.AddTab("DEV", 画家悬浮窗.DrawDev);
-            QT.AddTab("log", LogModifier.DrawLogModifierTab);
+            QT.AddTab("ae", 画家悬浮窗.ae人数查询);
+            //QT.AddTab("log", LogModifier.DrawLogModifierTab);
 
             PictomancerRotationEntry.QT.AddQt(QTKey.减色混合,true);
             PictomancerRotationEntry.QT.AddQt(QTKey.AOE,true);
@@ -143,6 +144,13 @@ namespace Nagomi
             PictomancerRotationEntry.QT.AddQt(QTKey.莫古力激流,true);
             PictomancerRotationEntry.QT.AddQt(QTKey.马蒂恩惩罚,true);
             PictomancerRotationEntry.QT.AddQt(QTKey.保留1层锤,false);
+            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Clear();
+            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.RGB);
+            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.动物彩绘);
+            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.武器彩绘);
+            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.风景彩绘);
+            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.莫古力激流);
+            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.马蒂恩惩罚);
 
   
 
@@ -314,7 +322,10 @@ namespace Nagomi
 
         public void Dispose()
         {
-            // TODO release managed resources here
+            // TODO 轮盘赌
+            //TODO 占卜
+            //TODO logs
+            //TODO 底裤飞雷神
         }
     }
 }

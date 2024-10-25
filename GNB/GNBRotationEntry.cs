@@ -18,6 +18,7 @@ using Nagomi.GNB.Triggers;
 using Nagomi.GNB.utils;
 using Nagomi.GNB.能力;
 using Nagomi.GNB.Settings;
+using Nagomi.PCT;
 
 namespace Nagomi.GNB;
 
@@ -61,7 +62,12 @@ public class GNBRotationEntry : IRotationEntry
 
     public List<SlotResolverData> SlotResolvers = new()
     {
-        new(new 领域(), SlotMode.OffGcd),
+        new(new GNB能力_续剑(), SlotMode.Always),
+        new(new GNBGCD_base(), SlotMode.Gcd),
+        new(new GNB能力_血壤(), SlotMode.OffGcd),
+        new(new GNB能力_无情(), SlotMode.OffGcd),
+        new(new GNB能力_弓形冲波(), SlotMode.OffGcd),
+        new(new GNB能力_领域(), SlotMode.OffGcd),
     };
     public static JobViewWindow QT { get; private set; }  // 声明当前要使用的UI的实例 示例里使用QT
     // 如果你不想用QT 可以自行创建一个实现IRotationUI接口的类
@@ -83,6 +89,18 @@ public class GNBRotationEntry : IRotationEntry
         //添加QT分页 第一个参数是分页标题 第二个是分页里的内容
         QT.AddTab("通用", DrawQtGeneral);
         QT.AddTab("Dev", DrawQtDev);
+        QT.AddTab("ae", 画家悬浮窗.ae人数查询);
+        QT.AddQt(QTKey.停手,false);
+        QT.AddQt(QTKey.爆发,true);
+        QT.AddQt(QTKey.倾泻爆发,false);
+        QT.AddQt(QTKey.AOE,true);
+        QT.AddQt(QTKey.无情,true);
+        QT.AddQt(QTKey.无情后半,true);
+        QT.AddQt(QTKey.子弹连,true);
+        QT.AddQt(QTKey.领域,true);
+        QT.AddQt(QTKey.dot,true);
+        QT.AddQt(QTKey.弓形,true);
+        QT.AddQt(QTKey.突进,false);
         // 添加QT开关 第二个参数是默认值 (开or关) 第三个参数是鼠标悬浮时的tips
      
 
@@ -120,6 +138,7 @@ public class GNBRotationEntry : IRotationEntry
     public void DrawQtGeneral(JobViewWindow JobViewWindow)
     {
         ImGui.Text("测试中未完善！！！");
+        ImGui.Text("爆发QT只控制无情和血壤");
     }
 
     public void DrawQtDev(JobViewWindow JobViewWindow)

@@ -1,6 +1,6 @@
 namespace Nagomi.GNB.GCD;
 
-public class GCDbase
+public class GNBGCD_子弹连
 {
     
 }

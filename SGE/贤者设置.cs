@@ -44,7 +44,7 @@ public class SGESettings
     public float 不上dot阈值 = 0.03f;
     public int opener = 0;
     public int 预读时间 = 1500;
-    public static int 红豆保留数量 = 1;
+    public int 红豆保留数量 = 1;
     public string targetName = "";
     //public bool 智能aoe目标 = false;
 

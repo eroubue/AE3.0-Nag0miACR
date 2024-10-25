@@ -13,7 +13,7 @@ public class SGESettingUI
         {
             ImGui.SliderFloat("不上dot阈值", ref SGESettings.不上dot阈值, 0.0f, 1.0f);
             ImGui.Text("按住Ctrl左键单击滑块可以直接输入数字，默认3%不上dot");
-            ImGui.SliderInt("静止时红豆保留数量", ref SGESettings.红豆保留数量, 0, 2);
+            ImGui.SliderInt("红豆保留数量，开了QT就绝对不打，动了也不打", ref SGESettings.红豆保留数量, 1, 3);
             ImGui.Text("H1 or H2");
             ImGui.SameLine();
             if (SGESettings.Instance.H1)

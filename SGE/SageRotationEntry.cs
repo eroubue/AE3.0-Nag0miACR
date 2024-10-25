@@ -18,6 +18,7 @@ using FFXIVClientStructs.FFXIV.Client.Game.UI;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Common.Math;
 using ImGuiNET;
+using Nagomi.PCT;
 using Nagomi.SGE.GCD;
 using Nagomi.SGE.Opener;
 using Nagomi.SGE.Settings;
@@ -26,6 +27,7 @@ using Nagomi.SGE.utils;
 using Nagomi.SGE.能力;
 using Nagomi.依赖.Helper;
 using Map = Nagomi.utils.Map;
+using Vector4 = System.Numerics.Vector4;
 
 namespace Nagomi.SGE;
 
@@ -119,12 +121,13 @@ public class SGERotationEntry : IRotationEntry
         //jobViewWindow.AddTab("DEV", _lazyOverlay.DrawDev);
         QT.AddTab("通用",xuanfuchuang);
         QT.AddTab("DEV",DrawDev);
+        QT.AddTab("ae", 画家悬浮窗.ae人数查询);
 
         QT.AddQt(QTKey.停手, false);
         QT.AddQt(QTKey.DOT, true);
         QT.AddQt(QTKey.AOE, true);
         QT.AddQt(QTKey.红豆, true);
-        QT.AddQt(QTKey.保留红豆, true);
+        QT.AddQt(QTKey.保留红豆, true,"开了QT就动了也不打");
         QT.AddQt(QTKey.心神风息, true);
         QT.AddQt(QTKey.发炎, true);
         QT.AddQt(QTKey.爆发, true);
@@ -178,8 +181,7 @@ public class SGERotationEntry : IRotationEntry
                 SGESettings.Instance.H1 = false;
                 SGESettings.Instance.Save();
             }
-
-            
+            ImGui.SliderInt("红豆保留数量", ref SGESettings.Instance.红豆保留数量, 1, 3);
             if (ImGui.Button("失衡走位关"))
             {
                 SGESettings.Instance.失衡走位 = 0;

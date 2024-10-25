@@ -6,15 +6,14 @@ namespace Nagomi.GNB
         public const string 停手 = "停手";
         public const string 爆发 = "爆发";
         public const string 突进 = "突进";
-        public const string DOT = "DOT";
-        public const string AOE = "AOE";
+        public const string 无情 = "无情";
+        public const string 子弹连 = "子弹连";
         public const string 倾泻爆发 = "倾泻爆发";
         public const string 领域 = "领域";
-        
         public const string 弓形 = "弓形";
-        public const string 根素 = "根素";
-        public const string 红豆 = "红豆";
-        public const string 保留红豆 = "保留红豆";
+        public const string AOE = "AOE";
+        public const string dot = "dot";
+        public const string 无情后半 = "无情后半";
         
 
     }

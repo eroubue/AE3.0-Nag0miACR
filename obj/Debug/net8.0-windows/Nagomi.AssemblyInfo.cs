@@ -17,6 +17,8 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyProductAttribute("Nagomi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Nagomi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
+[assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 

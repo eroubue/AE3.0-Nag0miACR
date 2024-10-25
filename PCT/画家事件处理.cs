@@ -112,12 +112,12 @@ namespace Nagomi.PCT
       
         }
 
-        public void OnEnterRotation()
-        {
-            Core.Resolve<MemApiChatMessage>().Toast2("欢迎使用零和ACR\n推荐高难场景使用零和时间轴\n设置面板内附零师傅高级触发器", 1, 3000);
+      public void OnEnterRotation()
+{
+    Core.Resolve<MemApiChatMessage>().Toast2("欢迎使用零和ACR\n推荐高难场景使用零和时间轴\n设置面板内附零师傅高级触发器", 1, 3000);
+    
+}
 
-
-        }
 
         public void OnExitRotation()
         {

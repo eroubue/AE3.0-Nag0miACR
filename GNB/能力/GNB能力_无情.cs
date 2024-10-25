@@ -4,23 +4,20 @@ using AEAssist.CombatRoutine.Module;
 using AEAssist.Define;
 using AEAssist.Extension;
 using AEAssist.Helper;
-using AEAssist.JobApi;
-using AEAssist.MemoryApi;
-using Nagomi.GNB;
 using Nagomi.GNB.utils;
 
 namespace Nagomi.GNB.能力;
 
-public class 领域 : ISlotResolver
+public class GNB能力_无情 : ISlotResolver
 {
+    public SlotMode SlotMode { get; } = SlotMode.OffGcd;
     public int Check()
     {
         if (QT.QTGET(QTKey.停手))
         {
             return -100;
         }
-        if (Core.Me.Level < 18) return -3;
-        if (!Core.Resolve<MemApiSpell>().CheckActionChange(GNBSpells.危险领域).IsReady())
+        if (!GNBSpells.无情.IsReady())
         {
             return -66;
         }
@@ -30,27 +27,20 @@ public class 领域 : ISlotResolver
         {
             return 100;
         }
-        if (!QT.QTGET(QTKey.爆发)&&!QT.QTGET(QTKey.领域))
-        {
-            return -2;
-        }
-        if (!QT.QTGET(QTKey.领域))
+        if (!QT.QTGET(QTKey.爆发))
         {
             return -10;
         }
-        if (SpellExtension.CoolDownInGCDs(GNBSpells.无情, 2)) return -1;
+        if (QT.QTGET(QTKey.无情后半))
+        {
+            if(GCDHelper.GetGCDCooldown() < 750)return 10;
+            return -1;
+        }
         return 1;
             
     }
-    private Spell GetSpell()
-    {
-        return Core.Resolve<MemApiSpell>().CheckActionChange(GNBSpells.危险领域).GetSpell();
-    }
     public void Build(Slot slot)
     {
-        var spell = GetSpell();
-        if (spell == null)
-            return;
-        slot.Add(spell);
+        slot.Add(GNBSpells.无情.GetSpell());
     }
 }

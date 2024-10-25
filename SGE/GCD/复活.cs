@@ -35,44 +35,35 @@ public class 复活 : ISlotResolver
             return -100;
         }
         if (!SpellsDefine.Swiftcast.IsReady()) return -3;
-
-
         if (Helper.自身存在其中Buff(SGEBuffs.无法发动技能类))
         {
             return -3;
         }
-
         if (Map.不拉人地图.Contains(Helper.当前地图id))
         {
             return -3;
         }
-
         target = Helper.没有复活状态的死亡队友();
         if (target == null || !target.IsValid())
         {
             return -1;
         }
-
         if (target.Distance(Helper.自身) > 30)
         {
             return -1;
         }
-
         if (Helper.目标是否在剧情状态(target))
         {
             return -1;
         }
-
         if (Helper.目标是否拥有BUFF(SGEBuffs.限制复活))
         {
             return -1;
         }
-
         if (!target.IsTargetable)
         {
             return -1;
         }
-
         if (!Helper.目标是否可见或在技能范围内(24287u))
         {
             return -1;

@@ -15,7 +15,7 @@ public class TriggerAction_QT : ITriggerAction
     
     public bool Draw()
     {
-        ImGui.BeginChild("###TriggerWhm", new Vector2(0f, 0f));
+        ImGui.BeginChild("###TriggerGNB", new Vector2(0f, 0f));
         ImGuiHelper.DrawSplitList("QT开关", QTList, DrawHeader, AddCallBack, DrawCallback);
         ImGui.EndChild();
         return true;
