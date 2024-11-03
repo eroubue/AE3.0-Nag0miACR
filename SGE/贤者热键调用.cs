@@ -11,6 +11,7 @@ using ECommons;
 using ImGuiNET;
 using System.Numerics;
 using Dalamud.Game.ClientState.Objects.Types;
+using Nagomi.SGE.Settings;
 using Nagomi.SGE.utils;
 using PCT.utils.Helper;
 
@@ -235,13 +236,19 @@ public class 即刻贤炮 : IHotkeyResolver
 
     public void Run()
     {
-        if (AI.Instance.BattleData.NextSlot == null && SGESpells.魂灵风息.IsReady()&& SGESpells.即刻咏唱.IsReady())
+        if (AI.Instance.BattleData.NextSlot == null && SGESpells.魂灵风息.IsReady()&& SGESpells.即刻咏唱.IsReady()&&SGESettings.Instance.即刻贤炮==1)
         {
             AI.Instance.BattleData.NextSlot = new Slot(1500);
             AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.即刻咏唱, Core.Me));
             AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.魂灵风息,  SpellTargetType.Target));
             
         }
+        if (AI.Instance.BattleData.NextSlot == null && SGESpells.魂灵风息.IsReady()&&SGESettings.Instance.即刻贤炮==0)
+        {
+            AI.Instance.BattleData.NextSlot = new Slot(1500);
+            AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.魂灵风息,  SpellTargetType.Target));
+        }
+        
         else
         {   
             Core.Resolve<MemApiChatMessage>().Toast2("Not Ready", 1, 1000);

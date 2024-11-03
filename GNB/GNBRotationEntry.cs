@@ -89,7 +89,7 @@ public class GNBRotationEntry : IRotationEntry
         //添加QT分页 第一个参数是分页标题 第二个是分页里的内容
         QT.AddTab("通用", DrawQtGeneral);
         QT.AddTab("Dev", DrawQtDev);
-        QT.AddTab("ae", 画家悬浮窗.ae人数查询);
+        //QT.AddTab("ae", 画家悬浮窗.ae人数查询);
         QT.AddQt(QTKey.停手,false);
         QT.AddQt(QTKey.爆发,true);
         QT.AddQt(QTKey.倾泻爆发,false);
@@ -101,28 +101,12 @@ public class GNBRotationEntry : IRotationEntry
         QT.AddQt(QTKey.dot,true);
         QT.AddQt(QTKey.弓形,true);
         QT.AddQt(QTKey.突进,false);
-        // 添加QT开关 第二个参数是默认值 (开or关) 第三个参数是鼠标悬浮时的tips
-     
-
-
-  
-
-        // 添加快捷按钮 (带技能图标)
+       
       
-        GNBRotationEntry.QT.AddHotkey("防击退", new HotKeyResolver_NormalSpell(7559, SpellTargetType.Self, false));
-        GNBRotationEntry.QT.AddHotkey("极限技", new HotKeyResolver_LB());
-        GNBRotationEntry.QT.AddHotkey("爆发药", new HotKeyResolver_Potion());
-        /*
-       // 这是一个自定义的快捷按钮 一般用不到
-       // 图片路径是相对路径 基于AEAssist(C|E)NVersion/AEAssist
-       // 如果想用AE自带的图片资源 路径示例: Resources/AE2Logo.png
-       QT.AddHotkey("极限技", new HotkeyResolver_General("#自定义图片路径", () =>
-       {
-           // 点击这个图片会触发什么行为
-           LogHelper.Print("你好");
-       }));
-       */
-
+        QT.AddHotkey("防击退", new HotKeyResolver_NormalSpell(7559, SpellTargetType.Self, false));
+        QT.AddHotkey("极限技", new HotKeyResolver_LB());
+        QT.AddHotkey("爆发药", new HotKeyResolver_Potion());
+      
         
     }
 

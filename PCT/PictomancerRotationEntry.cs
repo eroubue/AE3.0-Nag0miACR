@@ -27,6 +27,7 @@ using Nagomi.PCT.utils;
 using Nagomi.PCT.能力;
 using Nagomi.依赖.Helper;
 using PCT.utils;
+using Keys = AEAssist.Define.HotKey.Keys;
 using Map = Nagomi.utils.Map;
 using Vector2 = System.Numerics.Vector2;
 
@@ -126,24 +127,24 @@ namespace Nagomi
             //jobViewWindow.AddTab("日志", _lazyOverlay.更新日志);
             QT.AddTab("通用", 画家悬浮窗.通用);
             QT.AddTab("DEV", 画家悬浮窗.DrawDev);
-            QT.AddTab("ae", 画家悬浮窗.ae人数查询);
+            //QT.AddTab("ae", 画家悬浮窗.ae人数查询);
             //QT.AddTab("log", LogModifier.DrawLogModifierTab);
 
-            PictomancerRotationEntry.QT.AddQt(QTKey.减色混合,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.AOE,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.CYM,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.RGB,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.sb,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.锤连击,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.动物彩绘,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.武器彩绘,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.风景彩绘,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.动物构想,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.武器构想,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.风景构想,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.莫古力激流,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.马蒂恩惩罚,true);
-            PictomancerRotationEntry.QT.AddQt(QTKey.保留1层锤,false);
+            QT.AddQt(QTKey.减色混合,true);
+            QT.AddQt(QTKey.AOE,true);
+            QT.AddQt(QTKey.CYM,true);
+            QT.AddQt(QTKey.RGB,true);
+            QT.AddQt(QTKey.sb,true);
+            QT.AddQt(QTKey.锤连击,true);
+            QT.AddQt(QTKey.动物彩绘,true);
+            QT.AddQt(QTKey.武器彩绘,true);
+            QT.AddQt(QTKey.风景彩绘,true);
+            QT.AddQt(QTKey.动物构想,true);
+            QT.AddQt(QTKey.武器构想,true);
+            QT.AddQt(QTKey.风景构想,true);
+            QT.AddQt(QTKey.莫古力激流,true);
+            QT.AddQt(QTKey.马蒂恩惩罚,true);
+            QT.AddQt(QTKey.保留1层锤,false);
             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Clear();
             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.RGB);
             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.动物彩绘);
@@ -151,16 +152,11 @@ namespace Nagomi
             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.风景彩绘);
             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.莫古力激流);
             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.马蒂恩惩罚);
-
-  
-
-
-      
-            PictomancerRotationEntry.QT.AddHotkey("防击退", new HotKeyResolver_NormalSpell(7559, SpellTargetType.Self, false));
-            PictomancerRotationEntry.QT.AddHotkey("极限技", new HotKeyResolver_LB());
-            PictomancerRotationEntry.QT.AddHotkey("爆发药", new HotKeyResolver_Potion());
-            PictomancerRotationEntry.QT.AddHotkey("昏乱", new HotKeyResolver_NormalSpell(7560, SpellTargetType.Target, false));
-            PictomancerRotationEntry.QT.AddHotkey("盾", new HotKeyResolver_NormalSpell(34685, SpellTargetType.Self, false));
+            QT.AddHotkey("防击退", new HotKeyResolver_NormalSpell(7559, SpellTargetType.Self, false));
+            QT.AddHotkey("极限技", new HotKeyResolver_LB());
+            QT.AddHotkey("爆发药", new HotKeyResolver_Potion());
+            QT.AddHotkey("昏乱", new HotKeyResolver_NormalSpell(7560, SpellTargetType.Target, false));
+            QT.AddHotkey("盾", new HotKeyResolver_NormalSpell(34685, SpellTargetType.Self, false));
             QT.AddHotkey("群盾", (IHotkeyResolver)new 群盾());
             QT.AddHotkey("屏幕位移", (IHotkeyResolver)new 速涂());
             QT.AddHotkey("tp魔纹", (IHotkeyResolver)new mousebuff());
@@ -201,13 +197,16 @@ namespace Nagomi
             public void Run()
             {
                 float rotation = CameraHelper.GetCameraRotation();
+                var pos = Core.Me.Position;
                  if (AI.Instance.BattleData.NextSlot == null && PCTSpells.速涂.IsReady())
                 {
                     
                     Core.Resolve<MemApiMoveControl>().Stop();
                     Core.Resolve<MemApiMove>().SetRot(rotation);
+                    KeyHelper.Send(Keys.W);
                     AI.Instance.BattleData.NextSlot = new Slot(1500);
-                    AI.Instance.BattleData.NextSlot.AddDelaySpell(500, new Spell(34684U, Core.Me));
+                    AI.Instance.BattleData.NextSlot.Add(new Spell(34684U, Core.Me));
+                   // AI.Instance.BattleData.NextSlot.AddDelaySpell(500, new Spell(34684U, Core.Me));
                 }
                 else
                 {   

@@ -27,12 +27,11 @@ public class GCDbase : ISlotResolver
         if (Core.Me.CurrentMp < 1500) return -2;
 
         //如果获取到的是失衡，允许执行
-        if (GetSpell() ==
-            Core.Resolve<MemApiSpell>().CheckActionChange(SGESpells.Dyskrasia.GetSpell().Id).GetSpell()&&!QT.QTGET(QTKey.停手)) return 0;
+        if (GetSpell() == Core.Resolve<MemApiSpell>().CheckActionChange(SGESpells.Dyskrasia.GetSpell().Id).GetSpell()&&!QT.QTGET(QTKey.停手)) return 0;
             //如果在移动，且不具有即刻
         if (Core.Resolve<MemApiMove>().IsMoving()&&!Core.Me.HasMyAuraWithTimeleft(SGEBuffs.即刻咏唱))
         {   //假设开了失衡走位QT，就允许通过
-            if (SGESettings.Instance.失衡走位==1 && Core.Resolve<MemApiSpell>().CheckActionChange(SGESpells.Dyskrasia).IsReady()&&!QT.QTGET(QTKey.停手))
+            if (SGESettings.Instance.失衡走位==1 && Core.Resolve<MemApiSpell>().CheckActionChange(SGESpells.Dyskrasia).IsUnlockWithCDCheck()&&!QT.QTGET(QTKey.停手))
             {
                 return 0;
             }

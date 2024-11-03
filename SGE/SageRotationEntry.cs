@@ -121,7 +121,7 @@ public class SGERotationEntry : IRotationEntry
         //jobViewWindow.AddTab("DEV", _lazyOverlay.DrawDev);
         QT.AddTab("通用",xuanfuchuang);
         QT.AddTab("DEV",DrawDev);
-        QT.AddTab("ae", 画家悬浮窗.ae人数查询);
+        //QT.AddTab("ae", 画家悬浮窗.ae人数查询);
 
         QT.AddQt(QTKey.停手, false);
         QT.AddQt(QTKey.DOT, true);
@@ -130,11 +130,14 @@ public class SGERotationEntry : IRotationEntry
         QT.AddQt(QTKey.保留红豆, true,"开了QT就动了也不打");
         QT.AddQt(QTKey.心神风息, true);
         QT.AddQt(QTKey.发炎, true);
+        QT.AddQt(QTKey.保留发炎, false);
         QT.AddQt(QTKey.爆发, true);
         QT.AddQt(QTKey.复活, true);
         QT.AddQt(QTKey.康复, true);
         QT.AddQt(QTKey.根素, true);
         QT.AddQt(QTKey.心关, true);
+        SGESettings.Instance.JobViewSave.QtUnVisibleList.Clear();
+        SGESettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.心关);
 
 
 
@@ -157,82 +160,194 @@ public class SGERotationEntry : IRotationEntry
 
 
     }
+    
+    private static bool showHiddenImgui = false;
+    private static bool showHiddenImguiPro = false;
+    private static int decorativeSliderValue = 0;
+    private static int decorativeSliderValue1;
+    private static int decorativeSliderValue2;
+    private static int decorativeSliderValue3;
+    private static int decorativeSliderValue4;
+    private static string password = "";
+    private const string correctPassword = "22/7";
+    private const string correctPasswordPro = "我是西条和的狗";// 替换为实际的密码
 
     public void xuanfuchuang(JobViewWindow jobViewWindow)
     {
-            ImGui.SameLine();
-            if (SGESettings.Instance.H1)
+
+        ImGui.SameLine();
+        if (SGESettings.Instance.H1)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(1.0f, 0.0f, 0.0f, 1.0f), "H1");
+        }
+        else if (!SGESettings.Instance.H1)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 1.0f, 0.0f, 1.0f), "H2");
+        }
+
+        ImGui.SameLine();
+        if (ImGui.Button(" H1 "))
+        {
+            SGESettings.Instance.H1 = true;
+            SGESettings.Instance.Save();
+        }
+
+        ImGui.SameLine();
+        if (ImGui.Button(" H2 "))
+        {
+            SGESettings.Instance.H1 = false;
+            SGESettings.Instance.Save();
+        }
+
+        ImGui.SliderInt("红豆保留数量", ref SGESettings.Instance.红豆保留数量, 1, 3);
+        if (ImGui.Button("失衡走位关"))
+        {
+            SGESettings.Instance.失衡走位 = 0;
+            SGESettings.Instance.Save();
+        }
+
+        ImGui.SameLine();
+        if (ImGui.Button("失衡走位开"))
+        {
+            SGESettings.Instance.失衡走位 = 1;
+            SGESettings.Instance.Save();
+        }
+
+        ImGui.SameLine();
+        ImGui.Text("失衡走位：");
+        ImGui.SameLine();
+        if (SGESettings.Instance.失衡走位 == 0)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(1.0f, 1.0f, 1.0f, 1.0f), "关"); // 绿色
+        }
+        else if (SGESettings.Instance.失衡走位 == 1)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(1.0f, 1.0f, 0.0f, 1.0f), "开"); // 蓝色
+        }
+
+        ImGui.Text("当前起手：");
+        ImGui.SameLine();
+        if (SGESettings.Instance.opener == 0)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 1.0f, 0.0f, 1.0f), "默认起手"); // 绿色
+        }
+        else if (SGESettings.Instance.opener == 1)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "贤炮起手"); // 蓝色
+        }
+
+        if (ImGui.Button("默认起手"))
+        {
+            SGESettings.Instance.opener = 0;
+            SGESettings.Instance.Save();
+        }
+
+        ImGui.SameLine();
+        if (ImGui.Button("贤炮起手"))
+        {
+            SGESettings.Instance.opener = 1;
+            SGESettings.Instance.Save();
+        }
+
+        if (ImGui.Button("获取触发器链接"))
+        {
+            Core.Resolve<MemApiChatMessage>().Toast2("感谢使用零师傅工具箱\nヾ(￣▽￣)已为您输出至默语频道", 1, 2000);
+            Core.Resolve<MemApiSendMessage>().SendMessage("/e https://11142.kstore.space/TriggernometryExport.xml");
+        }
+
+        ImGui.Text("功能：自动狩猎，位移预测，绝本轮椅等,可以给绿玩用，基本未使用第三方库插件。");
+        ImGui.Text("导入到act高级触发器插件的远程触发器中，使用前请更新!");
+        if (ImGui.CollapsingHeader("底裤功能,轮盘赌通过才可开启"))
+        {
+            // 获取当前时间
+            float time = (float)ImGui.GetTime();
+
+
+            // 创建脉动效果
+            float scale = 1.0f + 0.05f * (float)Math.Sin(time * 2.0f);
+
+            // 设置按钮样式
+            ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0.1f, 0.7f, 0.4f, 1.0f)); // 按钮的背景颜色
+            ImGui.PushStyleColor(ImGuiCol.ButtonHovered, new Vector4(0.1f, 0.9f, 0.6f, 1.0f)); // 鼠标悬停时的背景颜色
+            ImGui.PushStyleColor(ImGuiCol.ButtonActive, new Vector4(0.1f, 0.5f, 0.3f, 1.0f)); // 按钮按下时的背景颜色
+
+            // 创建按钮并检查是否被点击，手动设置按钮的大小以实现缩放效果
+            Vector2 buttonSize = new Vector2(140 * scale, 60 * scale); // 为按键设置动态大小
+
+            if (ImGui.Button("来一枪解锁底裤功能", new Vector2(180, 40)))
             {
-                ImGui.TextColored(new System.Numerics.Vector4(1.0f, 0.0f, 0.0f, 1.0f), "H1"); 
-            }
-            else if (!SGESettings.Instance.H1)
-            {
-                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 1.0f, 0.0f, 1.0f), "H2"); 
-            }
-            ImGui.SameLine();
-            if (ImGui.Button(" H1 "))
-            {
-                SGESettings.Instance.H1 = true;
-                SGESettings.Instance.Save();
-            }
-            ImGui.SameLine();
-            if (ImGui.Button(" H2 "))
-            {
-                SGESettings.Instance.H1 = false;
-                SGESettings.Instance.Save();
-            }
-            ImGui.SliderInt("红豆保留数量", ref SGESettings.Instance.红豆保留数量, 1, 3);
-            if (ImGui.Button("失衡走位关"))
-            {
-                SGESettings.Instance.失衡走位 = 0;
-                SGESettings.Instance.Save();
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("失衡走位开"))
-            {
-                SGESettings.Instance.失衡走位 = 1;
-                SGESettings.Instance.Save();
-            }
-            ImGui.SameLine();
-            ImGui.Text("失衡走位：");
-            ImGui.SameLine();
-            if (SGESettings.Instance.失衡走位 == 0)
-            {
-                ImGui.TextColored(new System.Numerics.Vector4(1.0f, 1.0f, 1.0f, 1.0f), "关"); // 绿色
-            }
-            else if (SGESettings.Instance.失衡走位 == 1)
-            {
-                ImGui.TextColored(new System.Numerics.Vector4(1.0f, 1.0f, 0.0f, 1.0f), "开"); // 蓝色
-            }
-            ImGui.Text("当前起手：");
-            ImGui.SameLine();
-            if (SGESettings.Instance.opener == 0)
-            {
-                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 1.0f, 0.0f, 1.0f), "默认起手"); // 绿色
-            }
-            else if (SGESettings.Instance.opener == 1)
-            {
-                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "贤炮起手"); // 蓝色
+                轮盘赌();
+
             }
 
-            if (ImGui.Button("默认起手"))
+
+            if (showHiddenImgui)
             {
-                SGESettings.Instance.opener = 0;
-                SGESettings.Instance.Save();
+                ImGui.Text("恭喜你，你赢了！成功解锁底裤功能！");
+                ImGui.SliderInt("修改额外暴击率", ref decorativeSliderValue, 0, 15);
+                ImGui.SliderInt("修改额外直击率", ref decorativeSliderValue1, 0, 15);
+                ImGui.SliderInt("稀有物品爆率提升(坐骑等)", ref decorativeSliderValue2, 0, 20);
+                ImGui.SliderInt("伤害浮动固定(最高提升5%)", ref decorativeSliderValue3, 0, 5);
+                ImGui.SliderInt("挖宝下底加成", ref decorativeSliderValue4, 0, 5);
+                ImGui.Button("批量生成高级码(lv1以上可用)", new Vector2(300, 40));
+                ImGui.Button("一键金100logs", new Vector2(180, 40));
+                ImGui.Button("对选中目标批量发送举报加速封号", new Vector2(300, 40));
+
+
             }
-            ImGui.SameLine();
-            if (ImGui.Button("贤炮起手"))
+
+
+
+            // 恢复样式
+            ImGui.PopStyleColor(3);
+        }
+
+        ImGui.Text("输入密码来绕过轮盘赌");
+
+        // 创建一个文本输入框，用于输入密码
+        ImGui.InputText("密码", ref password, 256, ImGuiInputTextFlags.Password);
+
+        // 创建一个按钮，点击后检查密码
+        if (ImGui.Button("提交"))
+        {
+            if (password == correctPassword)
             {
-                SGESettings.Instance.opener = 1;
-                SGESettings.Instance.Save();
+                showHiddenImgui = true;
+
             }
-            if (ImGui.Button("获取触发器链接"))
+
+            if (password == correctPasswordPro)
             {
-                Core.Resolve<MemApiChatMessage>().Toast2("感谢使用零师傅工具箱\nヾ(￣▽￣)已为您输出至默语频道", 1, 2000);
-                Core.Resolve<MemApiSendMessage>().SendMessage("/e https://11142.kstore.space/TriggernometryExport.xml");
+                showHiddenImgui = true;
+                showHiddenImguiPro = true;
             }
-            ;
-            ImGui.Text("导入到act高级触发器插件的远程触发器中，使用前请更新!");
+            else
+            {
+                // 可以在这里添加密码错误的提示
+                ImGui.TextColored(new System.Numerics.Vector4(1, 0, 0, 1), "错误的密码!");
+            }
+        }
+
+        // 如果showHiddenImgui为true，显示隐藏的内容
+        if (showHiddenImgui)
+        {
+            ImGui.Text("已经解锁!");
+        }
+
+        void 轮盘赌()
+        {
+            // 先进行随机数判断
+            if (new Random().Next(1, 3) == 1)
+            {
+                Core.Resolve<MemApiSendMessage>().SendMessage("/shout 全体目光向我看齐，我宣布个事，我是个啥b!!!");
+            }
+            else
+            {
+                Core.Resolve<MemApiChatMessage>().Toast2("没中,奖励一下！", 1, 2000);
+                showHiddenImgui = true;
+
+            }
+        }
     }
 
     public void DrawDev(JobViewWindow jobViewWindow)

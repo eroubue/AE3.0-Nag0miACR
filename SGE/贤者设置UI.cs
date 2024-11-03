@@ -13,7 +13,9 @@ public class SGESettingUI
         {
             ImGui.SliderFloat("不上dot阈值", ref SGESettings.不上dot阈值, 0.0f, 1.0f);
             ImGui.Text("按住Ctrl左键单击滑块可以直接输入数字，默认3%不上dot");
-            ImGui.SliderInt("红豆保留数量，开了QT就绝对不打，动了也不打", ref SGESettings.红豆保留数量, 1, 3);
+            ImGui.SliderInt("红豆保留数量", ref SGESettings.红豆保留数量, 1, 3);
+            ImGui.SliderInt("发炎保留数量", ref SGESettings.发炎保留数量, 1, 2);
+            ImGui.Text("保留QT是开了QT就绝对不打，动了也不打");
             ImGui.Text("H1 or H2");
             ImGui.SameLine();
             if (SGESettings.Instance.H1)
@@ -56,6 +58,28 @@ public class SGESettingUI
                 ImGui.TextColored(new System.Numerics.Vector4(1.0f, 1.0f, 1.0f, 1.0f), "关"); // 绿色
             }
             else if (SGESettings.Instance.失衡走位 == 1)
+            {
+                ImGui.TextColored(new System.Numerics.Vector4(1.0f, 1.0f, 0.0f, 1.0f), "开"); // 蓝色
+            }
+            if (ImGui.Button("即刻贤炮关"))
+            {
+                SGESettings.Instance.即刻贤炮 = 0;
+                SGESettings.Instance.Save();
+            }
+            ImGui.SameLine();
+            if (ImGui.Button("即刻贤炮开"))
+            {
+                SGESettings.Instance.即刻贤炮 = 1;
+                SGESettings.Instance.Save();
+            }
+            ImGui.SameLine();
+            ImGui.Text("即刻贤炮热键：");
+            ImGui.SameLine();
+            if (SGESettings.Instance.即刻贤炮 == 0)
+            {
+                ImGui.TextColored(new System.Numerics.Vector4(1.0f, 1.0f, 1.0f, 1.0f), "关"); // 绿色
+            }
+            else if (SGESettings.Instance.即刻贤炮 == 1)
             {
                 ImGui.TextColored(new System.Numerics.Vector4(1.0f, 1.0f, 0.0f, 1.0f), "开"); // 蓝色
             }

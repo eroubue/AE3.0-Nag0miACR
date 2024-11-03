@@ -33,6 +33,7 @@ public class 发炎 : ISlotResolver
         //发炎QT关了不打
         if (!QT.QTGET(QTKey.发炎)) return -2;
         //距离目标大于6了不打
+        if (QT.QTGET(QTKey.保留发炎) && GetSpell().Charges < SGESettings.Instance.发炎保留数量) return -6;
         if (Core.Me.Distance(Core.Me.GetCurrTarget()) > 6) return -1;
         //获取到的技能的冷却状态大于1.9了打 就是快转好了
         if (Core.Resolve<MemApiSpell>().CheckActionChange(SGESpells.Phlegma).IsReady() && GetSpell().Charges > 1.9&&!QT.QTGET(QTKey.爆发))

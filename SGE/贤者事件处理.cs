@@ -14,17 +14,7 @@ using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
-using System.Media;
-using System.Collections.Generic;
-using System.Numerics;
-using Dalamud;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Threading.Tasks;
-using NAudio.CoreAudioApi;
-using NAudio.Wave;
+
 
 namespace Nagomi.SGE
 {
@@ -43,7 +33,6 @@ namespace Nagomi.SGE
 
         public async Task OnNoTarget()
         {
-
             await Task.CompletedTask;
         }
 
@@ -54,7 +43,6 @@ namespace Nagomi.SGE
 
         public async Task OnPreCombat()
         {
-            
             await Task.CompletedTask;
         }
         
