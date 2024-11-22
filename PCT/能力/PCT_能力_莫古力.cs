@@ -5,9 +5,10 @@ using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
+using Nagomi.GNB.utils;
 using Nagomi.PCT;
 using Nagomi.utils;
-using PCT.utils.Helper;
+using Nagomi.utils.Helper;
 
 namespace Nagomi.PCT.能力
 
@@ -16,8 +17,9 @@ namespace Nagomi.PCT.能力
     {
         public int Check()
         {
+            if (Core.Me.GetCurrTarget().HasAnyAura(GNBBuffs.敌人无敌BUFF)) return -152;
 
-            if (!Core.Resolve<JobApi_Pictomancer>().莫古准备||!PCTSpells.莫古力激流.IsReady())
+            if (!Core.Resolve<JobApi_Pictomancer>().莫古准备||!PCTSpells.莫古力激流.IsUnlockWithCDCheck())
             {
                 return -1;
             }
@@ -25,7 +27,7 @@ namespace Nagomi.PCT.能力
             {
                 return -2;
             }
-            if (Core.Resolve<JobApi_Pictomancer>().莫古准备&&PCTSpells.莫古力激流.IsReady()&&Helper.团辅是否快转好()&&PCTSettings.Instance.OpenLazy)
+            if (Core.Resolve<JobApi_Pictomancer>().莫古准备&&PCTSpells.莫古力激流.IsUnlockWithCDCheck()&&Helper.团辅是否快转好()&&PCTSettings.Instance.OpenLazy)
             {
                 return -4;
             }

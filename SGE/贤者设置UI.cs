@@ -11,10 +11,12 @@ public class SGESettingUI
     
         public void Draw()
         {
-            ImGui.SliderFloat("不上dot阈值", ref SGESettings.不上dot阈值, 0.0f, 1.0f);
+            ImGui.SliderFloat("不上dot阈值", ref SGESettings.Instance.不上dot阈值, 0.0f, 1.0f);
             ImGui.Text("按住Ctrl左键单击滑块可以直接输入数字，默认3%不上dot");
-            ImGui.SliderInt("红豆保留数量", ref SGESettings.红豆保留数量, 1, 3);
-            ImGui.SliderInt("发炎保留数量", ref SGESettings.发炎保留数量, 1, 2);
+            ImGui.SliderFloat("额外技能距离", ref SGESettings.Instance.额外技能距离, 0.0f, 3.0f);
+            ImGui.Text("按住Ctrl左键单击滑块可以直接输入数字，适配长臂猿用的！没开别动！");
+            ImGui.SliderInt("红豆保留数量", ref SGESettings.Instance.红豆保留数量, 1, 3);
+            ImGui.SliderInt("发炎保留数量", ref SGESettings.Instance.发炎保留数量, 1, 2);
             ImGui.Text("保留QT是开了QT就绝对不打，动了也不打");
             ImGui.Text("H1 or H2");
             ImGui.SameLine();

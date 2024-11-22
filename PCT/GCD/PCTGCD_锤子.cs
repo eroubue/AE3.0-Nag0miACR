@@ -5,8 +5,9 @@ using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
+using Nagomi.GNB.utils;
 using Nagomi.PCT;
-using PCT.utils.Helper;
+using Nagomi.utils.Helper;
 
 namespace Nagomi.PCT.GCD;
 
@@ -14,7 +15,8 @@ public class PCTGCD_锤子 : ISlotResolver
 {
     public int Check()
     {
-        if (!Core.Me.HasAura(PCTBuffs.重锤连击) || !Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.重锤敲章).IsReady() || !QT.QTGET(QTKey.锤连击))
+        if (Core.Me.GetCurrTarget().HasAnyAura(GNBBuffs.敌人无敌BUFF)) return -152;
+        if (!Core.Me.HasAura(PCTBuffs.重锤连击) || !Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.重锤敲章).IsUnlockWithCDCheck() || !QT.QTGET(QTKey.锤连击))
         {
             return -1;
         }

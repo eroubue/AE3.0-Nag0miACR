@@ -7,6 +7,7 @@ using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
 using ECommons.Automation.NeoTaskManager.Tasks;
+using Nagomi.GNB.utils;
 using Nagomi.PCT;
     
 namespace Nagomi.PCT.能力
@@ -16,8 +17,9 @@ namespace Nagomi.PCT.能力
     {
         public int Check()
         {
+            if (Core.Me.GetCurrTarget().HasAnyAura(GNBBuffs.敌人无敌BUFF)) return -152;
 
-            if (!Core.Resolve<JobApi_Pictomancer>().风景画||!PCTSpells.星空构想.IsReady())
+            if (!Core.Resolve<JobApi_Pictomancer>().风景画||!PCTSpells.星空构想.IsUnlockWithCDCheck())
             {
                 return -1;
             }

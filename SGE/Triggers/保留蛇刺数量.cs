@@ -7,7 +7,7 @@ namespace Nagomi.SGE.Triggers;
 
 public class TriggerAction_保留蛇刺数量 : ITriggerAction
 {
-    public string DisplayName => "贤者/一直保留红豆";
+    public string DisplayName => "贤者/保留红豆";
     public string Remark { get; set; }
 
     public bool save红豆 { get; set; } = false;

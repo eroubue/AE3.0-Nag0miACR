@@ -5,7 +5,7 @@ using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist. MemoryApi;
 
-namespace Nagomi;
+namespace Nagomi.utils;
 
 public static class 战斗爽Helper
     {

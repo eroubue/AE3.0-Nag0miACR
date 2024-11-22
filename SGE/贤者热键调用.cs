@@ -13,7 +13,7 @@ using System.Numerics;
 using Dalamud.Game.ClientState.Objects.Types;
 using Nagomi.SGE.Settings;
 using Nagomi.SGE.utils;
-using PCT.utils.Helper;
+using Nagomi.utils.Helper;
 
 
 namespace Nagomi.SGE;
@@ -23,7 +23,7 @@ namespace Nagomi.SGE;
 
 public class 群盾消化 : IHotkeyResolver
 {
-    private string imagePath = "../../ACR/Zanhikari/Resources/qdjxh.png"; // 自定义图片路径
+   
 
     public void Draw(System.Numerics.Vector2 size)
     {
@@ -294,5 +294,64 @@ public class 营救最远 : IHotkeyResolver
     .LastOrDefault();
 
         SpellHelper.DrawSpellInfo(new Spell(7571u, RescueTarget), size, isActive);
+    }
+}
+public class 即刻拉人 : IHotkeyResolver
+{
+    public void Draw(System.Numerics.Vector2 size)
+    {
+        System.Numerics.Vector2 size1 = size * 0.8f;
+        ImGui.SetCursorPos(size * 0.1f);
+        IDalamudTextureWrap idalamudTextureWrap;
+
+        if (Core.Resolve<MemApiIcon>().GetActionTexture(24318U, out idalamudTextureWrap, true))
+        {
+            if (idalamudTextureWrap != null)
+            {
+                ImGui.Image(idalamudTextureWrap.ImGuiHandle, size1);
+            }
+            else
+            {
+                // 处理 idalamudTextureWrap 为 null 的情况
+                // 例如：显示默认图标或错误消息
+                Console.WriteLine("Failed to load texture for action ID: 29054");
+            }
+        }
+    }
+
+    public void DrawExternal(Vector2 size, bool isActive)
+    {
+        SpellHelper.DrawSpellInfo(new Spell(24318U, (IBattleChara)Core.Me), size, isActive);
+    }
+
+    public int Check() => 0;
+
+    public void Run()
+    {
+        var skillTarget = PartyHelper.DeadAllies.FirstOrDefault(r => !r.HasAura(148u));
+        //设定targetname
+        // 检查skillTarget是否为null
+        if (skillTarget != null && skillTarget.Name != null)
+        {
+            // 确保skillTarget.Name不为null后再访问TextValue属性
+            SGESettings.Instance.targetName = skillTarget.Name.TextValue;
+        }
+      
+        if (AI.Instance.BattleData.NextSlot == null && 24287u.IsUnlockWithCDCheck()&& SGESpells.即刻咏唱.IsUnlockWithCDCheck())
+        {
+            AI.Instance.BattleData.NextSlot = new Slot(1500);
+            AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.即刻咏唱, Core.Me));
+            AI.Instance.BattleData.NextSlot.Add(new Spell(24287u, skillTarget));
+            
+        }
+        
+        else
+        {   
+            Core.Resolve<MemApiChatMessage>().Toast2("Not Ready", 1, 1000);
+        }
+
+               
+
+
     }
 }

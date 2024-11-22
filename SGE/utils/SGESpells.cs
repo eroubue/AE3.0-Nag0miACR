@@ -8,22 +8,17 @@ public class SGESpells
         public const uint EukrasianDyskrasia = 37032;
         public const uint 均衡失衡 = 37032;
         public const uint 心神风息 = 37033;
-        public const uint Psyche = 37033;
+       
         public const uint Dosis = 24283;
         public const uint 注药 = 24283;
         public const uint 发炎 = 24289;
-        public const uint Diagnosis = 24284;
+        
         public const uint Kardia = 24285;
-        public const uint Prognosis = 24286;
-        public const uint Egeiro = 24287;
-        public const uint Physis = 24288;
-        public const uint PhysisIi = 24302;
-        public const uint Phlegma = 24289;
-        public const uint PhlegmaIi = 24307;
-        public const uint PhlegmaIii = 24313;
+    
+    
         public const uint Eukrasia = 24290;
         public const uint 均衡 = 24290;
-        public const uint EukrasianDiagnosis = 24291;
+        
 
         public static uint EukrasianPrognosis
         {
@@ -37,23 +32,18 @@ public class SGESpells
         }
 
 
-        public const uint Philosophia = 37035;
-        public const uint EukrasianDosis = 24293;
+        
         public const uint 均衡注药 = 24293;
-        public const uint Soteria = 24294;
-        public const uint Druochole = 24296;
+        
         public const uint Dyskrasia = 24297;
         public const uint 失衡 = 24297;
-        public const uint Kerachole = 24298;
-        public const uint Ixochole = 24299;
-        public const uint Zoe = 24300;
+        
         public const uint Pepsis = 24301;
-        public const uint Taurochole = 24303;
+        
         public const uint Toxikon = 24304;
         public const uint 箭毒 = 24304;
         public const uint ToxikonIi = 24316;
-        public const uint Haima = 24305;
-        public const uint DosisIi = 24306;
+       
         public const uint 注药II= 24306;
         public const uint 发炎II= 24307;
         public const uint 均衡注药II = 24308;

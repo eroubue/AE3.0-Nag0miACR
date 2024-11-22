@@ -6,6 +6,7 @@ using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
 using Dalamud.Game.ClientState.Objects.Types;
+using Nagomi.GNB.utils;
 using Nagomi.SGE.Settings;
 using Nagomi.SGE.utils;
 
@@ -23,16 +24,22 @@ public class 箭毒 : ISlotResolver
         {
             return -100;
         }
-        if (!Core.Resolve<MemApiSpell>().CheckActionChange(SGESpells.箭毒).IsReady())
+        if (Core.Me.GetCurrTarget().HasAnyAura(GNBBuffs.敌人无敌BUFF)) return -152;
+      
+        if (!Core.Resolve<MemApiSpell>().CheckActionChange(SGESpells.箭毒).IsUnlockWithCDCheck())
         {
             return -66;
         }
+        if (Core.Me.Distance(Core.Me.GetCurrTarget()) > 25+SGESettings.Instance.额外技能距离) return -1;
+        
+        if (QT.QTGET(QTKey.保留红豆) && Core.Resolve<JobApi_Sage>().Addersting <= SGESettings.Instance.红豆保留数量+1) return -6;
+        
+        if (Core.Resolve<JobApi_Sage>().Addersting <= 0) return -1;
+        if (QT.QTGET(QTKey.爆发)) return 100;
         if (!QT.QTGET(QTKey.红豆))
         {
             return -2;
         }
-        if (QT.QTGET(QTKey.保留红豆) && Core.Resolve<JobApi_Sage>().Addersting < SGESettings.Instance.红豆保留数量) return -6;
-        if (Core.Resolve<JobApi_Sage>().Addersting <= 0) return -1;
         //如果蛇刺还有
         if (Core.Resolve<JobApi_Sage>().Addersting>= 1&&QT.QTGET(QTKey.AOE))
         {

@@ -17,6 +17,7 @@ public class GNBBuffs
     public const uint 死斗 = 409;
     public const uint 死而不僵 = 811u;
     public const uint 出生入死 = 3255u;
+    public const uint 音速破预备 = 3886U;
 
     public const uint 铁壁 = 1191;
     public const uint 刚玉之心 = 2683; 

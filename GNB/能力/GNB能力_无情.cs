@@ -17,17 +17,20 @@ public class GNB能力_无情 : ISlotResolver
         {
             return -100;
         }
-        if (!GNBSpells.无情.IsReady())
+        if (!GNBSpells.无情.IsUnlockWithCDCheck())
         {
             return -66;
         }
-        if (Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
-            SettingMgr.GetSetting<GeneralSettings>().AttackRange) return -5;
+        
         if (QT.QTGET(QTKey.倾泻爆发))
         {
             return 100;
         }
         if (!QT.QTGET(QTKey.爆发))
+        {
+            return -10;
+        }
+        if (!QT.QTGET(QTKey.无情))
         {
             return -10;
         }

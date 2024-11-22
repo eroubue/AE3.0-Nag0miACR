@@ -46,23 +46,24 @@ public class GNBRotationEntry : IRotationEntry
                 return null;
           
         }
-        // 添加opener
+        
         rot.AddOpener(GetOpener);
-        // 添加各种事件回调
+        
         rot.SetRotationEventHandler(new GNBRotationEventHandler());
-        // 添加QT开关的时间轴行为
+       
         rot.AddTriggerAction(new TriggerAction_QT());
+        rot.AddTriggerAction(new TriggerAction_HotKey());
         return rot;
     }
-    // 逻辑从上到下判断，通用队列是无论如何都会判断的 
-    // gcd则在可以使用gcd时判断
-    // offGcd则在不可以使用gcd 且没达到gcd内插入能力技上限时判断
-    // pvp环境下 全都强制认为是通用队列
-    // 重要 类一定要Public声明才会被查找到
 
     public List<SlotResolverData> SlotResolvers = new()
     {
         new(new GNB能力_续剑(), SlotMode.Always),
+        new SlotResolverData(new GNBGCD_音速破(),SlotMode.Gcd),
+        new SlotResolverData(new GNBGCD_子弹连(),SlotMode.Gcd),
+        new SlotResolverData(new GNBGCD_命运之环(),SlotMode.Gcd),
+        new SlotResolverData(new GNBGCD_爆发击(),SlotMode.Gcd),
+        new(new GNBGCD_AOEbase(), SlotMode.Gcd),
         new(new GNBGCD_base(), SlotMode.Gcd),
         new(new GNB能力_血壤(), SlotMode.OffGcd),
         new(new GNB能力_无情(), SlotMode.OffGcd),
@@ -84,12 +85,12 @@ public class GNBRotationEntry : IRotationEntry
     public void BuildQT()
     {
   
-        QT = new JobViewWindow( GNBSettings.Instance.GNBViewSave,  GNBSettings.Instance.Save, OverlayTitle);
+        QT = new JobViewWindow( GNBSettings.Instance.JobViewSave,  GNBSettings.Instance.Save, OverlayTitle);
         QT.SetUpdateAction(OnUIUpdate); // 设置QT中的Update回调 不需要就不设置
         //添加QT分页 第一个参数是分页标题 第二个是分页里的内容
         QT.AddTab("通用", DrawQtGeneral);
         QT.AddTab("Dev", DrawQtDev);
-        //QT.AddTab("ae", 画家悬浮窗.ae人数查询);
+        //QT.AddTab("ae", 召唤悬浮窗.ae人数查询);
         QT.AddQt(QTKey.停手,false);
         QT.AddQt(QTKey.爆发,true);
         QT.AddQt(QTKey.倾泻爆发,false);
@@ -101,6 +102,13 @@ public class GNBRotationEntry : IRotationEntry
         QT.AddQt(QTKey.dot,true);
         QT.AddQt(QTKey.弓形,true);
         QT.AddQt(QTKey.突进,false);
+        QT.AddQt(QTKey.血壤,true);
+        QT.AddQt(QTKey.爆发击,true);
+        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Clear();
+        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.突进);
+        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.爆发击);
+        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.领域);
+        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.弓形);
        
       
         QT.AddHotkey("防击退", new HotKeyResolver_NormalSpell(7559, SpellTargetType.Self, false));
@@ -121,8 +129,7 @@ public class GNBRotationEntry : IRotationEntry
     
     public void DrawQtGeneral(JobViewWindow JobViewWindow)
     {
-        ImGui.Text("测试中未完善！！！");
-        ImGui.Text("爆发QT只控制无情和血壤");
+        ImGui.Text("测试中,目前仅支持绝神兵和绝亚");
     }
 
     public void DrawQtDev(JobViewWindow JobViewWindow)

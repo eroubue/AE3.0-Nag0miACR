@@ -34,7 +34,8 @@ public class 贤者起手 : IOpener
     public void InitCountDown(CountDownHandler countDownHandler)
     {
         countDownHandler.AddAction(8000, 24290u, SpellTargetType.Self);
-        countDownHandler.AddAction(5000, Core.Resolve<MemApiSpell>().CheckActionChange(24291), SpellTargetType.Self);
+        countDownHandler.AddAction(5000, Core.Resolve<MemApiSpell>().CheckActionChange(24291));
+        countDownHandler.AddPotionAction(3000);//爆发药
         countDownHandler.AddAction(SGESettings.Instance.预读时间, 24312u, SpellTargetType.Target);
     }
 }

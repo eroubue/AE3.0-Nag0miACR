@@ -48,6 +48,7 @@
     <Compile Remove="test.cs" />
     <Compile Remove="HTTPAudioPlayer.cs" />
     <Compile Remove="AudioPlayer.cs" />
+    <Compile Remove="UWU.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,7 +62,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SMN\" />
+    <Folder Include="RPR\" />
+    <Folder Include="WHM\" />
   </ItemGroup>
 
   <ItemGroup>

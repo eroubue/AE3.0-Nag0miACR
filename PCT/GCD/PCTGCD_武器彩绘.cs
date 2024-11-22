@@ -26,7 +26,7 @@ public class PCTGCD_武器彩绘 : ISlotResolver
         {
             return -1;
         }
-        if (!QT.QTGET(QTKey.武器彩绘) || !Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.武器彩绘).IsReady())
+        if (!QT.QTGET(QTKey.武器彩绘) || !Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.武器彩绘).IsUnlockWithCDCheck())
         {
             return -3;
         }

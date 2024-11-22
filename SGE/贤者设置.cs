@@ -40,6 +40,7 @@ public class SGESettings
 
     
     public bool H1 = false;
+    public float 额外技能距离 = 0;
     public int 失衡走位 = 0;
     public int 即刻贤炮 = 0;
     public float 不上dot阈值 = 0.03f;

@@ -1,7 +1,7 @@
 using Nagomi.SGE.Settings;
 using Nagomi.SGE.utils;
 using Nagomi.utils;
-using PCT.utils.Helper;
+using Nagomi.utils.Helper;
 
 namespace Nagomi.SGE.GCD;
 using AEAssist;
@@ -34,7 +34,7 @@ public class 复活 : ISlotResolver
         {
             return -100;
         }
-        if (!SpellsDefine.Swiftcast.IsReady()) return -3;
+        if (!SpellsDefine.Swiftcast.IsUnlockWithCDCheck()) return -3;
         if (Helper.自身存在其中Buff(SGEBuffs.无法发动技能类))
         {
             return -3;

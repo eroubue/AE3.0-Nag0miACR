@@ -1,3 +1,4 @@
+using System.Numerics;
 using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.Helper;
 using AEAssist.IO;
@@ -16,7 +17,7 @@ public class GNBSettings
     private static string path;
     public static void Build(string settingPath)
     {
-        path = Path.Combine(settingPath, nameof(GNBSettings), ".json");
+        path = Path.Combine(settingPath, nameof(GNBSettings), "GNB.json");
         if (!File.Exists(path))
         {
             Instance = new GNBSettings();
@@ -40,10 +41,9 @@ public class GNBSettings
         File.WriteAllText(path, JsonHelper.ToJson(this));
     }
     #endregion
-//这里填写你需要的设置，bool=开关 int=数值
-   // public bool 音效 = false;
-    //public bool 智能aoe目标 = false;
-    //public static int 画画百分比 = 10;
 
-    public JobViewSave GNBViewSave = new(); // QT设置存档
+    public float 额外技能距离 = 0;
+    public bool 启用覆盖额外距离 = false;
+
+    public JobViewSave JobViewSave = new(){MainColor = new Vector4(40 / 255f, 173 / 255f, 70 / 255f, 0.8f)}; // QT设置存档
 }

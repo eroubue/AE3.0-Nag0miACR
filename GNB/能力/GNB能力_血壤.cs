@@ -16,7 +16,7 @@ public class GNB能力_血壤 : ISlotResolver
         {
             return -100;
         }
-        if (!GNBSpells.血壤.IsReady())
+        if (!GNBSpells.血壤.IsUnlockWithCDCheck())
         {
             return -66;
         }
@@ -25,6 +25,10 @@ public class GNB能力_血壤 : ISlotResolver
             return 100;
         }
         if (!QT.QTGET(QTKey.爆发))
+        {
+            return -10;
+        }
+        if (!QT.QTGET(QTKey.血壤))
         {
             return -10;
         }

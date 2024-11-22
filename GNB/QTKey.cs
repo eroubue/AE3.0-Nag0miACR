@@ -14,6 +14,8 @@ namespace Nagomi.GNB
         public const string AOE = "AOE";
         public const string dot = "dot";
         public const string 无情后半 = "无情后半";
+        public const string 血壤 = "血壤";
+        public const string 爆发击 = "爆发击";
         
 
     }

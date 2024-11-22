@@ -7,6 +7,7 @@ using AEAssist.JobApi;
 using AEAssist.MemoryApi;
 using Dalamud.Game.ClientState.Objects.Types;
 using System.Runtime;
+using Nagomi.GNB.utils;
 using Nagomi.SGE;
 using Nagomi.SGE.Settings;
 using Nagomi.SGE.utils;
@@ -26,7 +27,8 @@ public class GCD康复 : ISlotResolver
             return -100;
         }
 
-        if (!SGESpells.康复.IsReady())
+        if (Core.Me.GetCurrTarget().HasAnyAura(GNBBuffs.敌人无敌BUFF)) return -152;
+        if (!SGESpells.康复.IsUnlockWithCDCheck())
         {
             return -66;
         }

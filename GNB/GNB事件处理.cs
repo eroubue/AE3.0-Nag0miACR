@@ -73,7 +73,7 @@ namespace Nagomi.GNB
 
         public void OnEnterRotation()//切换到当前ACR
         {
-            Core.Resolve<MemApiChatMessage>().Toast2("本acr仍在测试阶段，建议先用KKxb", 2, 3000);
+            Core.Resolve<MemApiChatMessage>().Toast2("本acr仅限70-80级绝本st使用,目前已经支持绝神兵和绝亚st", 1, 2000);
         }
 
         public void OnExitRotation()//退出ACR

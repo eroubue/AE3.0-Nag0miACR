@@ -1,0 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
+using Triggernometry;
+using Triggernometry.PluginBridges;
+using static Triggernometry.Action.ActionTypeEnum;
+using static Triggernometry.Entity.RoleType;
+using static Triggernometry.Interpreter.StaticHelpers;
+using static Triggernometry.RealPlugin;
+using Action = Triggernometry.Action;

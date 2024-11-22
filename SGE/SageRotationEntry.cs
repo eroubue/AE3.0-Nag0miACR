@@ -48,9 +48,9 @@ public class SGERotationEntry : IRotationEntry
 
     public List<SlotResolverData> SlotResolvers = new()
     {
+        new(new 心神风息(), SlotMode.OffGcd),
         new(new 心关(), SlotMode.OffGcd),
         new(new 根素(), SlotMode.OffGcd),
-        new(new 心神风息(), SlotMode.OffGcd),
         new(new SGE醒梦(), SlotMode.OffGcd),
         new(new GCD绝亚康复(), SlotMode.Gcd),
         new(new 复活(), SlotMode.Gcd),
@@ -83,6 +83,8 @@ public class SGERotationEntry : IRotationEntry
         rot.AddOpener(GetOpener);
         rot.SetRotationEventHandler(new SGERotationEventHandler());
         rot.AddTriggerAction(new TriggerAction_QT());
+        rot.AddTriggerAction(new TriggerAction_HotKey());
+        rot.AddTriggerAction(new TriggerAction_保留发炎数量(),new TriggerAction_保留蛇刺数量());
         rot.AddTriggerCondition(new 贤者时间轴蓝豆状态(), new 贤者时间轴红豆状态());
      
 
@@ -93,6 +95,8 @@ public class SGERotationEntry : IRotationEntry
     {
         if (SGESettings.Instance.opener == 1)
             return new 贤炮起手();
+        if (SGESettings.Instance.opener == 2)
+            return new 贤炮上毒起手();
 
         return new 贤者起手();
     }
@@ -121,23 +125,24 @@ public class SGERotationEntry : IRotationEntry
         //jobViewWindow.AddTab("DEV", _lazyOverlay.DrawDev);
         QT.AddTab("通用",xuanfuchuang);
         QT.AddTab("DEV",DrawDev);
-        //QT.AddTab("ae", 画家悬浮窗.ae人数查询);
+        //QT.AddTab("ae", 召唤悬浮窗.ae人数查询);
 
         QT.AddQt(QTKey.停手, false);
         QT.AddQt(QTKey.DOT, true);
         QT.AddQt(QTKey.AOE, true);
         QT.AddQt(QTKey.红豆, true);
-        QT.AddQt(QTKey.保留红豆, true,"开了QT就动了也不打");
+        QT.AddQt(QTKey.保留红豆, false,"开了QT就动了也不打");
         QT.AddQt(QTKey.心神风息, true);
         QT.AddQt(QTKey.发炎, true);
-        QT.AddQt(QTKey.保留发炎, false);
-        QT.AddQt(QTKey.爆发, true);
+        QT.AddQt(QTKey.保留发炎, false,"开了QT就动了也不打");
+        QT.AddQt(QTKey.爆发, false,"倾泄瞬发输出,但保留依然生效！");
         QT.AddQt(QTKey.复活, true);
         QT.AddQt(QTKey.康复, true);
         QT.AddQt(QTKey.根素, true);
         QT.AddQt(QTKey.心关, true);
         SGESettings.Instance.JobViewSave.QtUnVisibleList.Clear();
         SGESettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.心关);
+        SGESettings.Instance.JobViewSave.HotkeyUnVisibleList.Add("神翼T");
 
 
 
@@ -157,6 +162,7 @@ public class SGERotationEntry : IRotationEntry
         QT.AddHotkey("单盾最低血量", (IHotkeyResolver)new 单盾最低血量());
         QT.AddHotkey("神翼T", (IHotkeyResolver)new 神翼T());
         QT.AddHotkey("营救最远", (IHotkeyResolver)new 营救最远());
+        QT.AddHotkey("即刻复活", (IHotkeyResolver)new 即刻拉人());
 
 
     }
@@ -200,6 +206,8 @@ public class SGERotationEntry : IRotationEntry
         }
 
         ImGui.SliderInt("红豆保留数量", ref SGESettings.Instance.红豆保留数量, 1, 3);
+        ImGui.SliderInt("发炎保留数量", ref SGESettings.Instance.发炎保留数量, 1, 2);
+        ImGui.Text("保留QT是开了QT就绝对不打，动了也不打");
         if (ImGui.Button("失衡走位关"))
         {
             SGESettings.Instance.失衡走位 = 0;
@@ -216,11 +224,35 @@ public class SGERotationEntry : IRotationEntry
         ImGui.SameLine();
         ImGui.Text("失衡走位：");
         ImGui.SameLine();
+       
         if (SGESettings.Instance.失衡走位 == 0)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(1.0f, 0.0f, 0.0f, 1.0f), "关"); // 绿色
+        }
+        else if (SGESettings.Instance.失衡走位 == 1)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 1.0f, 0.0f, 1.0f), "开"); // 蓝色
+        }
+        if (ImGui.Button("即刻贤炮关"))
+        {
+            SGESettings.Instance.即刻贤炮 = 0;
+            SGESettings.Instance.Save();
+        }
+        ImGui.SameLine();
+        if (ImGui.Button("即刻贤炮开"))
+        {
+            SGESettings.Instance.即刻贤炮 = 1;
+            SGESettings.Instance.Save();
+        }
+        
+        ImGui.SameLine();
+        ImGui.Text("即刻贤炮热键：");
+        ImGui.SameLine();
+        if (SGESettings.Instance.即刻贤炮 == 0)
         {
             ImGui.TextColored(new System.Numerics.Vector4(1.0f, 1.0f, 1.0f, 1.0f), "关"); // 绿色
         }
-        else if (SGESettings.Instance.失衡走位 == 1)
+        else if (SGESettings.Instance.即刻贤炮 == 1)
         {
             ImGui.TextColored(new System.Numerics.Vector4(1.0f, 1.0f, 0.0f, 1.0f), "开"); // 蓝色
         }
@@ -242,12 +274,18 @@ public class SGERotationEntry : IRotationEntry
             SGESettings.Instance.Save();
         }
 
-        ImGui.SameLine();
-        if (ImGui.Button("贤炮起手"))
+        
+        if (ImGui.Button("贤炮3g团辅dot起手"))
         {
             SGESettings.Instance.opener = 1;
             SGESettings.Instance.Save();
         }
+        if (ImGui.Button("贤炮直接dot起手"))
+        {
+            SGESettings.Instance.opener = 2;
+            SGESettings.Instance.Save();
+        }
+
 
         if (ImGui.Button("获取触发器链接"))
         {
@@ -255,7 +293,7 @@ public class SGERotationEntry : IRotationEntry
             Core.Resolve<MemApiSendMessage>().SendMessage("/e https://11142.kstore.space/TriggernometryExport.xml");
         }
 
-        ImGui.Text("功能：自动狩猎，位移预测，绝本轮椅等,可以给绿玩用，基本未使用第三方库插件。");
+        ImGui.Text("功能：一键秒杀，自动狩猎，位移预测，自动绝本超级轮椅等,可以给绿玩用，基本未使用第三方库插件。");
         ImGui.Text("导入到act高级触发器插件的远程触发器中，使用前请更新!");
         if (ImGui.CollapsingHeader("底裤功能,轮盘赌通过才可开启"))
         {

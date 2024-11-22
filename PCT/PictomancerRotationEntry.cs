@@ -25,8 +25,7 @@ using Nagomi.PCT.Settings;
 using Nagomi.PCT.Triggers;
 using Nagomi.PCT.utils;
 using Nagomi.PCT.能力;
-using Nagomi.依赖.Helper;
-using PCT.utils;
+using Nagomi.utils.Helper;
 using Keys = AEAssist.Define.HotKey.Keys;
 using Map = Nagomi.utils.Map;
 using Vector2 = System.Numerics.Vector2;
@@ -90,6 +89,7 @@ namespace Nagomi
             rot.AddOpener(GetOpener);
             rot.SetRotationEventHandler(new PictomancerRotationEventHandler());
             rot.AddTriggerAction(new TriggerAction_QT());
+            rot.AddTriggerAction(new TriggerAction_HotKey());
             rot.AddTriggerAction(new TriggerAction_LazyCast());
             return rot;
         }
@@ -127,7 +127,7 @@ namespace Nagomi
             //jobViewWindow.AddTab("日志", _lazyOverlay.更新日志);
             QT.AddTab("通用", 画家悬浮窗.通用);
             QT.AddTab("DEV", 画家悬浮窗.DrawDev);
-            //QT.AddTab("ae", 画家悬浮窗.ae人数查询);
+            //QT.AddTab("ae", 召唤悬浮窗.ae人数查询);
             //QT.AddTab("log", LogModifier.DrawLogModifierTab);
 
             QT.AddQt(QTKey.减色混合,true);

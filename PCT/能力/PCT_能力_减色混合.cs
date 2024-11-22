@@ -18,7 +18,7 @@ namespace Nagomi.PCT.能力
             {
                 return -7;
             }
-            if ( PCTSpells.彗星之黑.IsReady()&&Core.Resolve<JobApi_Pictomancer>().豆子 == 0 || !PCTSpells.减色混合.IsReady())
+            if ( PCTSpells.彗星之黑.IsUnlockWithCDCheck()&&Core.Resolve<JobApi_Pictomancer>().豆子 == 0 || !PCTSpells.减色混合.IsUnlockWithCDCheck())
             {
                 return -2;
             }

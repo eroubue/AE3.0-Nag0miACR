@@ -26,7 +26,7 @@ public class PCTGCD_风景彩绘 : ISlotResolver
         {
             return -1;
         }
-        if (!QT.QTGET(QTKey.风景彩绘) || !Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.风景彩绘).IsReady())
+        if (!QT.QTGET(QTKey.风景彩绘) || !Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.风景彩绘).IsUnlockWithCDCheck())
         {
             return -3;
         }

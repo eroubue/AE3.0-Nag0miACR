@@ -1,3 +1,4 @@
+using Nagomi.GNB.utils;
 using Nagomi.SGE.utils;
 
 namespace Nagomi.SGE.GCD;
@@ -26,12 +27,14 @@ public class GCD_Dot : ISlotResolver
         {
             return -100;
         }
-        if (Core.Me.Level < 30) return -3;
-        //dotQT关了也别用
+        if (Core.Me.GetCurrTarget().HasAnyAura(GNBBuffs.敌人无敌BUFF)) return -152;
+        if (Core.Me.Distance(Core.Me.GetCurrTarget()) > 25+SGESettings.Instance.额外技能距离) return -1;
+        
         if (!QT.QTGET(QTKey.DOT))
         {
             return -2;
         }
+        
         //加入dot黑名单了也别用
         if (DotBlacklistHelper.IsBlackList(Core.Me.GetCurrTarget()))
             return -10;

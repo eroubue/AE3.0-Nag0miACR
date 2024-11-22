@@ -5,6 +5,7 @@ using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
+using Nagomi.GNB.utils;
 using Nagomi.PCT;
     
 namespace Nagomi.PCT.GCD
@@ -14,13 +15,15 @@ namespace Nagomi.PCT.GCD
     {
         public int Check()
         {
+            if (Core.Me.GetCurrTarget().HasAnyAura(GNBBuffs.敌人无敌BUFF)) return -152;
             
-            if (Core.Resolve<MemApiMove>().IsMoving() && Core.Resolve<JobApi_Pictomancer>().豆子 >= 1 &&　PCTSpells.神圣之白.IsReady())
+            if (Core.Resolve<MemApiMove>().IsMoving() && Core.Resolve<JobApi_Pictomancer>().豆子 >= 1 &&　PCTSpells.神圣之白.IsUnlockWithCDCheck())
             {
                 return 1;
             }
+            
             var aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 5);
-            if (aoeCount >= 2 && Core.Resolve<JobApi_Pictomancer>().豆子 >= 2 &&　PCTSpells.神圣之白.IsReady())
+            if (aoeCount >= 2 && Core.Resolve<JobApi_Pictomancer>().豆子 >= 2 &&　PCTSpells.神圣之白.IsUnlockWithCDCheck())
             {
                 return 5;
             }
@@ -31,7 +34,7 @@ namespace Nagomi.PCT.GCD
         private Spell GetSpell()
         {
            // var canTargetObjects = TargetHelper.GetMostCanTargetObjects(PCTSpells.神圣之白, 4);
-            //if(PCTSpells.神圣之白.IsReady()&& PCTSettings.Instance.智能aoe目标 && canTargetObjects != null &&
+            //if(PCTSpells.神圣之白.IsUnlockWithCDCheck()&& PCTSettings.Instance.智能aoe目标 && canTargetObjects != null &&
               // canTargetObjects.IsValid())
                 //return new Spell(Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.神圣之白), canTargetObjects);
             return Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.神圣之白).GetSpell();

@@ -20,9 +20,17 @@ public class GNB能力_弓形冲波 : ISlotResolver
         {
             return 100;
         }
-        if (!GNBSpells.弓形冲波.IsReady())
+        if (!QT.QTGET(QTKey.爆发))
+        {
+            return -10;
+        }
+        if (!GNBSpells.弓形冲波.IsUnlockWithCDCheck())
         {
             return -66;
+        }
+        if (!QT.QTGET(QTKey.dot))
+        {
+            return -10;
         }
         if (!QT.QTGET(QTKey.弓形))
         {

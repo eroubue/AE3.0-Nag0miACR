@@ -3,7 +3,7 @@ using AEAssist.CombatRoutine.Trigger;
 using AEAssist.GUI;
 using AEAssist.JobApi;
 using ECommons.LanguageHelpers;
-using PCT.utils.Helper;
+using Nagomi.utils.Helper;
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace Nagomi.SGE.Triggers;

@@ -5,6 +5,7 @@ using AEAssist.CombatRoutine.Trigger.TriggerAction;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.MemoryApi;
+using Nagomi.GNB.utils;
 using Nagomi.PCT;
 using PCT.utils;
 
@@ -15,6 +16,7 @@ namespace Nagomi.PCT.GCD
     {
         public int Check()
         {
+            if (Core.Me.GetCurrTarget().HasAnyAura(GNBBuffs.敌人无敌BUFF)) return -152;
             if (Core.Resolve<MemApiMove>().IsMoving()) 
             {
                 return -1;
@@ -23,7 +25,7 @@ namespace Nagomi.PCT.GCD
             {
                 return -2;
             }
-            if (!Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.火炎之红).IsReady())
+            if (!Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.火炎之红).IsUnlockWithCDCheck())
             {
                 return -3;
             } 
@@ -37,10 +39,10 @@ namespace Nagomi.PCT.GCD
         {
             var aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget(), 25, 5);
            // var canTargetObjects = TargetHelper.GetMostCanTargetObjects(PCTList.aoe调色,4);
-            if (aoeCount >= 4 && Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.烈炎之红).IsReady() &&   QT.QTGET(QTKey.AOE))
+            if (aoeCount >= 4 && Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.烈炎之红).IsUnlockWithCDCheck() &&   QT.QTGET(QTKey.AOE))
            //   && !PCTSettings.Instance.智能aoe目标)
                 return Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.烈炎之红).GetSpell();
-           // if (Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.烈炎之红).IsReady() &&
+           // if (Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.烈炎之红).IsUnlockWithCDCheck() &&
             //    QT.QTGET(QTKey.AOE) && PCTSettings.Instance.智能aoe目标 && canTargetObjects != null &&
             //    canTargetObjects.IsValid())
             //    return new Spell(Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.烈炎之红), canTargetObjects);

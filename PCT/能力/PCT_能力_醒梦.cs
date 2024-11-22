@@ -6,7 +6,7 @@ using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
 using Nagomi.PCT;
-using PCT.utils.Helper;
+using Nagomi.utils.Helper;
 
 namespace Nagomi.PCT.能力
 
@@ -16,7 +16,7 @@ namespace Nagomi.PCT.能力
         public int Check()
         {
 
-            if (Core.Me.CurrentMp <= 6800 && PCTSpells.醒梦.IsReady())
+            if (Core.Me.CurrentMp <= 6700 && PCTSpells.醒梦.IsUnlockWithCDCheck())
             {
                 return 1;
             }

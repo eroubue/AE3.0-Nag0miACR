@@ -5,6 +5,7 @@ using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
+using Nagomi.GNB.utils;
 using Nagomi.PCT;
 
 namespace Nagomi.PCT.GCD;
@@ -26,7 +27,7 @@ public class PCTGCD_动物彩绘 : ISlotResolver
         {
             return -1;
         }
-        if (!QT.QTGET(QTKey.动物彩绘) || !Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.动物彩绘).IsReady())
+        if (!QT.QTGET(QTKey.动物彩绘) || !Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.动物彩绘).IsUnlockWithCDCheck())
         {
             return -3;
         }

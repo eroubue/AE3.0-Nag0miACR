@@ -11,7 +11,7 @@ using Nagomi.SGE;
 using Nagomi.SGE.Settings;
 using Nagomi.SGE.utils;
 using Nagomi.utils;
-using PCT.utils.Helper;
+using Nagomi.utils.Helper;
 
 namespace Nagomi.SGE.能力;
 
@@ -33,7 +33,7 @@ public class 心关  : ISlotResolver
 
 
         //心关在冷却 跳过
-        if (!SGESpells.Kardia.IsReady())
+        if (!SGESpells.Kardia.IsUnlockWithCDCheck())
             return -3;
 
         // 获取所有队内的坦克

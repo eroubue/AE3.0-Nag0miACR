@@ -40,15 +40,14 @@ public class 贤炮起手 : IOpener
     {
         countDownHandler.AddAction(15000, 24290u, SpellTargetType.Self);
         countDownHandler.AddAction(9000, Core.Resolve<MemApiSpell>().CheckActionChange(24292), SpellTargetType.Self);
-        countDownHandler.AddAction(7000, 24290u, SpellTargetType.Self);
-        countDownHandler.AddAction(5000, 24291u, SpellTargetType.Pm2);
-        countDownHandler.AddAction(3000, 24290u, SpellTargetType.Self);
+        countDownHandler.AddPotionAction(3000);//爆发药
+        countDownHandler.AddAction(2400, 24290u, SpellTargetType.Self);
         countDownHandler.AddAction(1900, 24318u, SpellTargetType.Target);
     }
     private static void Step0(Slot slot)
     
     {
-        LogHelper.Print("贤炮起手开始，如未成功使用爆发药请在蛇刺间插入");
+        LogHelper.Print("贤炮3g起手开始，如未成功使用爆发药请在蛇刺间插入");
         slot.Add(new Spell(SGESpells.ToxikonIi, SpellTargetType.Target));
         slot.Add(Spell.CreatePotion());
 

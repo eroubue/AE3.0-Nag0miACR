@@ -32,7 +32,7 @@ public class 画家悬浮窗
     private const string correctPasswordPro = "我是西条和的狗";// 替换为实际的密码
 
 // 存储AE Counts的字符串变量
-private static string AECounts;
+//private static string AECounts;
 
 /// <summary>
 /// 异步处理玩家CID列表，调用外部API获取信息，并通过回调函数处理结果

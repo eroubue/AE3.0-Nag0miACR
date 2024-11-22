@@ -12,7 +12,7 @@ using Nagomi.PCT;
 // ReSharper disable UnusedMember.Global
 
 
-namespace PCT.utils.Helper;
+namespace Nagomi.utils.Helper;
 
 public static class Helper
 {
@@ -83,11 +83,11 @@ public static class Helper
         return Core.Me.HasMyAuraWithTimeleft(id, time);
     }
 
-    public static bool 自身是否正在读长条()
+  /*  public static bool 自身是否正在读长条()
     {
         return PCTList.读长条.Contains(Core.Me.CastActionId);
     }
-    
+    */
 
     /** -----------------他人状态相关----------------- **/
     public static float 目标血量百分比 => Core.Me.GetCurrTarget().CurrentHpPercent();
@@ -376,7 +376,6 @@ public static class Helper
         TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
         return Convert.ToInt64(ts.TotalMilliseconds);
     }
-    
  
 
 }

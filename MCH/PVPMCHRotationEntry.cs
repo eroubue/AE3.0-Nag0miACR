@@ -1,34 +1,18 @@
 ﻿using AEAssist;
 using AEAssist.Extension;
 using AEAssist.Helper;
-using AEAssist.JobApi;
 using AEAssist.MemoryApi;
-using System;
 using System.Numerics;
-using System.Threading.Tasks;
 using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
-using AEAssist.CombatRoutine.Module.Opener;
 using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.CombatRoutine.View.JobView.HotkeyResolver;
-using Dalamud.Interface.Textures.TextureWraps;
 using ImGuiNET;
-using Nagomi.PVPMCH;
 using Nagomi.PVPMCH.GCD;
 using Nagomi.PvP.PVPApi;
-using AEAssist;
-using AEAssist.CombatRoutine.View.JobView;
-using AEAssist.Extension;
-using AEAssist.Helper;
-using AEAssist.MemoryApi;
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Game.Text.SeStringHandling;
-using ImGuiNET;
-using System.Numerics;
 using System.Runtime.CompilerServices;
-using System.Collections.Generic;
-
-using Nagomi.PVPMCH.依赖;
 using Nagomi.PVPMCH.Settings;
 using Nagomi.PVPMCH.能力;
 
@@ -113,34 +97,7 @@ public class PVPMCHRotationEntry : IRotationEntry
 
        public  void DrawGeneral(JobViewWindow jobViewWindow)
     { 
-      Share.Pull = true;
-      PVPHelper.通用设置配置("说明:减色混合按移动和停止切换");
-      ImGui.Text("不选敌对目标不会进行任何技能判定");
-      ImGui.Separator();
-      PVPHelper.技能配置界面(29711U, "喝热水");
-      ImGui.InputInt("热水阈值", ref PVPMCHSettings.Instance.药血量, 5, 4);
-      ImGui.Separator();
-      PVPHelper.技能图标(29405U);
-      ImGui.SameLine();
-      PVPHelper.技能图标(29406U);
-      ImGui.SameLine();
-      PVPHelper.技能图标(29407U);
-      ImGui.SameLine();
-      PVPHelper.技能图标(29408U);
-      ImGui.Text("钻头套装");
-      ImGui.Checkbox("钻头:有分析时才使用", ref PVPMCHSettings.Instance.钻头分析);
-      ImGui.Checkbox("毒菌冲击:有分析时才使用", ref PVPMCHSettings.Instance.毒菌分析);
-      ImGui.Checkbox("空气锚:有分析时才使用", ref PVPMCHSettings.Instance.空气锚分析);
-      ImGui.Checkbox("回转飞锯:有分析时才使用", ref PVPMCHSettings.Instance.回转飞锯分析);
-      ImGui.Checkbox("不以龟壳为目标", ref PVPMCHSettings.Instance.TargetDefend);
-      ImGui.Separator();
-      PVPHelper.技能图标(29414U);
-      ImGui.Text("分析");
-      ImGui.Checkbox("钻头套装可用才使用分析", ref PVPMCHSettings.Instance.分析可用);
-      ImGui.Separator();
-      PVPHelper.技能配置界面(29409U, "过热野火");
-      ImGui.Checkbox("过热野火", ref PVPMCHSettings.Instance.过热野火);
-      ImGui.Separator();
+      
       PVPMCHSettings.Instance.Save();
     }
 
@@ -175,26 +132,6 @@ public class PVPMCHRotationEntry : IRotationEntry
       interpolatedStringHandler = new DefaultInterpolatedStringHandler(5, 1);
       interpolatedStringHandler.AppendLiteral("是否移动：");
       interpolatedStringHandler.AppendFormatted<bool>(MoveHelper.IsMoving());
-      ImGui.Text(interpolatedStringHandler.ToStringAndClear());
-      interpolatedStringHandler = new DefaultInterpolatedStringHandler(5, 1);
-      interpolatedStringHandler.AppendLiteral("小队人数：");
-      interpolatedStringHandler.AppendFormatted<int>(PartyHelper.CastableParty.Count);
-      ImGui.Text(interpolatedStringHandler.ToStringAndClear());
-      interpolatedStringHandler = new DefaultInterpolatedStringHandler(9, 1);
-      interpolatedStringHandler.AppendLiteral("25米内敌方人数：");
-      interpolatedStringHandler.AppendFormatted<int>(TargetHelper.GetNearbyEnemyCount((IBattleChara) Core.Me, 25, 25));
-      ImGui.Text(interpolatedStringHandler.ToStringAndClear());
-      interpolatedStringHandler = new DefaultInterpolatedStringHandler(9, 1);
-      interpolatedStringHandler.AppendLiteral("20米内小队人数：");
-      interpolatedStringHandler.AppendFormatted<int>(PartyHelper.CastableAlliesWithin20.Count);
-      ImGui.Text(interpolatedStringHandler.ToStringAndClear());
-      interpolatedStringHandler = new DefaultInterpolatedStringHandler(8, 1);
-      interpolatedStringHandler.AppendLiteral("目标5米内人数：");
-      interpolatedStringHandler.AppendFormatted<int>(TargetHelper.GetNearbyEnemyCount(GameObjectExtension.GetCurrTarget((IBattleChara) Core.Me), 25, 5));
-      ImGui.Text(interpolatedStringHandler.ToStringAndClear());
-      interpolatedStringHandler = new DefaultInterpolatedStringHandler(8, 1);
-      interpolatedStringHandler.AppendLiteral("LB槽当前数值：");
-      interpolatedStringHandler.AppendFormatted<ushort>(LocalPlayerExtension.LimitBreakCurrentValue(Core.Me));
       ImGui.Text(interpolatedStringHandler.ToStringAndClear());
       interpolatedStringHandler = new DefaultInterpolatedStringHandler(5, 1);
       interpolatedStringHandler.AppendLiteral("上个技能：");
