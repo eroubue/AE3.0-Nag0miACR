@@ -32,7 +32,7 @@ namespace Nagomi.PVPMCH
         {
             PVPMCHBattleData.Instance = new PVPMCHBattleData();
             PVPMCHBattleData.Instance.Reset();
-            PVPMCHRotationEntry.QT.Reset();
+            
         }
 
         public async Task OnNoTarget()//进战且无目标时

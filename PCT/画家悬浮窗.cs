@@ -16,6 +16,7 @@ using Dalamud.Game.ClientState.Objects.SubKinds;
 using ECommons.GameFunctions;
 using ECommons.ImGuiMethods;
 
+
 namespace Nagomi.PCT;
 
 public class 画家悬浮窗
@@ -233,6 +234,7 @@ public static void ae单人(List<string> _param1)
             $"动物充能: {Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.动物构想).GetSpell().Charges}");
         //ImGui.TextUnformatted($"CanCast: {PctData.Spells.短1.GetSpell().CanCastEx()}");
         ImGui.TextUnformatted($"团辅: {PCTSpells.风景构想.GetSpell().Charges}");
+        
         DefaultInterpolatedStringHandler interpolatedStringHandler;
         
         if (ImGui.CollapsingHeader("倒计时"))
@@ -245,6 +247,17 @@ public static void ae单人(List<string> _param1)
             interpolatedStringHandler.AppendLiteral("倒计时剩余: ");
             interpolatedStringHandler.AppendFormatted<float>(Core.Resolve<MemApiCountdown>().TimeRemaining());
             ImGui.TextUnformatted(interpolatedStringHandler.ToStringAndClear());
+        }
+        if (ImGui.CollapsingHeader("通用"))
+        {
+            ImGui.TextUnformatted($"自身是否在移动: {Helper.自身是否在移动()}");
+            ImGui.TextUnformatted($"自身是否在读条: {Helper.自身是否在读条()}");
+            ImGui.TextUnformatted($"GCD剩余时间: {Helper.GCD剩余时间()}");
+            ImGui.TextUnformatted($"GCD可用状态: {Helper.GCD可用状态()}");
+            ImGui.TextUnformatted($"高优先级gcd队列中技能数量: {Helper.高优先级gcd队列中技能数量()}");
+            ImGui.TextUnformatted($"上一个gcd技能: {Helper.上一个gcd技能()}");
+            ImGui.TextUnformatted($"上一个能力技能: {Helper.上一个能力技能()}");
+            ImGui.TextUnformatted($"上一个连击技能: {Helper.上一个连击技能()}");
         }
 
         if (ImGui.CollapsingHeader("LB"))
@@ -270,14 +283,13 @@ public static void ae单人(List<string> _param1)
 
     public static void 通用(JobViewWindow jobViewWindow)
     {
+        ImGui.Checkbox("锁定前冲步面板", ref PCTSettings.Instance.isEnAvantPanelLocked);
         
-        if (ImGui.Button("获取触发器链接"))
+        if (ImGui.Button("获取画图绝神兵宝宝椅链接"))
         {
-            Core.Resolve<MemApiChatMessage>().Toast2("感谢使用零师傅工具箱\nヾ(￣▽￣)已为您输出至默语频道", 1, 2000);
-            Core.Resolve<MemApiSendMessage>().SendMessage("/e https://11142.kstore.space/TriggernometryExport.xml");
+            Core.Resolve<MemApiChatMessage>().Toast2("感谢使用零师傅宝宝椅\nヾ(￣▽￣)已为您输出至默语频道", 1, 2000);
+            Core.Resolve<MemApiSendMessage>().SendMessage("/e https://d.feiliupan.com/t/105019529578418176/零师傅远程触发器.xml");
         }
-        ImGui.Text("导入到act高级触发器插件的远程触发器中，使用前请更新!");
-        ImGui.Text("功能：自动狩猎，位移预测，绝本轮椅等,可以给绿玩用，基本未使用第三方库插件。");
 
         if (ImGui.CollapsingHeader("底裤功能,轮盘赌通过才可开启"))
         {
@@ -370,7 +382,7 @@ public static void ae单人(List<string> _param1)
             }
         }
  
-        ;
+        
         
     }
 }

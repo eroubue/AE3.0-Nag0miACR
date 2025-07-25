@@ -163,7 +163,7 @@ public static class Helper
 
     public static bool 目标是否准备放aoe(IBattleChara target, int timeLeft)
     {
-        return TargetHelper.TargercastingIsbossaoe(target, timeLeft);
+        return TargetHelper.targetCastingIsBossAOE(target, timeLeft);
     }
 
     public static bool 目标是否拥有其中的BUFF(List<uint> auras, int timeLeft = 0)

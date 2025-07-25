@@ -15,15 +15,24 @@ public class GNBGCD_base : ISlotResolver
     public SlotMode SlotMode { get; } = SlotMode.Gcd;
     public int Check()
     {
-        if (GNBSettings.Instance.启用覆盖额外距离&&Core.Me.Distance(Core.Me.GetCurrTarget()) > 3+GNBSettings.Instance.额外技能距离)
-            return -12;
+        
         if (Core.Me.GetCurrTarget().HasAnyAura(GNBBuffs.敌人无敌BUFF)) return -152;
         if (QT.QTGET(QTKey.停手))
         {
             return -100;
         }
-        if (Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
+        if (Core.Resolve<MemApiSpell>().CheckActionChange(36937U) == 36938U || Core.Resolve<MemApiSpell>().CheckActionChange(36937U) == 36939U)
+            return -25;//正在狮心连里不打123
+        if (Core.Resolve<MemApiSpell>().CheckActionChange(GNBSpells.烈牙) == GNBSpells.猛兽爪 || Core.Resolve<MemApiSpell>().CheckActionChange(GNBSpells.烈牙) == GNBSpells.凶禽爪)
+            return -25;//正在子弹连里不打123
+        if (GNBSettings.Instance.额外技能距离!=0&&Core.Me.Distance(Core.Me.GetCurrTarget()) > 3+GNBSettings.Instance.额外技能距离)
+            return -12;
+        if (GNBSettings.Instance.额外技能距离==0&&Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
             SettingMgr.GetSetting<GeneralSettings>().AttackRange) return -5;
+        if (Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.残暴弹 && GNBSpells.迅连斩.IsUnlockWithCDCheck() &&
+            Core.Resolve<JobApi_GunBreaker>().Ammo == 2&&Core.Me.Level<88) return -34;
+        if (Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.残暴弹 && GNBSpells.迅连斩.IsUnlockWithCDCheck() &&
+            Core.Resolve<JobApi_GunBreaker>().Ammo == 3&&Core.Me.Level >= 88) return -34;
         return 0;
     }
     

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Nagomi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02f5182cff41b345fb2e0b8cc23f5be41428b6cb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c1f22bf0d989dc5206590e15be905ffbd73fd909")]
 [assembly: System.Reflection.AssemblyProductAttribute("Nagomi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Nagomi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

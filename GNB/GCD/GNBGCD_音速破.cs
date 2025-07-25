@@ -32,18 +32,20 @@ public class GNBGCD_音速破 : ISlotResolver
         {
             return -10;
         }
-        if (GNBSettings.Instance.启用覆盖额外距离&&Core.Me.Distance(Core.Me.GetCurrTarget()) > 3+GNBSettings.Instance.额外技能距离)
-            return -12;
-        if (Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
-            SettingMgr.GetSetting<GeneralSettings>().AttackRange) return -5;
-        if (!GNBSpells.音速破.IsUnlockWithCDCheck())
+        if (!QT.QTGET(QTKey.音速破))
         {
-            return -66;
+            return -10;
         }
-        if  (!Core.Me.HasAura(GNBBuffs.音速破预备)) return -88;
-        if (GNBSpells.裂牙.GetSpell().IsReadyWithCanCast()) return -6;
-        if(Core.Resolve<MemApiSpell>().GetLastComboSpellId() ==GNBSpells.残暴弹)
-            return -7;
+        if (GNBSettings.Instance.额外技能距离!=0&&Core.Me.Distance(Core.Me.GetCurrTarget()) > 3+GNBSettings.Instance.额外技能距离)
+            return -12;
+        if (GNBSettings.Instance.额外技能距离==0&&Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
+            SettingMgr.GetSetting<GeneralSettings>().AttackRange) return -5;
+
+        if (!SpellExtension.IsReadyWithCanCast(GNBSpells.音速破.GetSpell()))
+            return -50;
+        if (GNBSpells.烈牙.GetSpell().IsReadyWithCanCast()&&QT.QTGET(QTKey.二弹)) return -6;
+        
+   
         return 0;
     }
     

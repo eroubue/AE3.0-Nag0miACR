@@ -1,16 +1,16 @@
 using System.Numerics;
 using AEAssist.CombatRoutine.Trigger;
 using ImGuiNET;
-namespace Nagomi.GNB.Triggers;
+namespace Nagomi.PCT.Triggers;
 
 public class TriggerAction_NewQt : ITriggerAction
 {
-    public string DisplayName { get; } = "绝枪/New QT";
+    public string DisplayName { get; } = "画家/New QT";
     public string? Remark { get; set; }
 
     public  Dictionary<string, bool> qtValues = new();
 
-    private  string[]? qtArray = GNBRotationEntry.QT?.GetQtArray();
+    private  string[]? qtArray = PictomancerRotationEntry.QT?.GetQtArray();
 
     public bool Draw()
     {
@@ -133,7 +133,7 @@ public class TriggerAction_NewQt : ITriggerAction
     {
         foreach (var kvp in qtValues)
         {
-             GNBRotationEntry.QT.SetQt(kvp.Key, kvp.Value);
+             PictomancerRotationEntry.QT.SetQt(kvp.Key, kvp.Value);
         }
         return true;
     }

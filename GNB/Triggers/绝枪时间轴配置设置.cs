@@ -18,6 +18,7 @@ public class 绝枪时间轴配置设置: ITriggerAction
     public string Key = "";
     public ITriggerSettingUI? nowSetting = null;
     
+    public int 保留子弹数 = 0;
 
     private readonly Dictionary<string, ITriggerSettingUI> TriggerSettingUI = new();
     public 绝枪时间轴配置设置()
@@ -54,6 +55,14 @@ public class 绝枪时间轴配置设置: ITriggerAction
                     }
                 }
                 ImGui.EndCombo();
+            }
+            // 新增：保留子弹数选择
+            int[] options = { 0, 1, 2 };
+            string[] optionLabels = { "0", "1", "2" };
+            int selected = 保留子弹数;
+            if (ImGui.Combo("保留子弹数", ref selected, optionLabels, optionLabels.Length))
+            {
+                保留子弹数 = selected;
             }
             nowSetting.Draw();
             ImGui.EndGroup();

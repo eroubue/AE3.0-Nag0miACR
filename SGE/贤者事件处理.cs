@@ -28,7 +28,7 @@ namespace Nagomi.SGE
         {
             SGEBattleData.Instance = new SGEBattleData();
             SGEBattleData.Instance.Reset();
-            SGERotationEntry.QT.Reset();
+           
         }
 
         public async Task OnNoTarget()

@@ -1,5 +1,5 @@
+using FFXIVClientStructs.FFXIV.Common.Math;
 using ImGuiNET;
-using Nagomi.GNB;
 
 namespace Nagomi.GNB.Settings
 {
@@ -10,16 +10,35 @@ namespace Nagomi.GNB.Settings
     
         public void Draw()
         {
-            //这里设置ui
-            //ui类型请查询ImGui
-            //ImGui.InputInt("目标剩余多少百分比血量时禁用读条画画", ref GNBSettings.画画百分比);
-            // ImGui.Checkbox("音效", ref PCTSettings.音效);
-            // ImGui.Checkbox("智能aoe目标", ref PCTSettings.智能aoe目标);
-   
+            ImGui.Text("额外技能距离: " + GNBSettings.Instance.额外技能距离.ToString("F2"));
+            ImGui.SameLine();
+            ImGui.ProgressBar(GNBSettings.Instance.额外技能距离 / 3.0f, new Vector2(200, 0), "");
+            ImGui.SliderFloat("额外技能距离", ref GNBSettings.Instance.额外技能距离, 0, 3);
             if (ImGui.Button("Save"))//保存按钮，不用动
             {
                 GNBSettings.Instance.Save();
             }
+            if (ImGui.Button("0"))
+            {
+                GNBSettings.Instance.保留子弹数 = 0;
+            }
+            ImGui.SameLine();
+            if (ImGui.Button("1"))
+            {
+                GNBSettings.Instance.保留子弹数 = 1;
+            }
+            ImGui.SameLine();
+            if (ImGui.Button("2"))
+            {
+                GNBSettings.Instance.保留子弹数 = 2;
+            }
+            ImGui.SameLine();
+            ImGui.Text("当前保留子弹数：");
+            ImGui.SameLine();
+            ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(0, 1, 0, 1));
+            ImGui.Text($"{GNBSettings.Instance.保留子弹数}");
+            ImGui.PopStyleColor();
         }
     }
+    
 }

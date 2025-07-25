@@ -3,15 +3,9 @@ using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
-using AEAssist.JobApi;
-using AEAssist.MemoryApi;
-using Dalamud.Game.ClientState.Objects.Types;
-using System.Runtime;
-using Nagomi.SGE;
-using Nagomi.SGE.Settings;
 using Nagomi.SGE.utils;
-using Nagomi.utils;
-using Nagomi.utils.Helper;
+
+
 
 namespace Nagomi.SGE.能力;
 

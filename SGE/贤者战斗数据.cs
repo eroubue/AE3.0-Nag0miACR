@@ -1,3 +1,5 @@
+
+
 namespace Nagomi.SGE;
 
 public class SGEBattleData

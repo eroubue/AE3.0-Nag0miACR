@@ -7,7 +7,7 @@ public class GNBSpells
     public const uint 终结之心 = 36939;//狮心3
     public const uint 命运之印= 36936;//Fated Brand 命运续剑
     public const uint 弹道 = 36934;
-    public const uint 裂牙 = 16146; //Gnashing Fang子弹1
+    public const uint 烈牙 = 16146; //Gnashing Fang子弹1
     public const uint 猛兽爪 = 16147;//Savage Claw子弹2
     public const uint 凶禽爪 = 16150;//Wicked Talon子弹3
     public const uint 爆破领域 = 16165;

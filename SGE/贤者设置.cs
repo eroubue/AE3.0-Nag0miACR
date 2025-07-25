@@ -45,10 +45,13 @@ public class SGESettings
     public int 即刻贤炮 = 0;
     public float 不上dot阈值 = 0.03f;
     public int opener = 0;
-    public int 预读时间 = 1500;
+    public int 预读时间 = 1600;
     public int 红豆保留数量 = 1;
     public int 发炎保留数量 = 1;
     public string targetName = "";
+    public int 混合输血目标 = 1;
+    public  string FFlogsClientId = "";
+    public  string FFlogsClientSecret = "";
     //public bool 智能aoe目标 = false;
 
     public JobViewSave JobViewSave = new(){ MainColor = new Vector4(40 / 255f, 173 / 255f, 70 / 255f, 0.8f) }; // QT设置存档

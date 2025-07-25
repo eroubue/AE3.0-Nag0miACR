@@ -20,13 +20,11 @@ using System.Collections.Generic;
 using System.Numerics;
 using Dalamud;
 using Microsoft.VisualBasic;
-using Nagomi.utils.Helper;
+
 using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
-using NAudio.CoreAudioApi;
-using NAudio.Wave;
 
 namespace Nagomi.SMN
 {
@@ -40,7 +38,7 @@ namespace Nagomi.SMN
         {
             SMNBattleData.Instance = new SMNBattleData();
             SMNBattleData.Instance.Reset();
-            SMNRotationEntry.QT.Reset();
+            
         }
 
         public async Task OnNoTarget()

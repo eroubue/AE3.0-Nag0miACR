@@ -16,6 +16,7 @@ using Dalamud.Game.ClientState.Objects.SubKinds;
 using ECommons.GameFunctions;
 using ECommons.ImGuiMethods;
 
+
 namespace Nagomi.SMN;
 
 public class 召唤悬浮窗
@@ -54,6 +55,17 @@ public class 召唤悬浮窗
             interpolatedStringHandler.AppendFormatted<float>(Core.Resolve<MemApiCountdown>().TimeRemaining());
             ImGui.TextUnformatted(interpolatedStringHandler.ToStringAndClear());
         }
+        if (ImGui.CollapsingHeader("通用"))
+        {
+            ImGui.TextUnformatted($"自身是否在移动: {Helper.自身是否在移动()}");
+            ImGui.TextUnformatted($"自身是否在读条: {Helper.自身是否在读条()}");
+            ImGui.TextUnformatted($"GCD剩余时间: {Helper.GCD剩余时间()}");
+            ImGui.TextUnformatted($"GCD可用状态: {Helper.GCD可用状态()}");
+            ImGui.TextUnformatted($"高优先级gcd队列中技能数量: {Helper.高优先级gcd队列中技能数量()}");
+            ImGui.TextUnformatted($"上一个gcd技能: {Helper.上一个gcd技能()}");
+            ImGui.TextUnformatted($"上一个能力技能: {Helper.上一个能力技能()}");
+            ImGui.TextUnformatted($"上一个连击技能: {Helper.上一个连击技能()}");
+        }
 
         if (ImGui.CollapsingHeader("LB"))
         {
@@ -67,10 +79,10 @@ public class 召唤悬浮窗
     public static void 通用(JobViewWindow jobViewWindow)
     {
         
-        if (ImGui.Button("获取触发器链接"))
+        if (ImGui.Button("获取画图绝神兵宝宝椅链接"))
         {
-            Core.Resolve<MemApiChatMessage>().Toast2("感谢使用零师傅工具箱\nヾ(￣▽￣)已为您输出至默语频道", 1, 2000);
-            Core.Resolve<MemApiSendMessage>().SendMessage("/e https://11142.kstore.space/TriggernometryExport.xml");
+            Core.Resolve<MemApiChatMessage>().Toast2("感谢使用零师傅宝宝椅\nヾ(￣▽￣)已为您输出至默语频道", 1, 2000);
+            Core.Resolve<MemApiSendMessage>().SendMessage("/e https://d.feiliupan.com/t/105019529578418176/零师傅远程触发器.xml");
         }
         if (ImGui.CollapsingHeader("底裤功能,轮盘赌通过才可开启"))
         {
@@ -162,8 +174,7 @@ public class 召唤悬浮窗
               
             }
         }
- 
-        ;
+        
         
     }
 }

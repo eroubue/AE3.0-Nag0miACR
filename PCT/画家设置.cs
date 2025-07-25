@@ -55,6 +55,7 @@ namespace Nagomi.PCT
         public bool OpenLazy = true;
         public int 团辅提前 = 25;
         public int opener = 0;
+        public bool isEnAvantPanelLocked = true;
 
         public JobViewSave JobViewSave = new(){MainColor = new Vector4(40 / 255f, 173 / 255f, 70 / 255f, 0.8f)}; // QT设置存档
 

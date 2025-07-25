@@ -26,7 +26,7 @@ using Nagomi.PCT.utils;
 using Nagomi.utils;
 using Nagomi.SMN.能力;
 using Nagomi.SMN.GCD;
-using Nagomi.utils.Helper;
+
 using Keys = AEAssist.Define.HotKey.Keys;
 using Map = Nagomi.utils.Map;
 using Vector2 = System.Numerics.Vector2;
@@ -96,7 +96,7 @@ namespace Nagomi
             //jobViewWindow.AddTab("日志", _lazyOverlay.更新日志);
             QT.AddTab("通用", 召唤悬浮窗.通用);
             QT.AddTab("DEV", 召唤悬浮窗.DrawDev);
-            //QT.AddTab("ae", 召唤悬浮窗.ae人数查询);
+            //QT.AddTab("ae", 贤者悬浮窗.ae人数查询);
             //QT.AddTab("log", LogModifier.DrawLogModifierTab);
 
 

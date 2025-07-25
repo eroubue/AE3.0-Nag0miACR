@@ -11,7 +11,6 @@ public class TriggerAction_HotKey : ITriggerAction
     public string Remark { get; set; }
     
     public string Key = "";
-    public bool Value;
     
     // 辅助数据 因为是private 所以不存档
     private int _selectIndex;

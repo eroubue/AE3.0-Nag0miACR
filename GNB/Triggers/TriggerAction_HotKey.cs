@@ -4,7 +4,6 @@ using ImGuiNET;
 
 namespace Nagomi.GNB.Triggers;
 
-//这个类也可以完全复制 改一下上面的namespace和对HotKey的引用就行
 public class TriggerAction_HotKey : ITriggerAction
 {
     public string DisplayName { get; } = "绝枪/HotKey";

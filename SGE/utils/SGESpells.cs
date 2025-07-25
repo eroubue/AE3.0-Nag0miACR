@@ -49,7 +49,7 @@ public class SGESpells
         public const uint 均衡注药II = 24308;
         public const uint 根素 = 24309;
         public const uint Holos = 24310;
-        public const uint Panhaima = 24311;
+        public const uint 群输血 = 24311;
         public const uint 注药III = 24312;
         public const uint 发炎III = 24313;
         public const uint 均衡注药III = 24314;
@@ -60,7 +60,7 @@ public class SGESpells
         public const uint Icarus = 24295;
         public const uint 醒梦 = 7562;
         public const uint 康复 = 7568;
-        public const uint 沉稳咏唱 = 7559;
+        public const uint 输血 = 24305;
         public const uint 即刻咏唱 = 7561;
 
         #endregion

@@ -1,7 +1,6 @@
 using Nagomi.SGE.Settings;
 using Nagomi.SGE.utils;
 using Nagomi.utils;
-using Nagomi.utils.Helper;
 
 namespace Nagomi.SGE.GCD;
 using AEAssist;
@@ -9,10 +8,9 @@ using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
-using AEAssist.JobApi;
-using AEAssist.MemoryApi;
+
 using Dalamud.Game.ClientState.Objects.Types;
-using Dalamud.Game.Text.SeStringHandling;
+
 
 public class 复活 : ISlotResolver
 {
@@ -49,10 +47,6 @@ public class 复活 : ISlotResolver
             return -1;
         }
         if (target.Distance(Helper.自身) > 30)
-        {
-            return -1;
-        }
-        if (Helper.目标是否在剧情状态(target))
         {
             return -1;
         }

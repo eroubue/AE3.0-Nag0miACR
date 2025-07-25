@@ -10,7 +10,7 @@ using Nagomi.GNB.utils;
 
 namespace Nagomi.GNB.Opener;
 
-public class 二弹120起手 : IOpener
+public class 无情2g起手 : IOpener
 {
     public int StartCheck()
     {
@@ -44,39 +44,25 @@ public class 二弹120起手 : IOpener
     private static void Step0(Slot slot)
     {
         slot.Add(new Spell(GNBSpells.利刃斩, SpellTargetType.Target));
-        slot.Add(new Spell(GNBSpells.血壤, SpellTargetType.Target));
-        
-        
-        
-
+        slot.Add(new Spell(GNBSpells.残暴弹, SpellTargetType.Target));
     }
 
     private static void Step1(Slot slot)
     {
-        slot.Add(new Spell(GNBSpells.爆发击, SpellTargetType.Target));
+        slot.Add(new Spell(GNBSpells.血壤, SpellTargetType.Target));
         slot.Add(new Spell(GNBSpells.无情, SpellTargetType.Self));
-        slot.Add(new Spell(GNBSpells.超音速, SpellTargetType.Target));
-        
-       
-       
-
     }
     private static void Step2(Slot slot)
     {
         slot.Add(new Spell(GNBSpells.烈牙, SpellTargetType.Target));
         slot.Add(new Spell(GNBSpells.爆破领域, SpellTargetType.Target));
         slot.Add(new Spell(GNBSpells.撕喉, SpellTargetType.Target));
-        
-        
-        
     }
-
     private static void Step3(Slot slot)
     {
-        slot.Add(new Spell(GNBSpells.音速破, SpellTargetType.Target));
-        slot.Add(new Spell(GNBSpells.弓形冲波, SpellTargetType.Self));
         slot.Add(new Spell(GNBSpells.倍攻, SpellTargetType.Self));
-
+        slot.Add(new Spell(GNBSpells.弓形冲波, SpellTargetType.Self));
+        slot.Add(new Spell(GNBSpells.音速破, SpellTargetType.Target));
     }
     
     
@@ -90,9 +76,9 @@ public class 二弹120起手 : IOpener
     {
 
         if (Core.Me.HasAura(GNBBuffs.王室亲卫)&&GNBSettings.Instance.ST)
-            countDownHandler.AddAction(10000, GNBSpells.关盾姿);
+            countDownHandler.AddAction(4500, GNBSpells.关盾姿);
         if (Core.Me.HasAura(GNBBuffs.王室亲卫)&&!GNBSettings.Instance.ST)
-            countDownHandler.AddAction(10000, GNBSpells.盾姿);
+            countDownHandler.AddAction(4000, GNBSpells.盾姿);
 
 
 

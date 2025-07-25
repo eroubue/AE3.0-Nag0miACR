@@ -9,7 +9,7 @@ using Nagomi.GNB.utils;
 
 namespace Nagomi.GNB.GCD;
 
-public class GNBGCD_音速破 : ISlotResolver
+public class GNBGCD_70音速破 : ISlotResolver
 {
     public SlotMode SlotMode { get; } = SlotMode.Gcd;
     public int Check()
@@ -36,14 +36,14 @@ public class GNBGCD_音速破 : ISlotResolver
         {
             return -10;
         }
+        if (Core.Me.Level != 70) return -10;
         if (GNBSettings.Instance.额外技能距离!=0&&Core.Me.Distance(Core.Me.GetCurrTarget()) > 3+GNBSettings.Instance.额外技能距离)
             return -12;
         if (GNBSettings.Instance.额外技能距离==0&&Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
             SettingMgr.GetSetting<GeneralSettings>().AttackRange) return -5;
-
         if (!SpellExtension.IsReadyWithCanCast(GNBSpells.音速破.GetSpell()))
             return -50;
-        if (GNBSpells.烈牙.GetSpell().IsReadyWithCanCast()&&QT.QTGET(QTKey.二弹)) return -6;
+        
         
    
         return 0;

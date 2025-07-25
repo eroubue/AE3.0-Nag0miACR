@@ -93,7 +93,15 @@ public class SGESettingUI
             }
             else if (SGESettings.Instance.opener == 1)
             {
-                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "贤炮起手"); // 蓝色
+                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "贤炮3g起手"); // 蓝色
+            }
+            else if (SGESettings.Instance.opener == 2)
+            {
+                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "贤炮直接dot起手"); // 蓝色
+            }
+            else if (SGESettings.Instance.opener == 3)
+            {
+                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "神兵起手"); // 蓝色
             }
 
             if (ImGui.Button("默认起手"))
@@ -102,9 +110,21 @@ public class SGESettingUI
                 SGESettings.Instance.Save();
             }
             ImGui.SameLine();
-            if (ImGui.Button("贤炮起手"))
+            if (ImGui.Button("贤炮3g起手"))
             {
                 SGESettings.Instance.opener = 1;
+                SGESettings.Instance.Save();
+            }
+            ImGui.SameLine();
+            if (ImGui.Button("贤炮直接dot起手"))
+            {
+                SGESettings.Instance.opener = 2;
+                SGESettings.Instance.Save();
+            }
+            ImGui.SameLine();
+            if (ImGui.Button("神兵起手"))
+            {
+                SGESettings.Instance.opener = 3;
                 SGESettings.Instance.Save();
             }
    
@@ -126,5 +146,63 @@ public class SGESettingUI
             }
         }
     
+}
+public interface ITriggerSettingUI
+{
+    string Name();
+    
+    void Draw();
+
+    void Handle();
+
+}
+
+public class Switch : ITriggerSettingUI
+{
+    private Dictionary<string, bool> SwitchList = new Dictionary<string, bool>()
+    {
+        {"退出战斗自动初始化QT",false},
+    };
+
+    public string Key = "退出战斗自动初始化QT";
+    public bool Value = false;
+        
+    
+    
+    public string Name()
+    {
+        return "各种开关";
+    }
+
+    public void Draw()
+    {
+        
+        ImGui.BeginGroup();
+            
+        if (ImGui.BeginCombo("###贤者各种开关设置类型", $"{Key}"))
+        {
+            foreach (var settingUi in SwitchList)
+            {
+                if (ImGui.Selectable($"{settingUi.Key}"))
+                {
+                    Key = settingUi.Key;
+                    Value = settingUi.Value;
+                }
+            }
+            ImGui.EndCombo();
+        }
+        ImGui.EndGroup();
+        ImGui.Checkbox(Key + "###时间轴设置", ref Value);
+    }
+
+    public void Handle()
+    {
+        switch (Key)
+        {
+            case "退出战斗自动初始化QT":
+                SGESettings.Instance.JobViewSave.AutoReset = Value;
+                break;
+        }
+    }
 }
 

@@ -49,7 +49,7 @@ public class TriggerAction_QT : ITriggerAction
 }
 
 
-public class TriggerQTSetting()
+public class TriggerQTSetting
 {
     public string Key = "爆发药";
     public bool Value = false;

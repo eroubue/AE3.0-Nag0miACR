@@ -16,7 +16,7 @@ public class GNB能力_血壤 : ISlotResolver
         {
             return -100;
         }
-        if (!GNBSpells.血壤.IsUnlockWithCDCheck())
+        if (!GNBSpells.血壤.GetSpell().IsReadyWithCanCast())
         {
             return -66;
         }

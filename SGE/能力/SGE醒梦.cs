@@ -4,7 +4,7 @@ using AEAssist.CombatRoutine.Module;
 using AEAssist.Helper;
 using AEAssist.MemoryApi;
 using Nagomi.SGE.utils;
-using Nagomi.utils.Helper;
+
 
 namespace Nagomi.SGE.能力;
 

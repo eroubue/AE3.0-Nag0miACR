@@ -25,12 +25,11 @@ using Nagomi.PCT.Settings;
 using Nagomi.PCT.Triggers;
 using Nagomi.PCT.utils;
 using Nagomi.PCT.能力;
-using Nagomi.utils.Helper;
+using Wotou.Dancer.Utility;
 using Keys = AEAssist.Define.HotKey.Keys;
 using Map = Nagomi.utils.Map;
 using Vector2 = System.Numerics.Vector2;
-
-namespace Nagomi
+namespace Nagomi.PCT
 {
 
     public class PictomancerRotationEntry : IRotationEntry
@@ -59,6 +58,7 @@ namespace Nagomi
             new(new PCT_能力_莫古力(), SlotMode.OffGcd),
             new(new PCT_能力_武器构想(), SlotMode.OffGcd),
             new(new PCTGCD_锤子(), SlotMode.Gcd),
+            
             new(new PCTGCD_彩虹(), SlotMode.Gcd),
             new(new PCTGCD_武器彩绘(), SlotMode.Gcd),
             new(new PCTGCD_动物彩绘(), SlotMode.Gcd),
@@ -66,6 +66,7 @@ namespace Nagomi
             new(new PCT_能力_动物构想(), SlotMode.OffGcd),
             new(new PCTGCD_WHITE(), SlotMode.Gcd),
             new(new PCTGCD_RGB(), SlotMode.Gcd),
+            
             
             new(new PCT_能力_醒梦(), SlotMode.OffGcd),
        
@@ -88,6 +89,7 @@ namespace Nagomi
             
             rot.AddOpener(GetOpener);
             rot.SetRotationEventHandler(new PictomancerRotationEventHandler());
+            rot.AddTriggerAction(new TriggerAction_NewQt());
             rot.AddTriggerAction(new TriggerAction_QT());
             rot.AddTriggerAction(new TriggerAction_HotKey());
             rot.AddTriggerAction(new TriggerAction_LazyCast());
@@ -107,6 +109,7 @@ namespace Nagomi
         }
         // 声明当前要使用的UI的实例 示例里使用QT
         public static JobViewWindow QT { get; private set; }
+        public static HotkeyWindow? JoystickWindow { get; set; }
     
         // 如果你不想用QT 可以自行创建一个实现IRotationUI接口的类
         public IRotationUI GetRotationUI()
@@ -125,41 +128,46 @@ namespace Nagomi
         {
             QT = new JobViewWindow( PCTSettings.Instance.JobViewSave,  PCTSettings.Instance.Save, OverlayTitle);
             //jobViewWindow.AddTab("日志", _lazyOverlay.更新日志);
-            QT.AddTab("通用", 画家悬浮窗.通用);
-            QT.AddTab("DEV", 画家悬浮窗.DrawDev);
-            //QT.AddTab("ae", 召唤悬浮窗.ae人数查询);
-            //QT.AddTab("log", LogModifier.DrawLogModifierTab);
+            
+             QT.AddTab("通用", 画家悬浮窗.通用);
+             QT.AddTab("DEV", 画家悬浮窗.DrawDev);
+             /*QT.SetUpdateAction(() =>
+             {
+                 JoystickHotkeyWindowManager.DrawOrUpdateHotkeyWindow(new QtStyle(PCTSettings.Instance.JobViewSave));
+                 var enAvantViewSave = new JobViewSave();
+                 enAvantViewSave.LockWindow = PCTSettings.Instance.isEnAvantPanelLocked;
+             });*/
 
-            QT.AddQt(QTKey.减色混合,true);
-            QT.AddQt(QTKey.AOE,true);
-            QT.AddQt(QTKey.CYM,true);
-            QT.AddQt(QTKey.RGB,true);
-            QT.AddQt(QTKey.sb,true);
-            QT.AddQt(QTKey.锤连击,true);
-            QT.AddQt(QTKey.动物彩绘,true);
-            QT.AddQt(QTKey.武器彩绘,true);
-            QT.AddQt(QTKey.风景彩绘,true);
-            QT.AddQt(QTKey.动物构想,true);
-            QT.AddQt(QTKey.武器构想,true);
-            QT.AddQt(QTKey.风景构想,true);
-            QT.AddQt(QTKey.莫古力激流,true);
-            QT.AddQt(QTKey.马蒂恩惩罚,true);
-            QT.AddQt(QTKey.保留1层锤,false);
-            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Clear();
-            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.RGB);
-            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.动物彩绘);
-            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.武器彩绘);
-            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.风景彩绘);
-            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.莫古力激流);
-            PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.马蒂恩惩罚);
-            QT.AddHotkey("防击退", new HotKeyResolver_NormalSpell(7559, SpellTargetType.Self, false));
-            QT.AddHotkey("极限技", new HotKeyResolver_LB());
-            QT.AddHotkey("爆发药", new HotKeyResolver_Potion());
-            QT.AddHotkey("昏乱", new HotKeyResolver_NormalSpell(7560, SpellTargetType.Target, false));
-            QT.AddHotkey("盾", new HotKeyResolver_NormalSpell(34685, SpellTargetType.Self, false));
-            QT.AddHotkey("群盾", (IHotkeyResolver)new 群盾());
-            QT.AddHotkey("屏幕位移", (IHotkeyResolver)new 速涂());
-            QT.AddHotkey("tp魔纹", (IHotkeyResolver)new mousebuff());
+             QT.AddQt(QTKey.减色混合,true);
+             QT.AddQt(QTKey.AOE,true);
+             QT.AddQt(QTKey.CYM,true);
+             QT.AddQt(QTKey.RGB,true);
+             QT.AddQt(QTKey.sb,true);
+             QT.AddQt(QTKey.锤连击,false);
+             QT.AddQt(QTKey.动物彩绘,true);
+             QT.AddQt(QTKey.武器彩绘,false);
+             QT.AddQt(QTKey.风景彩绘,true);
+             QT.AddQt(QTKey.动物构想,true);
+             QT.AddQt(QTKey.武器构想,false);
+             QT.AddQt(QTKey.风景构想,true);
+             QT.AddQt(QTKey.莫古力激流,true);
+             QT.AddQt(QTKey.马蒂恩惩罚,true);
+             QT.AddQt(QTKey.保留1层锤,false);
+             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Clear();
+             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.RGB);
+             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.动物彩绘);
+             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.武器彩绘);
+             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.风景彩绘);
+             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.莫古力激流);
+             PCTSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.马蒂恩惩罚);
+             QT.AddHotkey("防击退", new HotKeyResolver_NormalSpell(7559, SpellTargetType.Self, false));
+             QT.AddHotkey("极限技", new HotKeyResolver_LB());
+             QT.AddHotkey("爆发药", new HotKeyResolver_Potion());
+             QT.AddHotkey("昏乱", new HotKeyResolver_NormalSpell(7560, SpellTargetType.Target, false));
+             QT.AddHotkey("盾", new HotKeyResolver_NormalSpell(34685, SpellTargetType.Self, false));
+             QT.AddHotkey("群盾", (IHotkeyResolver)new 群盾());
+             QT.AddHotkey("屏幕位移", (IHotkeyResolver)new 速涂());
+             QT.AddHotkey("tp魔纹", (IHotkeyResolver)new mousebuff());
             
 
         }

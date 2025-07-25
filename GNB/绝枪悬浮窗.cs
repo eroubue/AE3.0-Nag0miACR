@@ -1,25 +1,18 @@
 using AEAssist;
-using AEAssist.API.MemoryApi;
 using AEAssist.CombatRoutine.View.JobView;
-using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
-using AEAssist.Verify;
-using ECommons.DalamudServices;
 using FFXIVClientStructs.FFXIV.Common.Math;
 using ImGuiNET;
 using AEAssist.Extension;
-using Dalamud.Game.ClientState.Party;
 using System.Runtime.CompilerServices;
-using System.Text;
-using Dalamud.Game.ClientState.Objects.SubKinds;
-using ECommons.GameFunctions;
-using ECommons.ImGuiMethods;
-using Nagomi.utils.Helper;
+using AEAssist.CombatRoutine;
+using AEAssist.Define;
 
-namespace Nagomi.SMN;
 
-public class 召唤悬浮窗
+namespace Nagomi.GNB;
+
+public class 绝枪悬浮窗
 {
     private static bool showHiddenImgui = false;
     private static bool showHiddenImguiPro = false;
@@ -35,13 +28,11 @@ public class 召唤悬浮窗
 
    public static void DrawDev(JobViewWindow jobViewWindow)
     {
-        ImGui.TextUnformatted($"召唤兽在场的时间: {Core.Resolve<JobApi_Summoner>().SummonTimerRemaining}");
-        ImGui.TextUnformatted($"以太超流层数: {Core.Resolve<JobApi_Summoner>().AetherflowStacks}");
-        ImGui.TextUnformatted($"召唤兽: {Core.Resolve<JobApi_Summoner>().ActivePetType}");
-        ImGui.TextUnformatted($"召唤技能层数(修正): {Core.Resolve<JobApi_Summoner>().AttunementAdjust}");
-        ImGui.TextUnformatted($"三神宝石的持续时间: {Core.Resolve<JobApi_Summoner>().AttunmentTimerRemaining}");
-        ImGui.TextUnformatted($"有以太超流: {Core.Resolve<JobApi_Summoner>().HasAetherflowStacks}");
-        ImGui.TextUnformatted($"有宝石兽: {Core.Resolve<JobApi_Summoner>().HasPet}");
+        ImGui.TextUnformatted($"子弹: {Core.Resolve<JobApi_GunBreaker>().Ammo}");
+        ImGui.TextUnformatted($"子弹连击状态: {Core.Resolve<JobApi_GunBreaker>().AmmoComboStep}");
+        ImGui.TextUnformatted($"倾泄qt保留子弹数: {GNBSettings.Instance.保留子弹数}");
+        ImGui.TextUnformatted($"当前额外技能距离: {GNBSettings.Instance.额外技能距离}");
+      
         DefaultInterpolatedStringHandler interpolatedStringHandler;
         
         if (ImGui.CollapsingHeader("倒计时"))
@@ -56,7 +47,10 @@ public class 召唤悬浮窗
             ImGui.TextUnformatted(interpolatedStringHandler.ToStringAndClear());
         }
         if (ImGui.CollapsingHeader("通用"))
-        {
+        {  
+            ImGui.TextUnformatted($"与自身目标距离: {Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox)}");
+            ImGui.TextUnformatted($"ae设置中攻击距离距离: {SettingMgr.GetSetting<GeneralSettings>().AttackRange}");
+            
             ImGui.TextUnformatted($"自身是否在移动: {Helper.自身是否在移动()}");
             ImGui.TextUnformatted($"自身是否在读条: {Helper.自身是否在读条()}");
             ImGui.TextUnformatted($"GCD剩余时间: {Helper.GCD剩余时间()}");
@@ -73,16 +67,120 @@ public class 召唤悬浮窗
             ImGui.Text("每条充能槽填满所需: " + Core.Me.LimitBreakBarValue().ToString());
             ImGui.Text("当前LB充能数值: " + Core.Me.LimitBreakCurrentValue().ToString());
         }
+        if (ImGui.CollapsingHeader("ACR逻辑"))
+        {
+            ImGui.Text("本acr建议使用2.5gcd " );
+            ImGui.Text("未开启无情不延后qt时，100级填充期无情仅在可双爆发击时使用" );
+            ImGui.Text("二弹120在爆发击卸子弹后进无情，零弹120在残暴弹使用后进无情" );
+            ImGui.Text("gcd优先级：子弹连，倍攻，音速破，狮心连 " );
+        }
 
     }
 
     public static void 通用(JobViewWindow jobViewWindow)
     {
-        
-        if (ImGui.Button("获取触发器链接"))
+        ImGui.Text("测试中");
+        ImGui.Text("MT or ST");
+        ImGui.SameLine();
+        if (GNBSettings.Instance.ST)
         {
-            Core.Resolve<MemApiChatMessage>().Toast2("感谢使用零师傅工具箱\nヾ(￣▽￣)已为您输出至默语频道", 1, 2000);
-            Core.Resolve<MemApiSendMessage>().SendMessage("/e https://11142.kstore.space/TriggernometryExport.xml");
+            ImGui.TextColored(new System.Numerics.Vector4(1.0f, 0.0f, 0.0f, 1.0f), "ST"); 
+        }
+        else if (!GNBSettings.Instance.ST)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 1.0f, 0.0f, 1.0f), "MT"); 
+        }
+        ImGui.SameLine();
+        if (ImGui.Button(" ST "))
+        {
+            GNBSettings.Instance.ST = true;
+            GNBSettings.Instance.Save();
+        }
+        ImGui.SameLine();
+        if (ImGui.Button(" MT "))
+        {
+            GNBSettings.Instance.ST = false;
+            GNBSettings.Instance.Save();
+        }
+        ImGui.Text("当前起手：");
+        ImGui.SameLine();
+  
+         if (GNBSettings.Instance.opener == 1)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "零弹120起手"); // 蓝色
+        }
+        else if (GNBSettings.Instance.opener == 2)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "二弹120起手"); // 蓝色
+        }
+        else if (GNBSettings.Instance.opener == 3)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "神兵起手"); // 蓝色
+        }
+        else if (GNBSettings.Instance.opener == 4)
+        {
+            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "2g无情起手"); // 蓝色
+        }
+        
+         
+        if (ImGui.Button("零弹无情起手"))
+        {
+            GNBSettings.Instance.opener = 1;
+            GNBSettings.Instance.Save();
+        }
+        ImGui.SameLine();
+        if (ImGui.Button("二弹无情起手"))
+        {
+            GNBSettings.Instance.opener = 2;
+            GNBSettings.Instance.Save();
+        }
+        ImGui.SameLine();
+        if (ImGui.Button("2g无情起手"))
+        {
+            GNBSettings.Instance.opener = 4;
+            GNBSettings.Instance.Save();
+        }
+        
+        ImGui.SameLine();
+        if (ImGui.Button("神兵起手"))
+        {
+            GNBSettings.Instance.opener = 3;
+            GNBSettings.Instance.Save();
+        }
+       
+        ImGui.Text("额外技能距离: " + GNBSettings.Instance.额外技能距离.ToString("F2"));
+        ImGui.SameLine();
+        ImGui.ProgressBar(GNBSettings.Instance.额外技能距离 / 3.0f, new Vector2(200, 0), "");
+        ImGui.SliderFloat("", ref GNBSettings.Instance.额外技能距离, 0, 3);
+        if (ImGui.Button("0"))
+        {
+            GNBSettings.Instance.保留子弹数 = 0;
+        }
+        ImGui.SameLine();
+        if (ImGui.Button("1"))
+        {
+            GNBSettings.Instance.保留子弹数 = 1;
+        }
+        ImGui.SameLine();
+        if (ImGui.Button("2"))
+        {
+            GNBSettings.Instance.保留子弹数 = 2;
+        }
+        ImGui.SameLine();
+        ImGui.Text("当前保留子弹数：");
+        ImGui.SameLine();
+        ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(0, 1, 0, 1));
+        ImGui.Text($"{GNBSettings.Instance.保留子弹数}");
+        ImGui.PopStyleColor();
+            
+        
+        
+
+        
+        if (ImGui.Button("获取画图绝神兵宝宝椅链接"))
+        {
+            Core.Resolve<MemApiChatMessage>().Toast2("感谢使用零师傅宝宝椅\nヾ(￣▽￣)已为您输出至默语频道", 1, 2000);
+            Core.Resolve<MemApiSendMessage>().SendMessage("/e https://d.feiliupan.com/t/105019529578418176/零师傅远程触发器.xml");
         }
         if (ImGui.CollapsingHeader("底裤功能,轮盘赌通过才可开启"))
         {
@@ -174,8 +272,6 @@ public class 召唤悬浮窗
               
             }
         }
- 
-        ;
         
     }
 }

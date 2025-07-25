@@ -17,3 +17,6 @@ build_property.RootNamespace = Nagomi
 build_property.ProjectDir = D:\ACR\AEACR3.0\Nagomi\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 

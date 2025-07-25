@@ -363,9 +363,13 @@ public static class Helper
     {
         return spellId.GetSpell().RecentlyUsed(time);
     }
-    public static bool 无情30s内是否用过(this uint spellId, int time=30000)
+    public static bool 技能22s内是否用过(this uint spellId, int time=22500)
     {
         return spellId.GetSpell().RecentlyUsed(time);
+    }
+    public static bool 技能0dot5s内是否用过(this uint spellId)
+    {
+        return spellId.GetSpell().RecentlyUsed(500);
     }
     
 
@@ -387,5 +391,7 @@ public static class Helper
         return Convert.ToInt64(ts.TotalMilliseconds);
     }
  
+
+   
 
 }

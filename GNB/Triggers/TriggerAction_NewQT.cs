@@ -1,86 +1,141 @@
-using AEAssist.CombatRoutine.Trigger;
-using AEAssist.GUI;
-using ImGuiNET;
 using System.Numerics;
-
+using AEAssist.CombatRoutine.Trigger;
+using ImGuiNET;
 namespace Nagomi.GNB.Triggers;
 
-//这个类也可以完全复制 改一下上面的namespace和对QT的引用就行
-public class TriggerAction_QT : ITriggerAction
+public class TriggerAction_NewQt : ITriggerAction
 {
-    public string DisplayName { get; } = "绝枪/QT";
-    public string Remark { get; set; }
-    
-    public List<TriggerQTSetting> QTList = [];
-    
+    public string DisplayName { get; } = "绝枪/New QT";
+    public string? Remark { get; set; }
+
+    public  Dictionary<string, bool> qtValues = new();
+
+    private  string[]? qtArray = GNBRotationEntry.QT?.GetQtArray();
+
     public bool Draw()
     {
-        ImGui.BeginChild("###TriggerGNB", new Vector2(0f, 0f));
-        ImGuiHelper.DrawSplitList("QT开关", QTList, DrawHeader, AddCallBack, DrawCallback);
-        ImGui.EndChild();
+        ImGui.NewLine();
+        ImGui.Separator();
+        ImGui.Text("点击按钮在三种状态间切换：未添加 / 已关闭 / 已启用");
+        ImGui.NewLine();
+        const int columns = 5;
+        var count = 0;
+
+        if (qtArray != null)
+            foreach (var qt in qtArray)
+            {
+                ImGui.PushID(qt);
+
+                if (qtValues.TryGetValue(qt, out var isEnabled))
+                {
+                    ImGui.PushStyleColor(
+                        ImGuiCol.Text,
+                        isEnabled
+                            ? new Vector4(0f, 1f, 0f, 1f) // ✅ 启用：绿色
+                            : new Vector4(1.0f, 0.4f, 0.7f, 1.0f) // ❌ 未启用：粉红色
+                    );
+                }
+                else
+                {
+                    ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(1f, 1f, 1f, 1f)); // 🆕 未添加：默认白
+                }
+
+                if (ImGui.Button(qt))
+                {
+                    if (!qtValues.TryGetValue(qt, out var value))
+                        qtValues[qt] = false; // 🆕 → ❌
+                    else if (!value)
+                        qtValues[qt] = true; // ❌ → ✅
+                    else
+                        qtValues.Remove(qt); // ✅ → 🆕
+                }
+
+                ImGui.PopStyleColor();
+                ImGui.PopID();
+
+                if (++count % columns != 0)
+                    ImGui.SameLine();
+            }
+
+        ImGui.NewLine();
+
+        ImGui.Separator();
+
+        if (qtValues.Count == 0)
+        {
+            return true;
+        }
+
+        List<string> toRemove = [];
+
+        foreach (var kvp in qtValues)
+        {
+            var qt = kvp.Key;
+            var val = kvp.Value;
+
+            ImGui.PushID(qt);
+
+            if (ImGui.Checkbox(" ", ref val))
+            {
+                qtValues[qt] = val;
+            }
+
+            ImGui.SameLine();
+            ImGui.Text(qt);
+            ImGui.SameLine();
+
+            var color = val ? new Vector4(0f, 1f, 0f, 1f) : new Vector4(1f, 0f, 0f, 1f);
+            var status = val ? "（已启用）" : "（已关闭）";
+            ImGui.TextColored(color, status);
+
+            ImGui.SameLine();
+            if (ImGui.Button("删除"))
+            {
+                toRemove.Add(qt);
+            }
+
+            ImGui.PopID();
+        }
+
+        // 删除被标记的项
+        foreach (var qt in toRemove)
+        {
+            qtValues.Remove(qt);
+        }
+
+        ImGui.Separator();
+
+        if (ImGui.Button("全部启用"))
+        {
+            foreach (var key in qtValues.Keys.ToList())
+                qtValues[key] = true;
+        }
+
+        ImGui.SameLine();
+
+        if (ImGui.Button("全部关闭"))
+        {
+            foreach (var key in qtValues.Keys.ToList())
+                qtValues[key] = false;
+        }
+
+        ImGui.SameLine();
+
+        if (ImGui.Button("清除所有"))
+        {
+            qtValues.Clear();
+        }
+
         return true;
     }
 
     public bool Handle()
     {
-        foreach (var qtSetting in QTList)
+        foreach (var kvp in qtValues)
         {
-            qtSetting.action();
+             GNBRotationEntry.QT.SetQt(kvp.Key, kvp.Value);
         }
         return true;
     }
-
-    private TriggerQTSetting DrawCallback(TriggerQTSetting arg)
-    {
-        arg.draw();
-        return  arg;
-    }
-
-    private string DrawHeader(TriggerQTSetting arg)
-    {
-        var v  = arg.Value ? "开" : "关";
-        return $"{v}-{arg.Key}";
-    }
-
-    private TriggerQTSetting AddCallBack()
-    {
-        return new TriggerQTSetting();
-    }
-}
-
-
-public class TriggerQTSetting()
-{
-    public string Key = "爆发药";
-    public bool Value = false;
-    private int combo;
-    private int radioCheck;
     
-    //这里改成你自己的QT的列表
-    private readonly string[] _qtArray = GNBRotationEntry.QT.GetQtArray();
-
-    public void draw()
-    {
-        combo = Array.IndexOf(_qtArray, Key);
-        if (combo == -1)
-        {
-            combo = 0;
-        }
-
-        radioCheck = Value ? 1 : 0;
-        ImGui.NewLine();
-        ImGui.SetCursorPos(new Vector2(0f, 40f));
-        ImGui.Combo("Qt开关", ref combo, _qtArray, _qtArray.Length);
-        ImGui.RadioButton("开", ref radioCheck, 1);
-        ImGui.SameLine();
-        ImGui.RadioButton("关", ref radioCheck, 0);
-        Key = _qtArray[combo];
-        Value = radioCheck == 1;
-    }
-
-    public void action()
-    {
-        //这里改成你自己的设置QT的方法
-        GNBRotationEntry.QT.SetQt(Key, Value);
-    }
 }

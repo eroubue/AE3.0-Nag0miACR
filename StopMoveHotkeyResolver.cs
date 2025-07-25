@@ -3,13 +3,13 @@ using AEAssist;
 using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.MemoryApi;
 using ImGuiNET;
-using W.GNB.Data;
 
-namespace Wotou.Common;
+
+namespace Nagomi;
 
 public class StopMoveHotkeyResolver : IHotkeyResolver
 {
-    private string imagePath = "../../ACR/Wotou/Resources/stop.png";
+    private string imagePath = "../../ACR/Nagomi/Resources/stop.png";
     public void Draw(Vector2 size)
     {
         Vector2 size1 = size * 0.8f;
@@ -29,10 +29,10 @@ public class StopMoveHotkeyResolver : IHotkeyResolver
     public void Run()
     {
         Core.Resolve<MemApiMove>().CancelMove();
-        BardBattleData.Instance.TargetPosition = null;
+        /*BardBattleData.Instance.TargetPosition = null;
         if (BardBattleData.Instance.IsFollowing)
         {
             BardBattleData.Instance.FollowingTarget = null;
-        }
+        }*/
     }
 }

@@ -23,7 +23,7 @@ public class 贤者时间轴配置设置: ITriggerAction
     public 贤者时间轴配置设置()
     {
         var types = Assembly.GetExecutingAssembly().GetTypes()
-            .Where(t => t.Namespace == "Nagomi.SGE.View.Setting" && typeof(ITriggerSettingUI).IsAssignableFrom(t) && !t.IsInterface);
+            .Where(t => t.Namespace == "Nagomi.SGE.Settings" && typeof(ITriggerSettingUI).IsAssignableFrom(t) && !t.IsInterface);
         foreach (var type in types)
         {
             var instance = Activator.CreateInstance(type) as ITriggerSettingUI;

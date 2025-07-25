@@ -6,7 +6,7 @@ using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
 using Nagomi.PCT;
-using Nagomi.utils.Helper;
+
 
 namespace Nagomi.SMN.能力
 

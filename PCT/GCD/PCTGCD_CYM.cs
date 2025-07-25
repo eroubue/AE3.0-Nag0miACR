@@ -40,7 +40,7 @@ namespace Nagomi.PCT.GCD
             if (aoeCount >= 4 && Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.冰冻之蓝青).IsUnlockWithCDCheck() &&  QT.QTGET(QTKey.AOE))
              //   && !PCTSettings.Instance.智能aoe目标)
                 return Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.冰冻之蓝青).GetSpell();
-           // if (Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.冰冻之蓝青).IsUnlockWithCDCheck() &&
+            // if (Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.冰冻之蓝青).IsUnlockWithCDCheck() &&
             //    QT.QTGET(QTKey.AOE) && PCTSettings.Instance.智能aoe目标 && canTargetObjects != null &&
            //     canTargetObjects.IsValid())
            //     return new Spell(Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.冰冻之蓝青), canTargetObjects);

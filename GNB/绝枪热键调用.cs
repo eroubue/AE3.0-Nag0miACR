@@ -13,7 +13,6 @@ using System.Numerics;
 using Dalamud.Game.ClientState.Objects.Types;
 using Nagomi.GNB.Settings;
 using Nagomi.GNB.utils;
-using Nagomi.utils.Helper;
 
 
 namespace Nagomi.GNB;
@@ -65,14 +64,15 @@ public class 退避对位t: IHotkeyResolver
 
 public class 支援减对位T : IHotkeyResolver
 {
+    private string imagePath = "../../ACR/Nagomi/Resources/T刚玉.png";
     public void Draw(Vector2 size)
     {
-        Vector2 size3 = size * 0.8f;
+        Vector2 size1 = size * 0.8f;
         ImGui.SetCursorPos(size * 0.1f);
-        IDalamudTextureWrap textureWrap;
-        if (!Core.Resolve<MemApiIcon>().GetActionTexture(Core.Resolve<MemApiSpell>().CheckActionChange(GNBSpells.石之心), out textureWrap))
-            return;
-        ImGui.Image(textureWrap.ImGuiHandle, size3);
+        if (Core.Resolve<MemApiIcon>().TryGetTexture(imagePath, out var textureWrap))
+        {
+            ImGui.Image(textureWrap.ImGuiHandle, size1);
+        }
     }
 
     public void DrawExternal(Vector2 size, bool isActive)
@@ -95,14 +95,15 @@ public class 支援减对位T : IHotkeyResolver
 }
 public class hot对位T : IHotkeyResolver
 {
+    private string imagePath = "../../ACR/Nagomi/Resources/THOT.png";
     public void Draw(Vector2 size)
     {
-        Vector2 size3 = size * 0.8f;
+        Vector2 size1 = size * 0.8f;
         ImGui.SetCursorPos(size * 0.1f);
-        IDalamudTextureWrap textureWrap;
-        if (!Core.Resolve<MemApiIcon>().GetActionTexture(GNBSpells.极光, out textureWrap))
-            return;
-        ImGui.Image(textureWrap.ImGuiHandle, size3);
+        if (Core.Resolve<MemApiIcon>().TryGetTexture(imagePath, out var textureWrap))
+        {
+            ImGui.Image(textureWrap.ImGuiHandle, size1);
+        }
     }
 
     public void DrawExternal(Vector2 size, bool isActive)

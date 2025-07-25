@@ -13,11 +13,15 @@ using System.Numerics;
 using Dalamud.Game.ClientState.Objects.Types;
 using Nagomi.SGE.Settings;
 using Nagomi.SGE.utils;
-using Nagomi.utils.Helper;
 
 
 namespace Nagomi.SGE;
-
+public struct HotKetSpell(string n, uint s, int t)
+{
+    public string Name = n;
+    public uint spell = s;
+    public int target = t;
+}
 
 //群盾消化的新方法
 
@@ -67,7 +71,7 @@ public class 群盾消化 : IHotkeyResolver
         if (!Core.Resolve<JobApi_Sage>().Eukrasia)
             AI.Instance.BattleData.NextSlot.Add(SGESpells.Eukrasia.GetSpell());
         AI.Instance.BattleData.NextSlot.Add(SGESpells.EukrasianPrognosis.GetSpell());
-        if (SGESpells.Pepsis.IsReady())
+        if (SGESpells.Pepsis.IsUnlockWithCDCheck())
             AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.Pepsis, Core.Me));
     }
 
@@ -144,10 +148,41 @@ public class 混合最低血量 : IHotkeyResolver
     public int Check() => 0;
     public void Run()
     {
-        if (AI.Instance.BattleData.NextSlot == null && SGESpells.混合.IsReady())
+        if (AI.Instance.BattleData.NextSlot == null && SGESpells.混合.IsUnlockWithCDCheck())
         {
             AI.Instance.BattleData.NextSlot = new Slot();
             AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.混合, Helper.获取血量最低成员));
+            
+        }
+        else
+        {   
+            Core.Resolve<MemApiChatMessage>().Toast2("Not Ready", 1, 1000);
+        }
+    }
+}
+public class 混合输血 : IHotkeyResolver
+{
+    public void Draw(Vector2 size)
+    {
+        Vector2 size3 = size * 0.8f;
+        ImGui.SetCursorPos(size * 0.1f);
+        IDalamudTextureWrap textureWrap;
+        if (!Core.Resolve<MemApiIcon>().GetActionTexture(SGESpells.输血, out textureWrap))
+            return;
+        ImGui.Image(textureWrap.ImGuiHandle, size3);
+    }
+
+    public void DrawExternal(Vector2 size, bool isActive)
+        => SpellHelper.DrawSpellInfo(new Spell(24317u, PartyHelper.CastableTanks.FirstOrDefault(agent => !agent.HasAura(2607))), size, isActive);
+    public int Check() => 0;
+    public void Run()
+    {
+        if (AI.Instance.BattleData.NextSlot == null && SGESpells.混合.IsUnlockWithCDCheck()&&SGESpells.输血.IsUnlockWithCDCheck())
+        {
+            var pm = SGESettings.Instance.混合输血目标 + 2;
+            AI.Instance.BattleData.NextSlot = new Slot(1500);
+            AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.混合, (SpellTargetType)pm));
+            AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.输血, (SpellTargetType)pm));
             
         }
         else
@@ -182,7 +217,7 @@ public class 单盾最低血量 : IHotkeyResolver
     }
 }
 
-public class 神翼T : IHotkeyResolver
+public class 神翼MT : IHotkeyResolver
 {
     public void Draw(Vector2 size)
     {
@@ -195,13 +230,13 @@ public class 神翼T : IHotkeyResolver
     }
 
     public void DrawExternal(Vector2 size, bool isActive)
-        => SpellHelper.DrawSpellInfo(new Spell(24295u, PartyHelper.CastableTanks.FirstOrDefault(agent => !agent.HasAura(SGEBuffs.复活)&&!agent.IsValid()&&agent!=null)), size, isActive);
+        => SpellHelper.DrawSpellInfo(new Spell(24295u, PartyHelper.CastableMainTanks.FirstOrDefault(agent => !agent.HasAura(SGEBuffs.复活)&&!agent.IsValid()&&agent!=null)), size, isActive);
     public int Check() => 0;
     public void Run()
     {
         if (AI.Instance.BattleData.NextSlot == null)
             AI.Instance.BattleData.NextSlot = new Slot();
-        AI.Instance.BattleData.NextSlot.Add(new Spell(24295u, PartyHelper.CastableTanks.FirstOrDefault()));
+        AI.Instance.BattleData.NextSlot.Add(new Spell(24295u, PartyHelper.CastableMainTanks.FirstOrDefault()));
     }
 }
 public class 即刻贤炮 : IHotkeyResolver
@@ -236,14 +271,14 @@ public class 即刻贤炮 : IHotkeyResolver
 
     public void Run()
     {
-        if (AI.Instance.BattleData.NextSlot == null && SGESpells.魂灵风息.IsReady()&& SGESpells.即刻咏唱.IsReady()&&SGESettings.Instance.即刻贤炮==1)
+        if (AI.Instance.BattleData.NextSlot == null && SGESpells.魂灵风息.IsUnlockWithCDCheck()&& SGESpells.即刻咏唱.IsUnlockWithCDCheck()&&SGESettings.Instance.即刻贤炮==1)
         {
             AI.Instance.BattleData.NextSlot = new Slot(1500);
             AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.即刻咏唱, Core.Me));
             AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.魂灵风息,  SpellTargetType.Target));
             
         }
-        if (AI.Instance.BattleData.NextSlot == null && SGESpells.魂灵风息.IsReady()&&SGESettings.Instance.即刻贤炮==0)
+        if (AI.Instance.BattleData.NextSlot == null && SGESpells.魂灵风息.IsUnlockWithCDCheck()&&SGESettings.Instance.即刻贤炮==0)
         {
             AI.Instance.BattleData.NextSlot = new Slot(1500);
             AI.Instance.BattleData.NextSlot.Add(new Spell(SGESpells.魂灵风息,  SpellTargetType.Target));
@@ -304,7 +339,7 @@ public class 即刻拉人 : IHotkeyResolver
         ImGui.SetCursorPos(size * 0.1f);
         IDalamudTextureWrap idalamudTextureWrap;
 
-        if (Core.Resolve<MemApiIcon>().GetActionTexture(24318U, out idalamudTextureWrap, true))
+        if (Core.Resolve<MemApiIcon>().GetActionTexture(24287U, out idalamudTextureWrap, true))
         {
             if (idalamudTextureWrap != null)
             {
@@ -321,7 +356,7 @@ public class 即刻拉人 : IHotkeyResolver
 
     public void DrawExternal(Vector2 size, bool isActive)
     {
-        SpellHelper.DrawSpellInfo(new Spell(24318U, (IBattleChara)Core.Me), size, isActive);
+        SpellHelper.DrawSpellInfo(new Spell(24287U, (IBattleChara)Core.Me), size, isActive);
     }
 
     public int Check() => 0;

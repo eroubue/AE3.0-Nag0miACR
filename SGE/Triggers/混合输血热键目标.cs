@@ -5,52 +5,26 @@ using Nagomi.SGE.Settings;
 
 namespace Nagomi.SGE.Triggers;
 
-public class TriggerAction_保留蛇刺数量 : ITriggerAction
+public class 混合输血热键目标 : ITriggerAction
 {
-    public string DisplayName => "贤者/保留红豆";
+    public string DisplayName => "贤者/混合输血目标";
     public string Remark { get; set; }
 
     public bool save红豆 { get; set; } = false;
     private string? Preview;
-    private int _红豆保留数量 = 1; // 默认红豆保留数量为 1
+    private int _混合输血目标 = 1; // 默认红豆保留数量为 1
 
     public bool Draw()
     {
-        Preview = save红豆 switch
-        {
-            false => "禁用",
-            true => $"启用"
-        };
-
-        if (ImGui.BeginCombo("是否开启", Preview))
-        {
-            if (ImGui.Selectable("禁用"))
-            {
-                save红豆 = false;
-            }
-            if (ImGui.Selectable("启用"))
-            {
-                save红豆 = true;
-            }
-
-            ImGui.EndCombo();
-        }
-
-        if (save红豆)
-        {
-            ImGui.NewLine();
-            if (ImGui.SliderInt("红豆保留数量", ref _红豆保留数量, 1, 3))
-            {
-                // 更新 红豆保留数量
-            }
-        }
-
+      
+        ImGui.SliderInt("PM", ref _混合输血目标 ,1, 8);
+        
         return true;
     }
 
     public bool Handle()
     {
-        SGESettings.Instance.红豆保留数量 = _红豆保留数量;
+        SGESettings.Instance.混合输血目标 = _混合输血目标 ;
         return true;
     }
 }

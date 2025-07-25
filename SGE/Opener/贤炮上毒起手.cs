@@ -39,7 +39,7 @@ public class 贤炮上毒起手 : IOpener
         countDownHandler.AddAction(15000, 24290u, SpellTargetType.Self);
         countDownHandler.AddAction(9000, Core.Resolve<MemApiSpell>().CheckActionChange(24292), SpellTargetType.Self);
         countDownHandler.AddAction(3000, 24290u, SpellTargetType.Self);
-        countDownHandler.AddAction(1900, 24318u, SpellTargetType.Target);
+        countDownHandler.AddAction(SGESettings.Instance.预读时间, 24318u, SpellTargetType.Target);
     }
     private static void Step0(Slot slot)
     

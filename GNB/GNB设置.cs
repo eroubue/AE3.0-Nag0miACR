@@ -43,7 +43,10 @@ public class GNBSettings
     #endregion
 
     public float 额外技能距离 = 0;
-    public bool 启用覆盖额外距离 = false;
+    public int opener = 2;
+    public int 保留子弹数 = 0;
+    public bool ST = true;
+    
 
-    public JobViewSave JobViewSave = new(){MainColor = new Vector4(40 / 255f, 173 / 255f, 70 / 255f, 0.8f)}; // QT设置存档
+    public JobViewSave JobViewSave = new(){MainColor = new Vector4(170 / 255f, 170 / 255f, 184 / 255f, 0.8f),HotkeyLineCount=3}; // QT设置存档
 }
