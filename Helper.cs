@@ -8,11 +8,12 @@ using AEAssist.MemoryApi;
 using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Game.Command;
+using Nagomi.GNB.utils;
 using Nagomi.PCT;
 // ReSharper disable UnusedMember.Global
 
 
-namespace Nagomi.utils.Helper;
+namespace Nagomi;
 
 public static class Helper
 {
@@ -96,15 +97,6 @@ public static class Helper
     {
         return target.InCombat();
     }
-    public static bool 目标是否在剧情状态(IBattleChara target)
-    {
-        if (!target.IsValid())
-        {
-            return false;
-        }
-
-        return target.OnlineStatus.Id == 15;
-    }
 
 
     public static bool 目标是否可见或在技能范围内(uint actionId)
@@ -175,7 +167,7 @@ public static class Helper
 
     public static bool 目标是否准备放aoe(IBattleChara target, int timeLeft)
     {
-        return TargetHelper.TargercastingIsbossaoe(target, timeLeft);
+        return TargetHelper.targetCastingIsBossAOE(target, timeLeft);
     }
 
     public static bool 目标是否拥有其中的BUFF(List<uint> auras, int timeLeft = 0)
@@ -332,6 +324,19 @@ public static class Helper
     {
         return Core.Resolve<MemApiSpell>().GetLastComboSpellId();
     }
+    public static byte 上一个绝枪123层数()
+    {
+        uint lastSpellId = Core.Resolve<MemApiSpell>().GetLastComboSpellId();
+    
+        if (lastSpellId == GNBSpells.利刃斩)
+            return 2;
+        if (lastSpellId == GNBSpells.残暴弹)
+            return 1;
+        if (lastSpellId == GNBSpells.迅连斩)
+            return 3;
+    
+        return 3 ; // 默认值，表示没有匹配到任何指定技能
+    }
 
     public static int GCD剩余时间()
     {
@@ -354,10 +359,15 @@ public static class Helper
     }
 
 
-    public static bool 技能是否刚使用过(this uint spellId, int time = 1200)
+    public static bool 技能是否刚使用过(this uint spellId, int time )
     {
         return spellId.GetSpell().RecentlyUsed(time);
     }
+    public static bool 无情30s内是否用过(this uint spellId, int time=30000)
+    {
+        return spellId.GetSpell().RecentlyUsed(time);
+    }
+    
 
     public static float 充能层数(this uint spellId)
     {
