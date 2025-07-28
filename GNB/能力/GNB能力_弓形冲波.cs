@@ -12,14 +12,15 @@ public class GNB能力_弓形冲波 : ISlotResolver
     public SlotMode SlotMode { get; } = SlotMode.OffGcd;
     public int Check()
     {
-        if (QT.QTGET(QTKey.停手))
-        {
-            return -100;
-        }
         if (!GNBSpells.弓形冲波.GetSpell().IsReadyWithCanCast())
         {
             return -66;
         }
+        if (QT.QTGET(QTKey.停手))
+        {
+            return -100;
+        }
+        
         
         if (QT.QTGET(QTKey.倾泻爆发))
         {
@@ -41,6 +42,8 @@ public class GNB能力_弓形冲波 : ISlotResolver
         if(!Core.Me.HasAura(GNBBuffs.无情))return -88;
         var aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me, 5, 5);
         if (aoeCount < 1) return -4;
+        if (aoeCount < 3&&QT.QTGET(QTKey.小于3目标时不用弓形)) return -4;
+        
         
 
         return 0;

@@ -14,15 +14,15 @@ public class GNB能力_领域 : ISlotResolver
     public SlotMode SlotMode { get; } = SlotMode.OffGcd;
     public int Check()
     {
-        if (QT.QTGET(QTKey.停手))
-        {
-            return -100;
-        }
-        if (Core.Me.Level < 18) return -3;
         if (!Core.Resolve<MemApiSpell>().CheckActionChange(GNBSpells.危险领域).GetSpell().IsReadyWithCanCast())
         {
             return -66;
         }
+        if (QT.QTGET(QTKey.停手))
+        {
+            return -100;
+        }
+        
         if (GNBSettings.Instance.额外技能距离!=0&&Core.Me.Distance(Core.Me.GetCurrTarget()) > 3+GNBSettings.Instance.额外技能距离)
             return -12;
         if (Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >

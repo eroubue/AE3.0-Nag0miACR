@@ -59,6 +59,8 @@ public class 绝枪70级绝神兵起手 : IOpener
         slot.Add(new Spell(GNBSpells.残暴弹, SpellTargetType.Target));//单体2
         LogHelper.Print("零和GNB", "2接爆发药");
         if (GNBRotationEntry.QT.GetQt("爆发药")) slot.Add(Spell.CreatePotion()); //爆发药
+        slot.Add(new Spell(GNBSpells.石之心, SpellTargetType.Pm2));//支援
+        
     }
     private static void Step2(Slot slot)
     {

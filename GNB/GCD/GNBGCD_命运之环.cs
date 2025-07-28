@@ -23,22 +23,16 @@ public class GNBGCD_命运之环 : ISlotResolver
         var aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me, 5, 5);
         if (aoeCount < 2) return -4;
         if (QT.QTGET(QTKey.倾泻爆发)&&Core.Resolve<JobApi_GunBreaker>().Ammo >= (byte) GNBSettings.Instance.保留子弹数+1) return 1;
-        if (!Core.Resolve<MemApiBuff>().HasMyAura(Core.Me, GNBBuffs.无情))
+        if (!Core.Me.HasAura(GNBBuffs.无情) && !Core.Me.HasAura(GNBBuffs.Medicated))//都不存在溢出再打
         { 
-        if (Core.Me.Level < 88 && Core.Resolve<JobApi_GunBreaker>().Ammo < 2 &&
-       (Core.Resolve<MemApiSpell>().GetLastComboSpellId() != GNBSpells.残暴弹
-       || Core.Resolve<MemApiSpell>().GetLastComboSpellId() != GNBSpells.恶魔切)) return -3;
-        if (Core.Me.Level >= 88 && Core.Resolve<JobApi_GunBreaker>().Ammo < 3 &&
-           (Core.Resolve<MemApiSpell>().GetLastComboSpellId() != GNBSpells.残暴弹
-           || Core.Resolve<MemApiSpell>().GetLastComboSpellId() != GNBSpells.恶魔切)) return -3;
-        }
-        if (Core.Resolve<MemApiBuff>().HasMyAura(Core.Me, GNBBuffs.无情))
-        {
-            if (Core.Me.Level < 88 && Core.Resolve<JobApi_GunBreaker>().Ammo < 1) return -3;
+            if (Core.Me.Level < 88 && Core.Resolve<JobApi_GunBreaker>().Ammo < 2 &&
+                (Core.Resolve<MemApiSpell>().GetLastComboSpellId() != GNBSpells.残暴弹
+                 || Core.Resolve<MemApiSpell>().GetLastComboSpellId() != GNBSpells.恶魔切)) return -3;
             if (Core.Me.Level >= 88 && Core.Resolve<JobApi_GunBreaker>().Ammo < 3 &&
-               (Core.Resolve<MemApiSpell>().GetLastComboSpellId() != GNBSpells.残暴弹
-               || Core.Resolve<MemApiSpell>().GetLastComboSpellId() != GNBSpells.恶魔切)) return -3;
+                (Core.Resolve<MemApiSpell>().GetLastComboSpellId() != GNBSpells.残暴弹
+                 || Core.Resolve<MemApiSpell>().GetLastComboSpellId() != GNBSpells.恶魔切)) return -3;
         }
+        
         if (QT.QTGET(QTKey.仅使用爆发击卸除子弹)) return -20;
 
         

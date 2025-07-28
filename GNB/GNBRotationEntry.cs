@@ -46,6 +46,9 @@ public class GNBRotationEntry : IRotationEntry
                 return new 绝枪70级绝神兵起手();
             if (GNBSettings.Instance.opener == 4)
                 return new 无情2g起手();
+            if (GNBSettings.Instance.opener == 5)
+                return new 绝亚起手();
+            
 
             return new 二弹120起手();
         }
@@ -110,7 +113,7 @@ public class GNBRotationEntry : IRotationEntry
         QT.AddQt(QTKey.领域,true);
         QT.AddQt(QTKey.音速破,true);
         QT.AddQt(QTKey.弓形,true);
-        QT.AddQt(QTKey.突进起手,false);
+        QT.AddQt(QTKey.突进起手,true);
         QT.AddQt(QTKey.血壤,true);
         QT.AddQt(QTKey.爆发击,true);
         QT.AddQt(QTKey.dot,true);
@@ -121,6 +124,7 @@ public class GNBRotationEntry : IRotationEntry
         QT.AddQt(QTKey.闪雷弹,true);
         QT.AddQt(QTKey.命运之环,true);
         QT.AddQt(QTKey.仅使用爆发击卸除子弹,false);
+        QT.AddQt(QTKey.小于3目标时不用弓形,false);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Clear();
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.二弹);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.零弹);
@@ -131,6 +135,8 @@ public class GNBRotationEntry : IRotationEntry
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.无情不延后);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.命运之环);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.仅使用爆发击卸除子弹);
+        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.小于3目标时不用弓形);
+        
        
       
         QT.AddHotkey("防击退", new HotKeyResolver_NormalSpell(7548, SpellTargetType.Self, false));

@@ -33,6 +33,7 @@ public class GNBGCD_base : ISlotResolver
             Core.Resolve<JobApi_GunBreaker>().Ammo == 2&&Core.Me.Level<88) return -34;
         if (Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.残暴弹 && GNBSpells.迅连斩.IsUnlockWithCDCheck() &&
             Core.Resolve<JobApi_GunBreaker>().Ammo == 3&&Core.Me.Level >= 88) return -34;
+        if (Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.恶魔切) return -3;
         return 0;
     }
     

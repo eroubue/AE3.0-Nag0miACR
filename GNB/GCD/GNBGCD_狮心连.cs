@@ -1,9 +1,3 @@
-// Decompiled with JetBrains decompiler
-// Type: KKxb.Gunbreaker.SlotResolvers.GNBGCD_LionHeart
-// Assembly: KKxb-EN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 47503ED8-500C-4AF6-83D9-A4468832A6B6
-// Assembly location: C:\Users\ASUS\AppData\Roaming\XIVLauncherCN\devPlugins\3.0\ACR\KKxb-EN\KKxb-EN.dll
-
 using AEAssist;
 using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;

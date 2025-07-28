@@ -25,30 +25,33 @@ public class GNB能力_续剑 : ISlotResolver
     }
     public int Check()
     {
+        if (!Core.Resolve<MemApiSpell>().CheckActionChange(GNBSpells.续剑).GetSpell().IsReadyWithCanCast())
+        {
+            return -69;
+        }
         if (QT.QTGET(QTKey.停手))
         {
             return -100;
         }
         if (!CheckSpell()) return -1;
-       if (!Core.Resolve<MemApiSpell>().CheckActionChange(GNBSpells.续剑).GetSpell().IsReadyWithCanCast())
-        {
-            return -69;
-        }
        
-        if (SpellExtension.AbilityCoolDownInNextXgcDsWindow(GNBSpells.无情,1)||GNBSpells.无情.GetSpell().IsReadyWithCanCast())
+       
+        if ((SpellExtension.AbilityCoolDownInNextXgcDsWindow(GNBSpells.无情,1)||GNBSpells.无情.GetSpell().IsReadyWithCanCast())&&QT.QTGET(QTKey.无情)&&QT.QTGET(QTKey.爆发))
         {
             return -66;
         }//续剑放第二个窗口插
-        if (QT.QTGET(QTKey.弓形)&&GNBSpells.弓形冲波.GetSpell().IsReadyWithCanCast())
-        {
-            return -67;
-        }
-        if (QT.QTGET(QTKey.领域)&&(GNBSpells.爆破领域.GetSpell().IsReadyWithCanCast()||GNBSpells.危险领域.GetSpell().IsReadyWithCanCast()))
-        {
-            return -68;
-        }
+        
+        var Zone = new GNB能力_领域();
+        if (Zone.Check() >= 0)
+            return -7; 
+        var Shock = new GNB能力_弓形冲波();
+        if (Shock.Check() >= 0)
+            return -9;
+        var Blood = new GNB能力_血壤();
+        if (Blood.Check() >= 0)
+            return -8;
        
-       if (GNBSettings.Instance.额外技能距离!=0&&Core.Me.Distance(Core.Me.GetCurrTarget()) > 3+GNBSettings.Instance.额外技能距离)
+        if (GNBSettings.Instance.额外技能距离!=0&&Core.Me.Distance(Core.Me.GetCurrTarget()) > 3+GNBSettings.Instance.额外技能距离)
             return -12;
      
         if (Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >

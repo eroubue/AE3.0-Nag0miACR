@@ -123,30 +123,36 @@ public class 绝枪悬浮窗
         }
         
          
-        if (ImGui.Button("零弹无情起手"))
+        if (ImGui.Button("零弹起手"))
         {
             GNBSettings.Instance.opener = 1;
             GNBSettings.Instance.Save();
         }
         ImGui.SameLine();
-        if (ImGui.Button("二弹无情起手"))
+        if (ImGui.Button("二弹起手"))
         {
             GNBSettings.Instance.opener = 2;
             GNBSettings.Instance.Save();
         }
         ImGui.SameLine();
-        if (ImGui.Button("2g无情起手"))
+        if (ImGui.Button("2g起手"))
         {
             GNBSettings.Instance.opener = 4;
             GNBSettings.Instance.Save();
         }
         
-        ImGui.SameLine();
         if (ImGui.Button("神兵起手"))
         {
             GNBSettings.Instance.opener = 3;
             GNBSettings.Instance.Save();
         }
+        ImGui.SameLine();
+        if (ImGui.Button("绝亚起手"))
+        {
+            GNBSettings.Instance.opener = 5;
+            GNBSettings.Instance.Save();
+        }
+        
        
         ImGui.Text("额外技能距离: " + GNBSettings.Instance.额外技能距离.ToString("F2"));
         ImGui.SameLine();

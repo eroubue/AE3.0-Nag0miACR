@@ -10,22 +10,20 @@ using Nagomi.GNB.utils;
 
 namespace Nagomi.GNB.Opener;
 
-public class 无情2g起手 : IOpener
+public class 绝亚起手 : IOpener
 {
     public int StartCheck()
     {
         if (!GNBSpells.无情.IsReady())
             return -6;
-        if (Core.Me.Level < 100) return -5;
+        if (Core.Me.Level != 80) return -5;
 
         return 0;
     }
-
     public int StopCheck(int index)
     {
         return -1;
     }
-
     public List<Action<Slot>> Sequence { get; } = new()
     {
         Step0,
@@ -34,13 +32,6 @@ public class 无情2g起手 : IOpener
         Step3,
        
     };
-
-    public Action CompeltedAction { get; set; }
-
-
-   // public int StepCount => 9;
-
-
     private static void Step0(Slot slot)
     {
         slot.Add(new Spell(GNBSpells.利刃斩, SpellTargetType.Target));
@@ -61,18 +52,10 @@ public class 无情2g起手 : IOpener
     }
     private static void Step3(Slot slot)
     {
-        slot.Add(new Spell(GNBSpells.倍攻, SpellTargetType.Self));
-        slot.Add(new Spell(GNBSpells.弓形冲波, SpellTargetType.Self));
         slot.Add(new Spell(GNBSpells.音速破, SpellTargetType.Target));
+        
     }
     
-    
-
-    
-
-    public uint Level { get; } = 100;
-
-   
     public void InitCountDown(CountDownHandler countDownHandler)//倒数行为
     {
 
