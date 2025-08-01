@@ -34,7 +34,7 @@ public class GNBGCD_爆发击 : ISlotResolver
         {
             return -66;
         }
-        var aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me, 5, 5);
+        var aoeCount = TargetHelper.GetNearbyEnemyCount( 5);
         if (aoeCount >= 2 && GNBSpells.命运之环.GetSpell().IsReadyWithCanCast()&&QT.QTGET(QTKey.AOE)) return -6;
         if (QT.QTGET(QTKey.倾泻爆发)&&Core.Resolve<JobApi_GunBreaker>().Ammo >= (byte) GNBSettings.Instance.保留子弹数+1&&!QT.QTGET(QTKey.仅使用爆发击卸除子弹))
         {
@@ -48,7 +48,10 @@ public class GNBGCD_爆发击 : ISlotResolver
         var lionHeartSlot = new GNBGCD_狮心连();
         if (lionHeartSlot.Check() >= 0)
             return -8; // 狮心连优先，爆发击不打
-        if(Core.Me.HasAura(GNBBuffs.Medicated))return 1;
+        if (!Core.Me.HasAura(GNBBuffs.无情) && Core.Me.HasAura(GNBBuffs.Medicated) &&
+            GNBSpells.无情.GetSpell().IsReadyWithCanCast()) return -21;//吃药还没放无情不打
+        if(Core.Me.HasAura(GNBBuffs.Medicated)&&Core.Me.HasAura(GNBBuffs.无情))return 1;//无情+药打
+        if (Core.Me.HasAura(GNBBuffs.Medicated) && Helper.技能是否刚使用过(GNBSpells.无情, 30000)) return 2;//无情没了药还在就打
        
         if (Core.Me.Level < 88) //两颗子弹
         {
@@ -70,10 +73,13 @@ public class GNBGCD_爆发击 : ISlotResolver
             if (Core.Resolve<JobApi_GunBreaker>().Ammo == 3 &&
                 Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.残暴弹&&!SpellExtension.CoolDownInGCDs(GNBSpells.无情, 2)) return 22;//120后填充期
             if (QT.QTGET(QTKey.二弹)&&Core.Resolve<JobApi_GunBreaker>().Ammo != 2 && SpellExtension.CoolDownInGCDs(GNBSpells.无情, 2)&&SpellExtension.CoolDownInGCDs(GNBSpells.血壤, 8)) return 23;//120卸子弹
+            if (QT.QTGET(QTKey.二弹)&&Core.Resolve<JobApi_GunBreaker>().Ammo == 2 && SpellExtension.CoolDownInGCDs(GNBSpells.无情, 1)&&SpellExtension.CoolDownInGCDs(GNBSpells.血壤, 8)&&(Helper.上一个连击技能()==16139||Helper.上一个连击技能()==16141)) return 25;//120转好无情前如果无情前面1g能打成三弹，提前卸一个爆发击确保二弹进无情
             if (QT.QTGET(QTKey.零弹)&&Core.Resolve<JobApi_GunBreaker>().Ammo != 0 && SpellExtension.CoolDownInGCDs(GNBSpells.无情, 4)&&SpellExtension.CoolDownInGCDs(GNBSpells.血壤, 8)) return 23;
             if (QT.QTGET(QTKey.零弹) && SpellExtension.CoolDownInGCDs(GNBSpells.血壤, 7)) return 1;//零弹120，打完120前的子弹连后有就打
             
         }
+        
+
         
 
         return -1;

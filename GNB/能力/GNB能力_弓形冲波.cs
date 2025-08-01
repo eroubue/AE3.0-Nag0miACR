@@ -1,5 +1,7 @@
 using AEAssist;
+using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
+using AEAssist.Define;
 using AEAssist.Extension;
 using AEAssist.Helper;
 
@@ -39,10 +41,13 @@ public class GNB能力_弓形冲波 : ISlotResolver
         {
             return -10;
         }
-        if(!Core.Me.HasAura(GNBBuffs.无情))return -88;
-        var aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me, 5, 5);
-        if (aoeCount < 1) return -4;
+        if(!Core.Me.HasAura(GNBBuffs.无情)&&!QT.QTGET(QTKey.弓形冲波允许错开无情))return -88;
+        if (Helper.GCD剩余时间() <= 600) return -26;
+        var aoeCount = TargetHelper.GetNearbyEnemyCount(5);
+        if (Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
+            5) return -5;
         if (aoeCount < 3&&QT.QTGET(QTKey.小于3目标时不用弓形)) return -4;
+        
         
         
 

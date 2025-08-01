@@ -46,7 +46,7 @@ public class GNBGCD_子弹连 : ISlotResolver
             return 5;//继续打
         
         
-        var aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me, 5, 5);
+        var aoeCount = TargetHelper.GetNearbyEnemyCount(5);
         if (Core.Me.Level >= 72 && aoeCount >= 3&& GNBSpells.命运之环.GetSpell().IsReadyWithCanCast()&&QT.QTGET(QTKey.AOE)&&QT.QTGET(QTKey.命运之环)) //敌人数量大于3不打子弹连
             return -9;
         if (SpellExtension.CoolDownInGCDs(GNBSpells.无情, 2)&&QT.QTGET(QTKey.无情)) return -1;
@@ -54,7 +54,9 @@ public class GNBGCD_子弹连 : ISlotResolver
       
       if (QT.QTGET(QTKey.零弹)&&SpellExtension.IsReadyWithCanCast(GNBSpells.音速破.GetSpell())&&QT.QTGET(QTKey.dot))
         return -5;
-
+      if (!Core.Me.HasAura(GNBBuffs.无情) && Core.Me.HasAura(GNBBuffs.Medicated) &&
+          GNBSpells.无情.GetSpell().IsReadyWithCanCast()) return -21;//吃药还没放无情不打
+     
      
 
         return 0;

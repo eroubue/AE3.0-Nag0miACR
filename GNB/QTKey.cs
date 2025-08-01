@@ -25,6 +25,8 @@ namespace Nagomi.GNB
         public const string 命运之环 = "命运之环";
         public const string 仅使用爆发击卸除子弹 = "仅使用爆发击卸除子弹";
         public const string 小于3目标时不用弓形 = "小于3目标时不用弓形";
+        public const string 弓形冲波允许错开无情 = "弓形冲波允许错开无情";
+        
         
         
         

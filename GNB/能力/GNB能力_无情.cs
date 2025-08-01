@@ -43,8 +43,8 @@ public class GNB能力_无情 : ISlotResolver
 
         if (Core.Me.Level == 100)
         {
-            if (Core.Resolve<JobApi_GunBreaker>().Ammo == 3 && !SpellExtension.CoolDownInGCDs(GNBSpells.血壤, 8) &&
-                Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.残暴弹) return 1;//无血壤填充
+            if (Core.Resolve<JobApi_GunBreaker>().Ammo == 3 && !SpellExtension.CoolDownInGCDs(GNBSpells.血壤, 8) ) return 1;//无血壤填充&&
+            //Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.残暴弹
             if (Core.Resolve<JobApi_GunBreaker>().Ammo ==2 &&QT.QTGET(QTKey.二弹)&&SpellExtension.CoolDownInGCDs(GNBSpells.血壤, 4)&&Core.Resolve<MemApiSpellCastSuccess>().LastGcd==GNBSpells.爆发击) return 1;
             if (Core.Resolve<JobApi_GunBreaker>().Ammo ==0 &&QT.QTGET(QTKey.零弹)&&Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.残暴弹) return 1;
 

@@ -52,6 +52,7 @@
       <Compile Remove="HTTPAudioPlayer.cs" />
       <Compile Remove="logs修改.cs" />
       <Compile Remove="SGE\utils\fflogs.cs" />
+      <Compile Remove="GNB\TriggerCond_Combo\**" />
     </ItemGroup>
 
 
@@ -62,6 +63,11 @@
 
     <ItemGroup>
       <Content Include=".gitignore" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <EmbeddedResource Remove="GNB\TriggerCond_Combo\**" />
     </ItemGroup>
 
 

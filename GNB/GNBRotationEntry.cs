@@ -59,7 +59,8 @@ public class GNBRotationEntry : IRotationEntry
         rot.AddTriggerAction(new TriggerAction_QT());
         rot.AddTriggerAction(new TriggerAction_HotKey());
         rot.AddTriggerAction(new 绝枪时间轴配置设置());
-        rot.AddTriggerCondition(new TriggerAction_Ammo());
+        rot.AddTriggerCondition(new TriggerCond_Ammo());
+        rot.AddTriggerCondition(new TriggerCond_Combo());
         return rot;
     }
 
@@ -125,17 +126,19 @@ public class GNBRotationEntry : IRotationEntry
         QT.AddQt(QTKey.命运之环,true);
         QT.AddQt(QTKey.仅使用爆发击卸除子弹,false);
         QT.AddQt(QTKey.小于3目标时不用弓形,false);
+        QT.AddQt(QTKey.弓形冲波允许错开无情,false);
+
+        
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Clear();
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.二弹);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.零弹);
-        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.爆发击);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.领域);
-        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.弓形);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.音速破);
-        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.无情不延后);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.命运之环);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.仅使用爆发击卸除子弹);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.小于3目标时不用弓形);
+        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.弓形冲波允许错开无情);
+        
         
        
       

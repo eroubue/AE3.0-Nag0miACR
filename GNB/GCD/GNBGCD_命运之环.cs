@@ -20,7 +20,7 @@ public class GNBGCD_命运之环 : ISlotResolver
         if (!QT.QTGET(QTKey.AOE)) return -5;
         if (!QT.QTGET(QTKey.命运之环)) return -5;
         
-        var aoeCount = TargetHelper.GetNearbyEnemyCount(Core.Me, 5, 5);
+        var aoeCount = TargetHelper.GetNearbyEnemyCount(5);
         if (aoeCount < 2) return -4;
         if (QT.QTGET(QTKey.倾泻爆发)&&Core.Resolve<JobApi_GunBreaker>().Ammo >= (byte) GNBSettings.Instance.保留子弹数+1) return 1;
         if (!Core.Me.HasAura(GNBBuffs.无情) && !Core.Me.HasAura(GNBBuffs.Medicated))//都不存在溢出再打
@@ -34,6 +34,8 @@ public class GNBGCD_命运之环 : ISlotResolver
         }
         
         if (QT.QTGET(QTKey.仅使用爆发击卸除子弹)) return -20;
+        if (!Core.Me.HasAura(GNBBuffs.无情) && Core.Me.HasAura(GNBBuffs.Medicated) &&
+            GNBSpells.无情.GetSpell().IsReadyWithCanCast()) return -21;//吃药还没放无情不打
 
         
         return 0;

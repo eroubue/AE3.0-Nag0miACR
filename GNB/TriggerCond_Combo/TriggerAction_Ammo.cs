@@ -5,7 +5,7 @@ using AEAssist.JobApi;
 
 namespace Nagomi.GNB.Triggers
 {
-    public class TriggerCond_Ammo : ITriggerCond
+    public class TriggerAction_Ammo : ITriggerCond
     {
         public enum CompareOperation
         {

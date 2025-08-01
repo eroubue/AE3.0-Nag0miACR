@@ -36,6 +36,8 @@ namespace Nagomi.GNB.GCD
           SettingMgr.GetSetting<GeneralSettings>().AttackRange) return -5;
       if (Core.Resolve<MemApiSpell>().CheckActionChange(GNBSpells.烈牙) == GNBSpells.猛兽爪 || Core.Resolve<MemApiSpell>().CheckActionChange(GNBSpells.烈牙) == GNBSpells.凶禽爪)
         return -25;//子弹连中不打
+      if (!Core.Me.HasAura(GNBBuffs.无情) && Core.Me.HasAura(GNBBuffs.Medicated) &&
+          GNBSpells.无情.GetSpell().IsReadyWithCanCast()) return -21;//吃药还没放无情不打
       
       
       /* if (SpellExtension.IsReadyWithCanCast(GNBSpells.音速破.GetSpell()) ||

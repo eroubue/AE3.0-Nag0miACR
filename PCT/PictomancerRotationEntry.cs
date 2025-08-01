@@ -131,12 +131,12 @@ namespace Nagomi.PCT
             
              QT.AddTab("通用", 画家悬浮窗.通用);
              QT.AddTab("DEV", 画家悬浮窗.DrawDev);
-             /*QT.SetUpdateAction(() =>
+             QT.SetUpdateAction(() =>
              {
                  JoystickHotkeyWindowManager.DrawOrUpdateHotkeyWindow(new QtStyle(PCTSettings.Instance.JobViewSave));
                  var enAvantViewSave = new JobViewSave();
                  enAvantViewSave.LockWindow = PCTSettings.Instance.isEnAvantPanelLocked;
-             });*/
+             });
 
              QT.AddQt(QTKey.减色混合,true);
              QT.AddQt(QTKey.AOE,true);
@@ -188,8 +188,6 @@ namespace Nagomi.PCT
                     }
                     else
                     {
-                        // 处理 idalamudTextureWrap 为 null 的情况
-                        // 例如：显示默认图标或错误消息
                         Console.WriteLine("Failed to load texture for action ID: 29054");
                     }
                 }
