@@ -14,12 +14,8 @@ public class 绝枪70级绝神兵起手 : IOpener
 {
     public int StartCheck()
     {
-        //return -1;
-      /*  if (PartyHelper.NumMembers <= 4 && !Core.Me.GetCurrTarget().IsDummy()))
-            return -100;*/
-        if (!GNBSpells.无情.IsReady())
-            return -6;
-        if (Core.Me.Level < 70) return -5;
+      
+        if (Core.Me.Level != 70) return -5;
 
        if (Core.Resolve<MemApiZoneInfo>().GetCurrTerrId() != 777u) return -8;
 
@@ -46,7 +42,6 @@ public class 绝枪70级绝神兵起手 : IOpener
     public Action CompeltedAction { get; set; }
 
 
-   // public int StepCount => 9;
 
 
     private static void Step0(Slot slot)

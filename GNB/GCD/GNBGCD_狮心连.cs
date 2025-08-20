@@ -39,7 +39,7 @@ namespace Nagomi.GNB.GCD
       if (!Core.Me.HasAura(GNBBuffs.无情) && Core.Me.HasAura(GNBBuffs.Medicated) &&
           GNBSpells.无情.GetSpell().IsReadyWithCanCast()) return -21;//吃药还没放无情不打
       
-      
+      if (Helper.技能0dot6s内是否用过(GNBSpells.无情)&&QT.QTGET(QTKey.落地无情)&&!Core.Me.HasAura(GNBBuffs.无情)) return -21;
       /* if (SpellExtension.IsReadyWithCanCast(GNBSpells.音速破.GetSpell()) ||
           SpellExtension.IsUnlockWithCDCheck(GNBSpells.倍攻) 
           ||SpellExtension.IsUnlockWithCDCheck(GNBSpells.烈牙))

@@ -19,13 +19,17 @@ namespace Nagomi.GNB
         public const string 爆发击 = "爆发击";
         public const string 狮心连 = "狮心连";
         public const string 倍攻 = "倍攻";
-        public const string 二弹 = "二弹120";
-        public const string 零弹 = "零弹120";
+        public const string 二弹 = "二弹";
+        public const string 零弹 = "零弹";
         public const string 闪雷弹 = "闪雷弹";
         public const string 命运之环 = "命运之环";
         public const string 仅使用爆发击卸除子弹 = "仅使用爆发击卸除子弹";
         public const string 小于3目标时不用弓形 = "小于3目标时不用弓形";
         public const string 弓形冲波允许错开无情 = "弓形冲波允许错开无情";
+        public const string 优先音速破 = "优先音速破";
+        public const string 落地无情 = "落地无情";
+        
+        
         
         
         

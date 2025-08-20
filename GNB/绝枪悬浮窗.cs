@@ -181,13 +181,14 @@ public class 绝枪悬浮窗
         ImGui.Text("测试中");
         ImGui.Text("MT or ST");
         ImGui.SameLine();
-        if (GNBSettings.Instance.ST)
+        switch (GNBSettings.Instance.ST)
         {
-            ImGui.TextColored(new System.Numerics.Vector4(1.0f, 0.0f, 0.0f, 1.0f), "ST"); 
-        }
-        else if (!GNBSettings.Instance.ST)
-        {
-            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 1.0f, 0.0f, 1.0f), "MT"); 
+            case true:
+                ImGui.TextColored(new System.Numerics.Vector4(1.0f, 0.0f, 0.0f, 1.0f), "ST");
+                break;
+            case false:
+                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 1.0f, 0.0f, 1.0f), "MT");
+                break;
         }
         ImGui.SameLine();
         if (ImGui.Button(" ST "))
@@ -203,26 +204,33 @@ public class 绝枪悬浮窗
         }
         ImGui.Text("当前起手：");
         ImGui.SameLine();
-  
-         if (GNBSettings.Instance.opener == 1)
+        switch (GNBSettings.Instance.opener)
         {
-            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.8f, 0.1f, 1.0f), "零弹120起手"); // 蓝色
+            case 0:
+                ImGui.TextColored(new System.Numerics.Vector4(0.5f, 0.5f, 0.5f, 1.0f), "无起手"); // 蓝色
+                break;
+            // 蓝色
+            case 1:
+                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.8f, 0.1f, 1.0f), "零弹120起手"); // 蓝色
+                break;
+            case 2:
+                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.8f, 0.1f, 1.0f), "二弹120起手"); // 蓝色
+                break;
+            case 3:
+                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "神兵起手"); // 蓝色
+                break;
+            case 4:
+                ImGui.TextColored(new System.Numerics.Vector4(0.2f, 0.5f, 0.8f, 1.0f), "2g无情起手"); // 蓝色
+                break;
+            case 5:
+                ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "绝亚起手"); // 蓝色
+                break;
         }
-        else if (GNBSettings.Instance.opener == 2)
+
+        if (ImGui.Button("无起手"))
         {
-            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.8f, 0.1f, 1.0f), "二弹120起手"); // 蓝色
-        }
-        else if (GNBSettings.Instance.opener == 3)
-        {
-            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "神兵起手"); // 蓝色
-        }
-        else if (GNBSettings.Instance.opener == 4)
-        {
-            ImGui.TextColored(new System.Numerics.Vector4(0.2f, 0.5f, 0.8f, 1.0f), "2g无情起手"); // 蓝色
-        }
-        else if (GNBSettings.Instance.opener == 5)
-        {
-            ImGui.TextColored(new System.Numerics.Vector4(0.0f, 0.3f, 0.8f, 1.0f), "绝亚起手"); // 蓝色
+            GNBSettings.Instance.opener = 0;
+            GNBSettings.Instance.Save();
         }
         
          
@@ -257,12 +265,9 @@ public class 绝枪悬浮窗
         }
         
        
-                 ImGui.Text("额外技能距离:");
+        ImGui.Text("额外技能距离:");
          ImGui.SameLine();
-         ImGui.Text($"{GNBSettings.Instance.额外技能距离:F2}");
-         ImGui.SameLine();
-         ImGui.ProgressBar(GNBSettings.Instance.额外技能距离 / 3.0f, new Vector2(150, 20), "");
-         ImGui.SliderFloat("距离调节", ref GNBSettings.Instance.额外技能距离, 0, 3, "%.2f");
+         ImGui.SliderFloat("", ref GNBSettings.Instance.额外技能距离, 0, 3, "%.2f");
         if (ImGui.Button("0"))
         {
             GNBSettings.Instance.保留子弹数 = 0;

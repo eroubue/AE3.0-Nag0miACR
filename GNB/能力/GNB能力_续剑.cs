@@ -36,27 +36,20 @@ public class GNB能力_续剑 : ISlotResolver
         if (!CheckSpell()) return -1;
        
        
-        if ((SpellExtension.AbilityCoolDownInNextXgcDsWindow(GNBSpells.无情,1)||GNBSpells.无情.GetSpell().IsReadyWithCanCast())&&QT.QTGET(QTKey.无情)&&QT.QTGET(QTKey.爆发))
+        if ((GNBSpells.无情.GetSpell().IsReadyWithCanCast()||(SpellExtension.AbilityCoolDownInNextXgcDsWindow(GNBSpells.无情.GetSpell(),
+                1)&&Helper.GCD剩余时间() >= 1250))&&QT.QTGET(QTKey.无情)&&QT.QTGET(QTKey.爆发))
         {
             return -66;
         }//续剑放第二个窗口插
+       /* if (Core.Me.Level>=76&&GNBSpells.血壤.GetSpell().IsReadyWithCanCast()&&QT.QTGET(QTKey.血壤)&&QT.QTGET(QTKey.爆发))
+        {
+            return -67;
+        }//续剑放第二个窗口插*/
         
-        var Zone = new GNB能力_领域();
-        if (Zone.Check() >= 0)
-            return -7; 
-        var Shock = new GNB能力_弓形冲波();
-        if (Shock.Check() >= 0)
-            return -9;
-        var Blood = new GNB能力_血壤();
-        if (Blood.Check() >= 0)
-            return -8;
-       
-        if (GNBSettings.Instance.额外技能距离!=0&&Core.Me.Distance(Core.Me.GetCurrTarget()) > 3+GNBSettings.Instance.额外技能距离)
-            return -12;
-     
+
         if (Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
             SettingMgr.GetSetting<GeneralSettings>().AttackRange) return -5;
-        if (Helper.技能0dot5s内是否用过(GNBSpells.无情)) return -21;
+        if (Helper.技能0dot6s内是否用过(GNBSpells.无情)) return -21;
        
         return 0;
     }

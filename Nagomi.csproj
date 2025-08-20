@@ -53,6 +53,9 @@
       <Compile Remove="logs修改.cs" />
       <Compile Remove="SGE\utils\fflogs.cs" />
       <Compile Remove="GNB\TriggerCond_Combo\**" />
+      <Compile Remove="AST\Helper\MsSpellHelper.cs" />
+      <Compile Remove="AST\**" />
+      <Compile Remove="GNB\View\**" />
     </ItemGroup>
 
 
@@ -68,6 +71,8 @@
 
     <ItemGroup>
       <EmbeddedResource Remove="GNB\TriggerCond_Combo\**" />
+      <EmbeddedResource Remove="AST\**" />
+      <EmbeddedResource Remove="GNB\View\**" />
     </ItemGroup>
 
 

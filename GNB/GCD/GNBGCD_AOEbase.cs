@@ -28,6 +28,7 @@ public class GNBGCD_AOEbase : ISlotResolver
         if (Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
             5) return -5;
         if (Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.残暴弹) return -3;
+        if (Helper.技能0dot6s内是否用过(GNBSpells.无情)&&QT.QTGET(QTKey.落地无情)&&!Core.Me.HasAura(GNBBuffs.无情)) return -21;
         if (Core.Me.Level < 84 && aoecount >= 2) return 0;
         if (Core.Me.Level >= 84 && aoecount >= 3) return 0;
         if (Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.恶魔切) return 1;

@@ -22,6 +22,9 @@ public class GNB能力_弓形冲波 : ISlotResolver
         {
             return -100;
         }
+        var aoeCount = TargetHelper.GetNearbyEnemyCount(5);
+        if (Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
+            5) return -5;
         
         
         if (QT.QTGET(QTKey.倾泻爆发))
@@ -43,9 +46,8 @@ public class GNB能力_弓形冲波 : ISlotResolver
         }
         if(!Core.Me.HasAura(GNBBuffs.无情)&&!QT.QTGET(QTKey.弓形冲波允许错开无情))return -88;
         if (Helper.GCD剩余时间() <= 600) return -26;
-        var aoeCount = TargetHelper.GetNearbyEnemyCount(5);
-        if (Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
-            5) return -5;
+        if (Helper.技能0dot6s内是否用过(GNBSpells.无情)) return -21;
+        
         if (aoeCount < 3&&QT.QTGET(QTKey.小于3目标时不用弓形)) return -4;
         
         

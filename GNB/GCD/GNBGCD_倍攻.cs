@@ -28,7 +28,7 @@ namespace Nagomi.GNB.GCD
         return -2;
       if ((double) GameObjectExtension.Distance((IGameObject) Core.Me, (IGameObject) GameObjectExtension.GetCurrTarget((IBattleChara) Core.Me), DistanceMode.IgnoreHitbox) > 5.0)
         return -4;
-     
+      if (SpellExtension.CoolDownInGCDs(GNBSpells.无情, 2)&&QT.QTGET(QTKey.无情)) return -1;
       if (GNBSpells.无情.CoolDownInGCDs(2) && !QT.QTGET(QTKey.倾泻爆发))
         return -6;
       if (SpellExtension.IsReadyWithCanCast(GNBSpells.音速破.GetSpell()) && QT.QTGET(QTKey.零弹))//零弹120优先dot
@@ -38,6 +38,7 @@ namespace Nagomi.GNB.GCD
       if (QT.QTGET(QTKey.仅使用爆发击卸除子弹)) return -20;
       
       if(!Core.Me.HasAura(GNBBuffs.无情))return -88;
+      if (Helper.技能0dot6s内是否用过(GNBSpells.无情)&&QT.QTGET(QTKey.落地无情)&&!Core.Me.HasAura(GNBBuffs.无情)) return -21;
      
       
       return  0;

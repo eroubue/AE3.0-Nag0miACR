@@ -40,8 +40,8 @@ public class GNB能力_领域 : ISlotResolver
         {
             return -10;
         }
-        if (SpellExtension.CoolDownInGCDs(GNBSpells.无情, 2)) return -1;
-        if (Helper.技能0dot5s内是否用过(GNBSpells.无情)) return -21;
+        if (SpellExtension.CoolDownInGCDs(GNBSpells.无情, 2)&&QT.QTGET(QTKey.无情)&&QT.QTGET(QTKey.爆发)) return -1;
+        if (Helper.技能0dot6s内是否用过(GNBSpells.无情)) return -21;
         if (Helper.GCD剩余时间() <= 600) return -26;
         return 1;
             

@@ -8,6 +8,7 @@ public class SGESpells
         public const uint EukrasianDyskrasia = 37032;
         public const uint 均衡失衡 = 37032;
         public const uint 心神风息 = 37033;
+        public const uint 营救 = 7571u;
        
         public const uint Dosis = 24283;
         public const uint 注药 = 24283;

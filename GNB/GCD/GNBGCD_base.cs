@@ -34,6 +34,7 @@ public class GNBGCD_base : ISlotResolver
         if (Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.残暴弹 && GNBSpells.迅连斩.IsUnlockWithCDCheck() &&
             Core.Resolve<JobApi_GunBreaker>().Ammo == 3&&Core.Me.Level >= 88) return -34;
         if (Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.恶魔切) return -3;
+        if (Helper.技能0dot6s内是否用过(GNBSpells.无情)&&QT.QTGET(QTKey.落地无情)&&!Core.Me.HasAura(GNBBuffs.无情)) return -21;
         return 0;
     }
     

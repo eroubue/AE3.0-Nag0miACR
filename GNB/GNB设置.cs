@@ -2,7 +2,8 @@ using System.Numerics;
 using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.Helper;
 using AEAssist.IO;
-using AEAssist;
+
+
 namespace Nagomi.GNB;
 
 public class GNBSettings
@@ -46,6 +47,9 @@ public class GNBSettings
     public int opener = 2;
     public int 保留子弹数 = 0;
     public bool ST = true;
+    
+
+
     
 
     public JobViewSave JobViewSave = new(){MainColor = new Vector4(170 / 255f, 170 / 255f, 184 / 255f, 0.8f),HotkeyLineCount=3}; // QT设置存档

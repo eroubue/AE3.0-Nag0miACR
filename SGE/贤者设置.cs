@@ -1,7 +1,9 @@
+
 using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.Helper;
 using AEAssist.IO;
 using FFXIVClientStructs.FFXIV.Common.Math;
+using Nagomi.SGE.utils;
 
 namespace Nagomi.SGE.Settings;
 
@@ -53,7 +55,8 @@ public class SGESettings
     public  string FFlogsClientId = "";
     public  string FFlogsClientSecret = "";
     //public bool 智能aoe目标 = false;
+    public Dictionary<string, utils.JobView.HotKey.HotKetSpell> HotKey设置 = new();
 
-    public JobViewSave JobViewSave = new(){ MainColor = new Vector4(40 / 255f, 173 / 255f, 70 / 255f, 0.8f) }; // QT设置存档
+    public JobViewSave JobViewSave = new(){ }; // QT设置存档
 
 }

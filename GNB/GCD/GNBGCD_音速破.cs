@@ -14,8 +14,11 @@ public class GNBGCD_音速破 : ISlotResolver
     public SlotMode SlotMode { get; } = SlotMode.Gcd;
     public int Check()
     {
+        if (!Core.Me.HasAura(GNBBuffs.无情)) return -23;
         
         if (Core.Me.GetCurrTarget().HasAnyAura(GNBBuffs.敌人无敌BUFF)) return -152;
+        if (!SpellExtension.IsReadyWithCanCast(GNBSpells.音速破.GetSpell()))
+            return -50;
         if (QT.QTGET(QTKey.停手))
         {
             return -100;
@@ -40,9 +43,6 @@ public class GNBGCD_音速破 : ISlotResolver
             return -12;
         if (GNBSettings.Instance.额外技能距离==0&&Core.Me.Distance(Core.Me.GetCurrTarget(), DistanceMode.IgnoreSourceHitbox | DistanceMode.IgnoreTargetHitbox) >
             SettingMgr.GetSetting<GeneralSettings>().AttackRange) return -5;
-
-        if (!SpellExtension.IsReadyWithCanCast(GNBSpells.音速破.GetSpell()))
-            return -50;
         if (GNBSpells.烈牙.GetSpell().IsReadyWithCanCast()&&QT.QTGET(QTKey.二弹)) return -6;
         
    

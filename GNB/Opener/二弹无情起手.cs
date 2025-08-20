@@ -14,9 +14,8 @@ public class 二弹120起手 : IOpener
 {
     public int StartCheck()
     {
-        if (!GNBSpells.无情.IsReady())
-            return -6;
-        if (Core.Me.Level < 100) return -5;
+       
+        if (Core.Me.Level != 100) return -5;
 
         return 0;
     }
@@ -36,10 +35,6 @@ public class 二弹120起手 : IOpener
     };
 
     public Action CompeltedAction { get; set; }
-
-
-   // public int StepCount => 9;
-
 
     private static void Step0(Slot slot)
     {

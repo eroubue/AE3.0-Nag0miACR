@@ -1,7 +1,7 @@
 ﻿using AEAssist;
 using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
-using AEAssist.CombatRoutine.View.JobView;
+using Nagomi.SGE.utils.JobView;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
@@ -13,6 +13,7 @@ using System.Numerics;
 using Dalamud.Game.ClientState.Objects.Types;
 using Nagomi.SGE.Settings;
 using Nagomi.SGE.utils;
+using Nagomi.SGE.utils.JobView.HotKey;
 
 
 namespace Nagomi.SGE;

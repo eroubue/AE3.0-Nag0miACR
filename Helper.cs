@@ -84,6 +84,16 @@ public static class Helper
         return Core.Me.HasMyAuraWithTimeleft(id, time);
     }
 
+    public static int 自身buff剩余时间(uint id)
+    {
+        return Core.Resolve<MemApiBuff>().GetAuraTimeleft(Core.Me, id,true);
+    }
+
+    public static bool 自己的Buff剩余时间是否大于指定值(uint id,int time)
+    {
+        return Core.Me.HasMyAuraWithTimeleft(id, time);
+    }
+
   /*  public static bool 自身是否正在读长条()
     {
         return PCTList.读长条.Contains(Core.Me.CastActionId);
@@ -367,9 +377,9 @@ public static class Helper
     {
         return spellId.GetSpell().RecentlyUsed(time);
     }
-    public static bool 技能0dot5s内是否用过(this uint spellId)
+    public static bool 技能0dot6s内是否用过(this uint spellId)
     {
-        return spellId.GetSpell().RecentlyUsed(500);
+        return spellId.GetSpell().RecentlyUsed(600);
     }
     
 
@@ -378,20 +388,77 @@ public static class Helper
         return Core.Resolve<MemApiSpell>().GetCharges(spellId);
     }
 
-
-
-    
     /// <summary>
-    /// 获取时间戳，13位，毫秒
+    /// 检测在自己的buff剩余时间内某个技能冷却能否结束
     /// </summary>
-    /// <returns></returns>
-    public static long GetTimeStamps()
+    /// <param name="buffId">要检查的buff ID</param>
+    /// <param name="spellId">要检查的技能ID</param>
+    /// <returns>true表示buff剩余时间内技能冷却能结束，false表示不能</returns>
+    public static bool 技能冷却能否在buff剩余时间内结束(uint buffId, uint spellId)
     {
-        TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-        return Convert.ToInt64(ts.TotalMilliseconds);
+        // 获取buff剩余时间（毫秒）
+        var buffTimeLeft = Core.Resolve<MemApiBuff>().GetAuraTimeleft(Core.Me, buffId, true);
+        
+        // 获取技能剩余冷却时间（毫秒）
+        var spellCooldown = Core.Resolve<MemApiSpell>().GetCooldown(spellId);
+        var spellCooldownMs = (int)spellCooldown.TotalMilliseconds;
+        
+        // 如果技能没有冷却，直接返回true
+        if (spellCooldownMs <= 0)
+            return true;
+        
+        // 比较buff剩余时间和技能冷却时间
+        return buffTimeLeft >= spellCooldownMs;
     }
- 
 
+    /// <summary>
+    /// 检测在自己的buff剩余时间内某个技能冷却能否结束（带时间容差）
+    /// </summary>
+    /// <param name="buffId">要检查的buff ID</param>
+    /// <param name="spellId">要检查的技能ID</param>
+    /// <param name="timeBuffer">时间容差（毫秒），默认500ms</param>
+    /// <returns>true表示buff剩余时间内技能冷却能结束，false表示不能</returns>
+    public static bool 技能冷却能否在buff剩余时间内结束_带容差(uint buffId, uint spellId, int timeBuffer = 500)
+    {
+        // 获取buff剩余时间（毫秒）
+        var buffTimeLeft = Core.Resolve<MemApiBuff>().GetAuraTimeleft(Core.Me, buffId, true);
+        
+        // 获取技能剩余冷却时间（毫秒）
+        var spellCooldown = Core.Resolve<MemApiSpell>().GetCooldown(spellId);
+        var spellCooldownMs = (int)spellCooldown.TotalMilliseconds;
+        
+        // 如果技能没有冷却，直接返回true
+        if (spellCooldownMs <= 0)
+            return true;
+        
+        // 比较buff剩余时间和技能冷却时间（考虑时间容差）
+        return buffTimeLeft >= (spellCooldownMs + timeBuffer);
+    }
+
+    /// <summary>
+    /// 检测技能是否能在buff剩余时间内冷却完毕（简化版）
+    /// </summary>
+    /// <param name="buffId">要检查的buff ID</param>
+    /// <param name="spellId">要检查的技能ID</param>
+    /// <returns>true表示buff剩余时间内技能冷却能结束，false表示不能</returns>
+    public static bool 技能冷却能否在buff剩余时间内结束_简化版(uint buffId, uint spellId)
+    {
+        // 获取buff剩余时间（毫秒）
+        var buffTimeLeft = Core.Resolve<MemApiBuff>().GetAuraTimeleft(Core.Me, buffId, true);
+        
+        // 获取技能剩余冷却时间（毫秒）
+        var spellCooldown = Core.Resolve<MemApiSpell>().GetCooldown(spellId);
+        var spellCooldownMs = (int)spellCooldown.TotalMilliseconds;
+        
+        // 如果技能没有冷却，直接返回true
+        if (spellCooldownMs <= 0)
+            return true;
+        
+        // 比较buff剩余时间和技能冷却时间
+        return buffTimeLeft >= spellCooldownMs;
+    }
+
+ 
    
 
 }

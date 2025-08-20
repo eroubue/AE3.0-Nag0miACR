@@ -48,6 +48,9 @@ public class GNBGCD_爆发击 : ISlotResolver
         var lionHeartSlot = new GNBGCD_狮心连();
         if (lionHeartSlot.Check() >= 0)
             return -8; // 狮心连优先，爆发击不打
+        //if (Core.Resolve<JobApi_GunBreaker>().Ammo == 1 &&Helper.技能冷却能否在buff剩余时间内结束(GNBBuffs.Medicated, GNBSpells.烈牙)
+          // &&!Core.Me.HasAura(GNBBuffs.无情)) return -45;//在无情过了但爆发药内有一颗子弹而且子弹连能转好时优先子弹连
+          if (!Core.Me.HasAura(GNBBuffs.无情)&&Helper.技能0dot6s内是否用过(GNBSpells.无情)&&QT.QTGET(QTKey.落地无情)) return -21;
         if (!Core.Me.HasAura(GNBBuffs.无情) && Core.Me.HasAura(GNBBuffs.Medicated) &&
             GNBSpells.无情.GetSpell().IsReadyWithCanCast()) return -21;//吃药还没放无情不打
         if(Core.Me.HasAura(GNBBuffs.Medicated)&&Core.Me.HasAura(GNBBuffs.无情))return 1;//无情+药打
@@ -60,7 +63,15 @@ public class GNBGCD_爆发击 : ISlotResolver
                 Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.残暴弹) return 2;//溢出时打
             if (Core.Resolve<JobApi_GunBreaker>().Ammo == 2 &&
                 Core.Resolve<MemApiSpell>().GetLastComboSpellId() == GNBSpells.恶魔切) return 2;//溢出时打
-            if (Core.Me.HasAura(GNBBuffs.无情)) return 1;
+            if (Core.Me.HasAura(GNBBuffs.无情))
+            {
+                // 子弹连无情内能转好，在没打子弹连之前都保留一个子弹，打完子弹连再打爆发击
+                if (Core.Resolve<JobApi_GunBreaker>().Ammo == 1 && 
+                    Helper.技能冷却能否在buff剩余时间内结束(GNBBuffs.无情, GNBSpells.烈牙))
+                {
+                    return -45; // 保留子弹，不打爆发击
+                }
+            }
             
         }
         if (Core.Me.Level >= 88)//三颗子弹
@@ -77,6 +88,15 @@ public class GNBGCD_爆发击 : ISlotResolver
             if (QT.QTGET(QTKey.零弹)&&Core.Resolve<JobApi_GunBreaker>().Ammo != 0 && SpellExtension.CoolDownInGCDs(GNBSpells.无情, 4)&&SpellExtension.CoolDownInGCDs(GNBSpells.血壤, 8)) return 23;
             if (QT.QTGET(QTKey.零弹) && SpellExtension.CoolDownInGCDs(GNBSpells.血壤, 7)) return 1;//零弹120，打完120前的子弹连后有就打
             
+            // 无情buff内，如果子弹连能转好，保留子弹不打爆发击
+            if (Core.Me.HasAura(GNBBuffs.无情))
+            {
+                if (Core.Resolve<JobApi_GunBreaker>().Ammo == 1 && 
+                    Helper.技能冷却能否在buff剩余时间内结束(GNBBuffs.无情, GNBSpells.烈牙))
+                {
+                    return -45; // 保留子弹，不打爆发击
+                }
+            }
         }
         
 

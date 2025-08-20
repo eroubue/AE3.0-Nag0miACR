@@ -14,8 +14,7 @@ public class 绝亚起手 : IOpener
 {
     public int StartCheck()
     {
-        if (!GNBSpells.无情.IsReady())
-            return -6;
+       
         if (Core.Me.Level != 80) return -5;
 
         return 0;

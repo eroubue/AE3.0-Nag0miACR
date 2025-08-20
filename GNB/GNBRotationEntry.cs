@@ -38,6 +38,8 @@ public class GNBRotationEntry : IRotationEntry
 
         IOpener GetOpener(uint level)
         {
+            if (GNBSettings.Instance.opener == 0)
+                return null;
             if (GNBSettings.Instance.opener == 1)
                 return new 零弹120起手();
             if (GNBSettings.Instance.opener == 2)
@@ -48,9 +50,7 @@ public class GNBRotationEntry : IRotationEntry
                 return new 无情2g起手();
             if (GNBSettings.Instance.opener == 5)
                 return new 绝亚起手();
-            
-
-            return new 二弹120起手();
+            return null;
         }
         
         rot.AddOpener(GetOpener);
@@ -66,8 +66,9 @@ public class GNBRotationEntry : IRotationEntry
 
     public List<SlotResolverData> SlotResolvers = new()
     {
+        new(new 落地无情(), SlotMode.Always),
         new(new GNB能力_续剑(), SlotMode.Always),
-        new SlotResolverData(new GNBGCD_70音速破(),SlotMode.Gcd),
+        new SlotResolverData(new GNBGCD_优先音速破(),SlotMode.Gcd),
         new SlotResolverData(new GNBGCD_子弹连(),SlotMode.Gcd),
         new SlotResolverData(new GNBGCD_倍攻(),SlotMode.Gcd),
         new SlotResolverData(new GNBGCD_音速破(),SlotMode.Gcd),
@@ -83,7 +84,7 @@ public class GNBRotationEntry : IRotationEntry
         new(new GNB能力_血壤(), SlotMode.OffGcd),
         
     };
-    public static JobViewWindow QT { get; private set; }  // 声明当前要使用的UI的实例 示例里使用QT
+    public static  JobViewWindow QT { get; private set; }  // 声明当前要使用的UI的实例 示例里使用QT
     // 如果你不想用QT 可以自行创建一个实现IRotationUI接口的类
     public IRotationUI GetRotationUI()
     {
@@ -113,11 +114,12 @@ public class GNBRotationEntry : IRotationEntry
         QT.AddQt(QTKey.子弹连,true);
         QT.AddQt(QTKey.领域,true);
         QT.AddQt(QTKey.音速破,true);
+        QT.AddQt(QTKey.优先音速破,false,"无情里优先打音速破");
         QT.AddQt(QTKey.弓形,true);
         QT.AddQt(QTKey.突进起手,true);
         QT.AddQt(QTKey.血壤,true);
         QT.AddQt(QTKey.爆发击,true);
-        QT.AddQt(QTKey.dot,true);
+        QT.AddQt(QTKey.dot,true,"音速破和弓形冲波");
         QT.AddQt(QTKey.狮心连,true);
         QT.AddQt(QTKey.倍攻,true);
         QT.AddQt(QTKey.二弹,true,new Action<bool>(GNB小帮手.互斥二弹120));
@@ -127,17 +129,16 @@ public class GNBRotationEntry : IRotationEntry
         QT.AddQt(QTKey.仅使用爆发击卸除子弹,false);
         QT.AddQt(QTKey.小于3目标时不用弓形,false);
         QT.AddQt(QTKey.弓形冲波允许错开无情,false);
-
+        QT.AddQt(QTKey.落地无情,false);
         
-        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Clear();
-        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.二弹);
-        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.零弹);
-        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.领域);
-        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.音速破);
-        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.命运之环);
+        
+
+        GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.落地无情);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.仅使用爆发击卸除子弹);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.小于3目标时不用弓形);
         GNBSettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.弓形冲波允许错开无情);
+        
+        
         
         
        
