@@ -1,0 +1,13 @@
+#ACR介绍
+Remark: 超级炒股专家
+#支持的职业
+SupportJobs:
+  - 绝枪战士
+  - 贤者
+  - 绘灵法师
+#支持链接
+SupportUrl: https://exam.exam.com
+#问题反馈链接
+ReportUrl: https://github.com/eroubue/Nagomi#
+#是否国际服版本
+EnVersion: false
