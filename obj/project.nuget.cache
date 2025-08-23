@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "jt6kgAHleyE=",
+  "dgSpecHash": "N9GT2DLicfk=",
   "success": true,
-  "projectFilePath": "D:\\ACR\\AEACR3.0\\Nagomi\\Nagomi.csproj",
+  "projectFilePath": "D:\\Nagomi-master\\Nagomi.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\ASUS\\.nuget\\packages\\dotnet.reproduciblebuilds\\1.2.25\\dotnet.reproduciblebuilds.1.2.25.nupkg.sha512"
+    "C:\\Users\\ASUS\\.nuget\\packages\\aeassist.net\\1.1.8\\aeassist.net.1.1.8.nupkg.sha512"
   ],
   "logs": []
 }

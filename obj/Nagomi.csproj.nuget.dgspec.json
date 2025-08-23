@@ -1,22 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ACR\\AEACR3.0\\Nagomi\\Nagomi.csproj": {}
+    "D:\\Nagomi-master\\Nagomi.csproj": {}
   },
   "projects": {
-    "D:\\ACR\\AEACR3.0\\Nagomi\\Nagomi.csproj": {
+    "D:\\Nagomi-master\\Nagomi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ACR\\AEACR3.0\\Nagomi\\Nagomi.csproj",
+        "projectUniqueName": "D:\\Nagomi-master\\Nagomi.csproj",
         "projectName": "Nagomi",
-        "projectPath": "D:\\ACR\\AEACR3.0\\Nagomi\\Nagomi.csproj",
+        "projectPath": "D:\\Nagomi-master\\Nagomi.csproj",
         "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "D:\\ACR\\AEACR3.0\\Nagomi\\obj\\",
+        "outputPath": "D:\\Nagomi-master\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
+          "D:\\Nagomi-master\\.nuget\\NuGet.Config",
           "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -27,22 +28,14 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://www.myget.org/F/aeassist/api/v3/index.json": {}
         },
         "frameworks": {
           "net9.0-windows7.0": {
             "targetAlias": "net9.0-windows",
             "projectReferences": {}
           }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreLockProperties": {
-          "restorePackagesWithLockFile": "true",
-          "nuGetLockFilePath": ""
         },
         "restoreAuditProperties": {
           "enableAudit": "true",
@@ -55,10 +48,10 @@
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
           "dependencies": {
-            "DotNet.ReproducibleBuilds": {
-              "suppressParent": "All",
+            "AEAssist.NET": {
+              "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "target": "Package",
-              "version": "[1.2.25, )"
+              "version": "[*, )"
             }
           },
           "imports": [

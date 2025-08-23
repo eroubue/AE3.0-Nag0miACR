@@ -204,7 +204,7 @@ namespace Nagomi.PCT
             {
                 float rotation = CameraHelper.GetCameraRotation();
                 var pos = Core.Me.Position;
-                 if (AI.Instance.BattleData.NextSlot == null && PCTSpells.速涂.IsReady())
+                 if (AI.Instance.BattleData.NextSlot == null && PCTSpells.速涂.GetSpell().IsReadyWithCanCast())
                 {
                     
                     Core.Resolve<MemApiMoveControl>().Stop();
@@ -257,7 +257,7 @@ namespace Nagomi.PCT
             public void Run()
             {
                 var nowpos = Core.Me.Position;
-                if (AI.Instance.BattleData.NextSlot == null && PCTSpells.风景构想.IsReady())
+                if (AI.Instance.BattleData.NextSlot == null && PCTSpells.风景构想.GetSpell().IsReadyWithCanCast())
                 {
                     
                     Core.Resolve<MemApiMove>().SetPosReturn(Core.Resolve<MemApiMove>().MousePos(),nowpos,900);
@@ -308,7 +308,7 @@ namespace Nagomi.PCT
 
             public void Run()
             {
-                if (AI.Instance.BattleData.NextSlot == null && PCTSpells.坦培拉涂层.IsReady())
+                if (AI.Instance.BattleData.NextSlot == null && PCTSpells.坦培拉涂层.GetSpell().IsReadyWithCanCast())
                 {
                     AI.Instance.BattleData.NextSlot = new Slot(1500);
                     AI.Instance.BattleData.NextSlot.AddDelaySpell(200, new Spell(34685U, Core.Me));

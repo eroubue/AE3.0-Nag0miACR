@@ -4,6 +4,7 @@ using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
 using AEAssist.CombatRoutine.Module.Opener;
 using AEAssist.CombatRoutine.View.JobView;
+using AEAssist.CombatRoutine.View.JobView.HotkeyResolver;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.MemoryApi;
@@ -32,7 +33,7 @@ namespace Nagomi.SGE;
 
 public class SGERotationEntry : IRotationEntry
 {
-    public string OverlayTitle { get; } = "Nag0mi贤者";
+    public string OverlayTitle { get; } = "贤者高难";
 
     public string AuthorName { get; set; } = "Nag0mi";
     public Jobs TargetJob { get; } = Jobs.Sage;
@@ -58,35 +59,6 @@ public class SGERotationEntry : IRotationEntry
         new(new 发炎(), SlotMode.Gcd),
         new(new 箭毒(), SlotMode.Gcd),
         new(new GCDbase(), SlotMode.Gcd),
-    };
-
-    // Hotkey 配置与技能表（参考 HSS 的用法，提供给 JobViewWindow 五参构造）
-    
-
-    private static readonly Dictionary<string, uint> HotkeySpellList = new()
-    {
-        // 常用自用与团队技能
-        { "均衡", SGESpells.均衡 },
-        { "失衡", SGESpells.失衡 },
-        { "注药", SGESpells.注药 },
-        { "注药II", SGESpells.注药II },
-        { "注药III", SGESpells.注药III },
-        { "发炎", SGESpells.发炎 },
-        { "发炎II", SGESpells.发炎II },
-        { "发炎III", SGESpells.发炎III },
-        { "均衡注药", SGESpells.均衡注药 },
-        { "均衡注药II", SGESpells.均衡注药II },
-        { "均衡注药III", SGESpells.均衡注药III },
-        { "箭毒", SGESpells.箭毒 },
-        { "箭毒II", SGESpells.箭毒II },
-        { "根素", SGESpells.根素 },
-        { "群输血", SGESpells.群输血 },
-        { "混合", SGESpells.混合 },
-        { "输血", SGESpells.输血 },
-        { "醒梦", SGESpells.醒梦 },
-        { "康复", SGESpells.康复 },
-        { "Icarus", SGESpells.Icarus }
-        // 注意：EukrasianPrognosis 为动态ID属性，不放入静态列表
     };
 
     public Rotation Build(string settingFolder)
@@ -130,7 +102,6 @@ public class SGERotationEntry : IRotationEntry
 
     // 声明当前要使用的UI的实例 示例里使用QT
     public static JobViewWindow QT { get; private set; }
-    public static JobViewWindow UI { get; private set; }
 
     // 如果你不想用QT 可以自行创建一个实现IRotationUI接口的类
     public IRotationUI GetRotationUI()
@@ -148,9 +119,9 @@ public class SGERotationEntry : IRotationEntry
     // 构造函数里初始化QT
     public void BuildQT()
     {
-        QT =UI= new JobViewWindow(SGESettings.Instance.JobViewSave, SGESettings.Instance.Save, OverlayTitle);
-        UI.AddTab("通用",贤者悬浮窗.xuanfuchuang);
-        UI.AddTab("DEV",贤者悬浮窗.DrawDev);
+        QT = new JobViewWindow(SGESettings.Instance.JobViewSave, SGESettings.Instance.Save, OverlayTitle);
+        QT.AddTab("通用",贤者悬浮窗.xuanfuchuang);
+        QT.AddTab("DEV",贤者悬浮窗.DrawDev);
 
         QT.AddQt(QTKey.停手, false);
         QT.AddQt(QTKey.DOT, true);
@@ -167,8 +138,6 @@ public class SGERotationEntry : IRotationEntry
         QT.AddQt(QTKey.心关, true);
         SGESettings.Instance.JobViewSave.QtUnVisibleList.Clear();
         SGESettings.Instance.JobViewSave.QtUnVisibleList.Add(QTKey.心关);
-        SGESettings.Instance.JobViewSave.HotkeyUnVisibleList.Add("神翼T");
-        SGESettings.Instance.JobViewSave.HotkeyUnVisibleList.Add("营救最远");
 
 
 
@@ -176,6 +145,10 @@ public class SGERotationEntry : IRotationEntry
 
 
 
+        SGERotationEntry.QT.AddHotkey("防击退", new HotKeyResolver_NormalSpell(7559, SpellTargetType.Self, false));
+        SGERotationEntry.QT.AddHotkey("极限技", new HotKeyResolver_LB());
+        SGERotationEntry.QT.AddHotkey("爆发药", new HotKeyResolver_Potion());
+        SGERotationEntry.QT.AddHotkey("疾跑", new HotKeyResolver_疾跑());
         
         QT.AddHotkey("群盾", (IHotkeyResolver)new 群盾());
         QT.AddHotkey("群盾消化", (IHotkeyResolver)new 群盾消化());

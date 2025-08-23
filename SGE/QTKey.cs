@@ -23,6 +23,6 @@ namespace Nagomi.SGE
     public static class QT
     {
         public static bool QTGET(string qtName) => SGERotationEntry.QT.GetQt(qtName);
-        public static void QTSET(string qtName, bool qtValue) => SGERotationEntry.QT.SetQt(qtName, qtValue);
+        public static bool QTSET(string qtName, bool qtValue) => SGERotationEntry.QT.SetQt(qtName, qtValue);
     }
 }

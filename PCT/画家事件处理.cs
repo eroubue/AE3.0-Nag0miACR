@@ -43,21 +43,20 @@ namespace Nagomi.PCT
 
         public async Task OnNoTarget()
         {
-            if (!Core.Resolve<JobApi_Pictomancer>().武器画 && Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.武器彩绘).IsReady() && !Core.Me.IsMoving()&& Helper.是否在副本中())
+            if (!Core.Resolve<JobApi_Pictomancer>().武器画 && SpellExtension.IsReadyWithCanCast(Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.武器彩绘).GetSpell()) && Helper.是否在副本中()&& !Core.Me.IsMoving())
             {
                 await Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.武器彩绘).GetSpell().Cast();
             }
 
-            if (!Core.Resolve<JobApi_Pictomancer>().生物画 && Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.动物彩绘).IsReady() && !Core.Me.IsMoving()&& Helper.是否在副本中())
+            if (!Core.Resolve<JobApi_Pictomancer>().生物画 && SpellExtension.IsReadyWithCanCast(Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.动物彩绘).GetSpell()) && Helper.是否在副本中()&& !Core.Me.IsMoving())
             {
                 await Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.动物彩绘).GetSpell().Cast();
             }
 
-            if (!Core.Resolve<JobApi_Pictomancer>().风景画 && Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.风景彩绘).IsReady() && !Core.Me.IsMoving()&& Helper.是否在副本中())
+            if (!Core.Resolve<JobApi_Pictomancer>().风景画 && SpellExtension.IsReadyWithCanCast(Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.风景彩绘).GetSpell())  && Helper.是否在副本中()&& !Core.Me.IsMoving())
             {
                 await Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.风景彩绘).GetSpell().Cast();
             }
-
             await Task.CompletedTask;
         }
 
@@ -70,17 +69,17 @@ namespace Nagomi.PCT
         {
 
             // 检测有没有速行buff或者最近是否使用 (后者是考虑到服务器延迟)
-            if (!Core.Resolve<JobApi_Pictomancer>().武器画 && Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.武器彩绘).IsReady() && Helper.是否在副本中()&& !Core.Me.IsMoving())
+            if (!Core.Resolve<JobApi_Pictomancer>().武器画 && SpellExtension.IsReadyWithCanCast(Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.武器彩绘).GetSpell()) && Helper.是否在副本中()&& !Core.Me.IsMoving())
             {
                 await Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.武器彩绘).GetSpell().Cast();
             }
 
-            if (!Core.Resolve<JobApi_Pictomancer>().生物画 && Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.动物彩绘).IsReady() && Helper.是否在副本中()&& !Core.Me.IsMoving())
+            if (!Core.Resolve<JobApi_Pictomancer>().生物画 && SpellExtension.IsReadyWithCanCast(Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.动物彩绘).GetSpell()) && Helper.是否在副本中()&& !Core.Me.IsMoving())
             {
                 await Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.动物彩绘).GetSpell().Cast();
             }
 
-            if (!Core.Resolve<JobApi_Pictomancer>().风景画 && Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.风景彩绘).IsReady() && Helper.是否在副本中()&& !Core.Me.IsMoving())
+            if (!Core.Resolve<JobApi_Pictomancer>().风景画 && SpellExtension.IsReadyWithCanCast(Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.风景彩绘).GetSpell())  && Helper.是否在副本中()&& !Core.Me.IsMoving())
             {
                 await Core.Resolve<MemApiSpell>().CheckActionChange(PCTSpells.风景彩绘).GetSpell().Cast();
             }

@@ -1,4 +1,6 @@
 using AEAssist;
+using AEAssist.API.MemoryApi;
+using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
@@ -10,7 +12,6 @@ using AEAssist.Extension;
 using Dalamud.Game.ClientState.Party;
 using System.Runtime.CompilerServices;
 using System.Text;
-using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.GUI;
 using Dalamud.Game.ClientState.Objects.SubKinds;
 using ECommons.GameFunctions;

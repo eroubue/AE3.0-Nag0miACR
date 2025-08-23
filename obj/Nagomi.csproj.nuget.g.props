@@ -13,7 +13,4 @@
     <SourceRoot Include="C:\Users\ASUS\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
-  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)dotnet.reproduciblebuilds\1.2.25\buildTransitive\DotNet.ReproducibleBuilds.props" Condition="Exists('$(NuGetPackageRoot)dotnet.reproduciblebuilds\1.2.25\buildTransitive\DotNet.ReproducibleBuilds.props')" />
-  </ImportGroup>
 </Project>

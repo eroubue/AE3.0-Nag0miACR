@@ -82,7 +82,7 @@ public class EnAvantHotkeyResolver: IHotkeyResolver
         Core.Resolve<MemApiMove>().SetRot(rotation);
 
         Spell spell = Core.Resolve<MemApiSpell>().CheckActionChange(this.SpellId).GetSpell(SpellTargetType.Self);
-        if (AI.Instance.BattleData.NextSlot == null && PCTSpells.速涂.IsReady())
+        if (AI.Instance.BattleData.NextSlot == null && PCTSpells.速涂.GetSpell().IsReadyWithCanCast())
         {
             AI.Instance.BattleData.NextSlot = new Slot();
             AI.Instance.BattleData.NextSlot.Add(spell);
